@@ -1,0 +1,321 @@
+{
+  "categories": [
+    {
+      "id": "cat_software",
+      "name": "Yazılım Mühendisliği",
+      "icon": "laptopcomputer",
+      "order": 1,
+      "professions": [
+        {
+          "id": "prof_ios",
+          "name": "iOS Developer",
+          "icon": "apple.logo",
+          "description": "Swift, UIKit, SwiftUI, Core Data, Networking, Architecture Patterns konularında iOS uygulama geliştirme.",
+          "keywords": ["iOS", "Swift", "UIKit", "SwiftUI", "Xcode", "Apple"]
+        },
+        {
+          "id": "prof_android",
+          "name": "Android Developer",
+          "icon": "android",
+          "description": "Kotlin, Java, Jetpack Compose, Room, Retrofit ile Android uygulama geliştirme.",
+          "keywords": ["Android", "Kotlin", "Java", "Jetpack", "Google"]
+        },
+        {
+          "id": "prof_flutter",
+          "name": "Flutter Developer",
+          "icon": "flutter",
+          "description": "Dart dili ile cross-platform mobil uygulama geliştirme.",
+          "keywords": ["Flutter", "Dart", "Cross-platform", "Mobile"]
+        },
+        {
+          "id": "prof_react_native",
+          "name": "React Native Developer",
+          "icon": "react",
+          "description": "JavaScript/TypeScript ile cross-platform mobil uygulama geliştirme.",
+          "keywords": ["React Native", "JavaScript", "TypeScript", "Mobile"]
+        },
+        {
+          "id": "prof_frontend_react",
+          "name": "Frontend Developer (React)",
+          "icon": "globe",
+          "description": "React, Hooks, Redux, Next.js ile modern web arayüzleri geliştirme.",
+          "keywords": ["React", "Frontend", "JavaScript", "Web", "UI"]
+        },
+        {
+          "id": "prof_frontend_vue",
+          "name": "Frontend Developer (Vue.js)",
+          "icon": "globe",
+          "description": "Vue.js, Vuex, Nuxt.js ile web uygulamaları geliştirme.",
+          "keywords": ["Vue", "Frontend", "JavaScript", "Web"]
+        },
+        {
+          "id": "prof_backend_node",
+          "name": "Backend Developer (Node.js)",
+          "icon": "server.rack",
+          "description": "Node.js, Express, MongoDB, RESTful API, Microservices ile backend geliştirme.",
+          "keywords": ["Node.js", "Backend", "Express", "API", "MongoDB"]
+        },
+        {
+          "id": "prof_backend_python",
+          "name": "Backend Developer (Python)",
+          "icon": "server.rack",
+          "description": "Python, Django, FastAPI, PostgreSQL ile backend sistemler geliştirme.",
+          "keywords": ["Python", "Backend", "Django", "FastAPI", "API"]
+        },
+        {
+          "id": "prof_fullstack",
+          "name": "Full Stack Developer",
+          "icon": "square.stack.3d.up",
+          "description": "Frontend ve Backend teknolojileri ile end-to-end uygulama geliştirme.",
+          "keywords": ["Full Stack", "Frontend", "Backend", "Web"]
+        },
+        {
+          "id": "prof_devops",
+          "name": "DevOps Engineer",
+          "icon": "gearshape.2",
+          "description": "CI/CD, Docker, Kubernetes, AWS/Azure, Infrastructure as Code konularında uzmanlaşma.",
+          "keywords": ["DevOps", "Docker", "Kubernetes", "AWS", "CI/CD"]
+        }
+      ]
+    },
+    {
+      "id": "cat_mechanical",
+      "name": "Makine Mühendisliği",
+      "icon": "gearshape.fill",
+      "order": 2,
+      "professions": [
+        {
+          "id": "prof_automotive",
+          "name": "Otomotiv Mühendisi",
+          "icon": "car.fill",
+          "description": "Araç tasarımı, motor sistemleri, dinamik analiz ve otomotiv teknolojileri.",
+          "keywords": ["Otomotiv", "Araç", "Motor", "Tasarım"]
+        },
+        {
+          "id": "prof_production",
+          "name": "Üretim Mühendisi",
+          "icon": "hammer.fill",
+          "description": "Üretim süreçleri, tezgah teknolojileri, kalıp tasarımı ve imalat yöntemleri.",
+          "keywords": ["Üretim", "İmalat", "Tezgah", "Kalıp"]
+        },
+        {
+          "id": "prof_hvac",
+          "name": "HVAC Mühendisi",
+          "icon": "thermometer",
+          "description": "Isıtma, soğutma, havalandırma sistemleri, enerji verimliliği ve iklim kontrolü.",
+          "keywords": ["HVAC", "Isıtma", "Soğutma", "İklimlendirme"]
+        },
+        {
+          "id": "prof_machine_design",
+          "name": "Makine Tasarım Mühendisi",
+          "icon": "pencil.and.ruler.fill",
+          "description": "CAD/CAM, sonlu elemanlar analizi, makine elemanları ve mekanik sistem tasarımı.",
+          "keywords": ["Tasarım", "CAD", "CAM", "Mekanik"]
+        }
+      ]
+    },
+    {
+      "id": "cat_electrical",
+      "name": "Elektrik-Elektronik Mühendisliği",
+      "icon": "bolt.fill",
+      "order": 3,
+      "professions": [
+        {
+          "id": "prof_power_systems",
+          "name": "Güç Sistemleri Mühendisi",
+          "icon": "powerplug.fill",
+          "description": "Elektrik üretimi, iletimi, dağıtımı, trafo ve şalt sistemleri.",
+          "keywords": ["Güç", "Enerji", "Elektrik", "Trafo"]
+        },
+        {
+          "id": "prof_electronics_design",
+          "name": "Elektronik Tasarım Mühendisi",
+          "icon": "cpu",
+          "description": "PCB tasarımı, devre analizi, analog/dijital elektronik ve sinyal işleme.",
+          "keywords": ["Elektronik", "PCB", "Devre", "Tasarım"]
+        },
+        {
+          "id": "prof_embedded_systems",
+          "name": "Gömülü Sistemler Mühendisi",
+          "icon": "memorychip",
+          "description": "Mikrodenetleyici programlama, RTOS, IoT ve donanım-yazılım entegrasyonu.",
+          "keywords": ["Gömülü", "Mikrodenetleyici", "IoT", "RTOS"]
+        },
+        {
+          "id": "prof_automation",
+          "name": "Otomasyon Mühendisi",
+          "icon": "arrow.triangle.2.circlepath",
+          "description": "PLC programlama, SCADA, endüstriyel otomasyon ve kontrol sistemleri.",
+          "keywords": ["Otomasyon", "PLC", "SCADA", "Kontrol"]
+        }
+      ]
+    },
+    {
+      "id": "cat_industrial",
+      "name": "Endüstri Mühendisliği",
+      "icon": "building.2.fill",
+      "order": 4,
+      "professions": [
+        {
+          "id": "prof_production_planning",
+          "name": "Üretim Planlama Uzmanı",
+          "icon": "calendar.badge.clock",
+          "description": "Üretim planlama, kapasite yönetimi, malzeme ihtiyaç planlaması (MRP).",
+          "keywords": ["Üretim", "Planlama", "MRP", "Kapasite"]
+        },
+        {
+          "id": "prof_quality_control",
+          "name": "Kalite Kontrol Mühendisi",
+          "icon": "checkmark.seal.fill",
+          "description": "ISO standartları, kalite yönetim sistemleri, istatistiksel proses kontrolü.",
+          "keywords": ["Kalite", "ISO", "QC", "İstatistik"]
+        },
+        {
+          "id": "prof_supply_chain",
+          "name": "Tedarik Zinciri Uzmanı",
+          "icon": "shippingbox.fill",
+          "description": "Lojistik yönetimi, stok kontrolü, tedarikçi ilişkileri ve dağıtım ağları.",
+          "keywords": ["Tedarik", "Lojistik", "Stok", "Dağıtım"]
+        },
+        {
+          "id": "prof_project_management",
+          "name": "Proje Yönetimi Uzmanı",
+          "icon": "chart.bar.doc.horizontal.fill",
+          "description": "Proje planlama, risk yönetimi, kaynak optimizasyonu, Agile/Scrum metodolojileri.",
+          "keywords": ["Proje", "Yönetim", "Agile", "Scrum"]
+        }
+      ]
+    },
+    {
+      "id": "cat_data_ai",
+      "name": "Veri Bilimi & Yapay Zeka",
+      "icon": "brain.head.profile",
+      "order": 5,
+      "professions": [
+        {
+          "id": "prof_data_scientist",
+          "name": "Data Scientist",
+          "icon": "chart.xyaxis.line",
+          "description": "Python, Pandas, NumPy, Scikit-learn, Machine Learning, veri analizi ve modelleme.",
+          "keywords": ["Data Science", "Python", "ML", "Analytics"]
+        },
+        {
+          "id": "prof_ml_engineer",
+          "name": "Machine Learning Engineer",
+          "icon": "cpu.fill",
+          "description": "ML model geliştirme, TensorFlow, PyTorch, model deployment ve MLOps.",
+          "keywords": ["Machine Learning", "TensorFlow", "PyTorch", "AI"]
+        },
+        {
+          "id": "prof_ai_engineer",
+          "name": "AI Engineer",
+          "icon": "sparkles",
+          "description": "Yapay zeka sistemleri, NLP, Computer Vision, Deep Learning ve AI entegrasyonu.",
+          "keywords": ["AI", "Deep Learning", "NLP", "Computer Vision"]
+        }
+      ]
+    },
+    {
+      "id": "cat_design",
+      "name": "Tasarım & Ürün",
+      "icon": "paintpalette.fill",
+      "order": 6,
+      "professions": [
+        {
+          "id": "prof_ux_ui",
+          "name": "UX/UI Designer",
+          "icon": "rectangle.on.rectangle.angled",
+          "description": "Figma, Sketch, kullanıcı araştırması, wireframing, prototyping ve kullanılabilirlik testleri.",
+          "keywords": ["UX", "UI", "Figma", "Design", "Prototype"]
+        },
+        {
+          "id": "prof_product_manager",
+          "name": "Ürün Yöneticisi",
+          "icon": "star.fill",
+          "description": "Ürün stratejisi, roadmap planlama, kullanıcı ihtiyaç analizi ve product-market fit.",
+          "keywords": ["Product", "Management", "Strategy", "Roadmap"]
+        },
+        {
+          "id": "prof_graphic_designer",
+          "name": "Grafik Tasarımcı",
+          "icon": "photo.on.rectangle.angled",
+          "description": "Adobe Creative Suite, branding, tipografi, görsel tasarım ve yaratıcı konseptler.",
+          "keywords": ["Graphic", "Adobe", "Branding", "Visual"]
+        }
+      ]
+    },
+    {
+      "id": "cat_business",
+      "name": "İş & Analitik",
+      "icon": "briefcase.fill",
+      "order": 7,
+      "professions": [
+        {
+          "id": "prof_business_analyst",
+          "name": "İş Analisti",
+          "icon": "chart.bar.fill",
+          "description": "İş süreç analizi, gereksinim yönetimi, veri görselleştirme ve raporlama.",
+          "keywords": ["Business", "Analysis", "Requirements", "Process"]
+        },
+        {
+          "id": "prof_digital_marketing",
+          "name": "Dijital Pazarlama Uzmanı",
+          "icon": "megaphone.fill",
+          "description": "SEO/SEM, sosyal medya, content marketing, Google Analytics ve kampanya yönetimi.",
+          "keywords": ["Marketing", "SEO", "Social Media", "Analytics"]
+        },
+        {
+          "id": "prof_financial_analyst",
+          "name": "Finansal Analist",
+          "icon": "dollarsign.circle.fill",
+          "description": "Finansal modelleme, yatırım analizi, Excel, mali tablolar ve risk değerlendirmesi.",
+          "keywords": ["Finance", "Analysis", "Investment", "Excel"]
+        }
+      ]
+    },
+    {
+      "id": "cat_hr",
+      "name": "İnsan Kaynakları & İletişim",
+      "icon": "person.2.fill",
+      "order": 8,
+      "professions": [
+        {
+          "id": "prof_hr_specialist",
+          "name": "İnsan Kaynakları Uzmanı",
+          "icon": "person.crop.circle.badge.checkmark",
+          "description": "İşe alım, performans yönetimi, eğitim geliştirme ve çalışan bağlılığı.",
+          "keywords": ["HR", "Recruitment", "Talent", "People"]
+        },
+        {
+          "id": "prof_sales_bd",
+          "name": "Satış & İş Geliştirme Uzmanı",
+          "icon": "chart.line.uptrend.xyaxis",
+          "description": "B2B/B2C satış, müşteri ilişkileri yönetimi, iş geliştirme stratejileri ve CRM.",
+          "keywords": ["Sales", "Business Development", "CRM", "B2B"]
+        }
+      ]
+    },
+    {
+      "id": "cat_health",
+      "name": "Sağlık",
+      "icon": "cross.case.fill",
+      "order": 9,
+      "professions": [
+        {
+          "id": "prof_psychologist",
+          "name": "Psikolojik Danışman",
+          "icon": "heart.text.square.fill",
+          "description": "Psikolojik değerlendirme, danışmanlık teknikleri, terapi yaklaşımları ve etik.",
+          "keywords": ["Psychology", "Counseling", "Therapy", "Mental Health"]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-01-10",
+    "totalCategories": 9,
+    "totalProfessions": 34,
+    "language": "tr"
+  }
+}
