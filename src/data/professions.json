@@ -49,6 +49,13 @@
           "keywords": ["Vue", "Frontend", "JavaScript", "Web"]
         },
         {
+          "id": "prof_frontend_angular",
+          "name": "Frontend Developer (Angular)",
+          "icon": "globe",
+          "description": "Angular, TypeScript, RxJS, NgRx ile enterprise web uygulamaları geliştirme.",
+          "keywords": ["Angular", "Frontend", "TypeScript", "Web", "Enterprise"]
+        },
+        {
           "id": "prof_backend_node",
           "name": "Backend Developer (Node.js)",
           "icon": "server.rack",
@@ -63,11 +70,60 @@
           "keywords": ["Python", "Backend", "Django", "FastAPI", "API"]
         },
         {
+          "id": "prof_backend_dotnet",
+          "name": "Backend Developer (ASP.NET)",
+          "icon": "server.rack",
+          "description": "C#, ASP.NET Core, Entity Framework, SQL Server, Web API ile enterprise backend geliştirme.",
+          "keywords": ["ASP.NET", "C#", "Backend", ".NET Core", "Microsoft", "Enterprise"]
+        },
+        {
+          "id": "prof_backend_java",
+          "name": "Backend Developer (Java/Spring)",
+          "icon": "server.rack",
+          "description": "Java, Spring Boot, Hibernate, MySQL ile enterprise backend sistemler geliştirme.",
+          "keywords": ["Java", "Spring", "Backend", "Hibernate", "Enterprise"]
+        },
+        {
+          "id": "prof_backend_php",
+          "name": "Backend Developer (PHP)",
+          "icon": "server.rack",
+          "description": "PHP, Laravel, Symfony, MySQL ile web backend geliştirme.",
+          "keywords": ["PHP", "Laravel", "Backend", "Symfony", "Web"]
+        },
+        {
           "id": "prof_fullstack",
           "name": "Full Stack Developer",
           "icon": "square.stack.3d.up",
           "description": "Frontend ve Backend teknolojileri ile end-to-end uygulama geliştirme.",
           "keywords": ["Full Stack", "Frontend", "Backend", "Web"]
+        },
+        {
+          "id": "prof_game_developer",
+          "name": "Oyun Geliştiricisi",
+          "icon": "gamecontroller.fill",
+          "description": "Unity, Unreal Engine, C#, C++ ile oyun geliştirme ve 3D programlama.",
+          "keywords": ["Game", "Unity", "Unreal", "C#", "C++", "3D"]
+        },
+        {
+          "id": "prof_blockchain",
+          "name": "Blockchain Developer",
+          "icon": "link",
+          "description": "Solidity, Smart Contracts, Web3, Ethereum, DeFi uygulama geliştirme.",
+          "keywords": ["Blockchain", "Solidity", "Web3", "Ethereum", "Crypto"]
+        },
+        {
+          "id": "prof_qa_automation",
+          "name": "QA Automation Engineer",
+          "icon": "testtube.2",
+          "description": "Selenium, Appium, JUnit, test otomasyon framework'leri ve CI/CD entegrasyonu.",
+          "keywords": ["QA", "Testing", "Automation", "Selenium", "Quality"]
+        },
+        {
+          "id": "prof_cloud_architect",
+          "name": "Cloud Solutions Architect",
+          "icon": "cloud.fill",
+          "description": "AWS, Azure, GCP, cloud migration, serverless architecture ve cloud security.",
+          "keywords": ["Cloud", "AWS", "Azure", "GCP", "Architecture"]
         },
         {
           "id": "prof_devops",
@@ -111,6 +167,20 @@
           "icon": "pencil.and.ruler.fill",
           "description": "CAD/CAM, sonlu elemanlar analizi, makine elemanları ve mekanik sistem tasarımı.",
           "keywords": ["Tasarım", "CAD", "CAM", "Mekanik"]
+        },
+        {
+          "id": "prof_energy_systems",
+          "name": "Enerji Sistemleri Mühendisi",
+          "icon": "bolt.batteryblock.fill",
+          "description": "Yenilenebilir enerji, güneş panelleri, rüzgar türbinleri ve enerji depolama sistemleri.",
+          "keywords": ["Enerji", "Yenilenebilir", "Güneş", "Rüzgar"]
+        },
+        {
+          "id": "prof_robotics",
+          "name": "Robotik Mühendisi",
+          "icon": "figure.walk.motion",
+          "description": "Robot tasarımı, kinematik, otonom sistemler ve endüstriyel robotik uygulamalar.",
+          "keywords": ["Robotik", "Otomasyon", "Robot", "Mechatronics"]
         }
       ]
     },
@@ -147,6 +217,49 @@
           "icon": "arrow.triangle.2.circlepath",
           "description": "PLC programlama, SCADA, endüstriyel otomasyon ve kontrol sistemleri.",
           "keywords": ["Otomasyon", "PLC", "SCADA", "Kontrol"]
+        },
+        {
+          "id": "prof_telecommunications",
+          "name": "Telekomünikasyon Mühendisi",
+          "icon": "antenna.radiowaves.left.and.right",
+          "description": "5G, fiber optik, kablosuz iletişim, network altyapısı ve telekomünikasyon protokolleri.",
+          "keywords": ["Telekom", "5G", "Network", "Fiber Optik"]
+        }
+      ]
+    },
+    {
+      "id": "cat_civil",
+      "name": "İnşaat Mühendisliği",
+      "icon": "building.columns.fill",
+      "order": 4,
+      "professions": [
+        {
+          "id": "prof_structural",
+          "name": "Yapı Mühendisi",
+          "icon": "square.grid.3x3.fill",
+          "description": "Yapı statiği, betonarme tasarım, çelik yapılar, deprem mühendisliği ve yapısal analiz.",
+          "keywords": ["Yapı", "Statik", "Betonarme", "Deprem", "Tasarım"]
+        },
+        {
+          "id": "prof_geotechnical",
+          "name": "Geoteknik Mühendisi",
+          "icon": "mountain.2.fill",
+          "description": "Zemin mekaniği, temel tasarımı, şev stabilitesi ve zemin iyileştirme.",
+          "keywords": ["Zemin", "Temel", "Geoteknik", "Şev"]
+        },
+        {
+          "id": "prof_transportation",
+          "name": "Ulaştırma Mühendisi",
+          "icon": "road.lanes",
+          "description": "Karayolu tasarımı, trafik analizi, köprü ve tünel mühendisliği.",
+          "keywords": ["Ulaştırma", "Karayolu", "Köprü", "Trafik"]
+        },
+        {
+          "id": "prof_construction_management",
+          "name": "İnşaat Yönetimi Uzmanı",
+          "icon": "hammer.circle.fill",
+          "description": "Proje yönetimi, şantiye organizasyonu, maliyet kontrolü ve yapım planlama.",
+          "keywords": ["İnşaat", "Yönetim", "Şantiye", "Planlama"]
         }
       ]
     },
@@ -154,7 +267,7 @@
       "id": "cat_industrial",
       "name": "Endüstri Mühendisliği",
       "icon": "building.2.fill",
-      "order": 4,
+      "order": 5,
       "professions": [
         {
           "id": "prof_production_planning",
@@ -183,6 +296,13 @@
           "icon": "chart.bar.doc.horizontal.fill",
           "description": "Proje planlama, risk yönetimi, kaynak optimizasyonu, Agile/Scrum metodolojileri.",
           "keywords": ["Proje", "Yönetim", "Agile", "Scrum"]
+        },
+        {
+          "id": "prof_lean_six_sigma",
+          "name": "Lean Six Sigma Uzmanı",
+          "icon": "chart.line.flattrend.xyaxis",
+          "description": "Süreç iyileştirme, verimlilik artırma, israf eliminasyonu ve DMAIC metodolojisi.",
+          "keywords": ["Lean", "Six Sigma", "İyileştirme", "Verimlilik"]
         }
       ]
     },
@@ -190,7 +310,7 @@
       "id": "cat_data_ai",
       "name": "Veri Bilimi & Yapay Zeka",
       "icon": "brain.head.profile",
-      "order": 5,
+      "order": 6,
       "professions": [
         {
           "id": "prof_data_scientist",
@@ -212,6 +332,20 @@
           "icon": "sparkles",
           "description": "Yapay zeka sistemleri, NLP, Computer Vision, Deep Learning ve AI entegrasyonu.",
           "keywords": ["AI", "Deep Learning", "NLP", "Computer Vision"]
+        },
+        {
+          "id": "prof_data_engineer",
+          "name": "Data Engineer",
+          "icon": "cylinder.split.1x2.fill",
+          "description": "ETL süreçleri, Apache Spark, Kafka, veri pipeline'ları ve big data teknolojileri.",
+          "keywords": ["Data Engineering", "ETL", "Spark", "Big Data"]
+        },
+        {
+          "id": "prof_data_analyst",
+          "name": "Data Analyst",
+          "icon": "chart.bar.xaxis",
+          "description": "SQL, Excel, Power BI, Tableau, veri görselleştirme ve iş analitiği.",
+          "keywords": ["Data Analysis", "SQL", "Power BI", "Tableau"]
         }
       ]
     },
@@ -219,7 +353,7 @@
       "id": "cat_design",
       "name": "Tasarım & Ürün",
       "icon": "paintpalette.fill",
-      "order": 6,
+      "order": 7,
       "professions": [
         {
           "id": "prof_ux_ui",
@@ -241,6 +375,20 @@
           "icon": "photo.on.rectangle.angled",
           "description": "Adobe Creative Suite, branding, tipografi, görsel tasarım ve yaratıcı konseptler.",
           "keywords": ["Graphic", "Adobe", "Branding", "Visual"]
+        },
+        {
+          "id": "prof_motion_graphics",
+          "name": "Motion Graphics Designer",
+          "icon": "video.fill",
+          "description": "After Effects, Cinema 4D, 2D/3D animasyon, video editing ve görsel efektler.",
+          "keywords": ["Motion", "Animation", "After Effects", "Video"]
+        },
+        {
+          "id": "prof_3d_artist",
+          "name": "3D Artist",
+          "icon": "cube.fill",
+          "description": "Blender, Maya, 3ds Max, 3D modelleme, texturing, rendering ve oyun assetleri.",
+          "keywords": ["3D", "Modeling", "Blender", "Maya", "Artist"]
         }
       ]
     },
@@ -248,7 +396,7 @@
       "id": "cat_business",
       "name": "İş & Analitik",
       "icon": "briefcase.fill",
-      "order": 7,
+      "order": 8,
       "professions": [
         {
           "id": "prof_business_analyst",
@@ -270,6 +418,20 @@
           "icon": "dollarsign.circle.fill",
           "description": "Finansal modelleme, yatırım analizi, Excel, mali tablolar ve risk değerlendirmesi.",
           "keywords": ["Finance", "Analysis", "Investment", "Excel"]
+        },
+        {
+          "id": "prof_accountant",
+          "name": "Mali Müşavir",
+          "icon": "doc.text.fill",
+          "description": "Muhasebe, vergi danışmanlığı, mali raporlama, denetim ve mali uyum.",
+          "keywords": ["Accounting", "Tax", "Finance", "Audit"]
+        },
+        {
+          "id": "prof_business_consultant",
+          "name": "İş Danışmanı",
+          "icon": "person.badge.key.fill",
+          "description": "Stratejik danışmanlık, iş geliştirme, pazar analizi ve organizasyonel dönüşüm.",
+          "keywords": ["Consulting", "Strategy", "Business", "Transformation"]
         }
       ]
     },
@@ -277,7 +439,7 @@
       "id": "cat_hr",
       "name": "İnsan Kaynakları & İletişim",
       "icon": "person.2.fill",
-      "order": 8,
+      "order": 9,
       "professions": [
         {
           "id": "prof_hr_specialist",
@@ -292,6 +454,20 @@
           "icon": "chart.line.uptrend.xyaxis",
           "description": "B2B/B2C satış, müşteri ilişkileri yönetimi, iş geliştirme stratejileri ve CRM.",
           "keywords": ["Sales", "Business Development", "CRM", "B2B"]
+        },
+        {
+          "id": "prof_content_writer",
+          "name": "İçerik Yazarı",
+          "icon": "text.book.closed.fill",
+          "description": "Blog yazarlığı, SEO içerik, copywriting, hikaye anlatımı ve içerik stratejisi.",
+          "keywords": ["Content", "Writing", "SEO", "Copywriting"]
+        },
+        {
+          "id": "prof_public_relations",
+          "name": "Halkla İlişkiler Uzmanı",
+          "icon": "speaker.wave.3.fill",
+          "description": "Medya ilişkileri, kriz yönetimi, kurumsal iletişim ve marka itibar yönetimi.",
+          "keywords": ["PR", "Media", "Communication", "Reputation"]
         }
       ]
     },
@@ -299,7 +475,7 @@
       "id": "cat_health",
       "name": "Sağlık",
       "icon": "cross.case.fill",
-      "order": 9,
+      "order": 10,
       "professions": [
         {
           "id": "prof_psychologist",
@@ -307,15 +483,87 @@
           "icon": "heart.text.square.fill",
           "description": "Psikolojik değerlendirme, danışmanlık teknikleri, terapi yaklaşımları ve etik.",
           "keywords": ["Psychology", "Counseling", "Therapy", "Mental Health"]
+        },
+        {
+          "id": "prof_dietitian",
+          "name": "Diyetisyen",
+          "icon": "leaf.fill",
+          "description": "Beslenme planlaması, diyet danışmanlığı, klinik beslenme ve sağlıklı yaşam.",
+          "keywords": ["Nutrition", "Diet", "Health", "Wellness"]
+        },
+        {
+          "id": "prof_physiotherapist",
+          "name": "Fizyoterapist",
+          "icon": "figure.walk",
+          "description": "Fizik tedavi, rehabilitasyon, manuel terapi ve egzersiz programları.",
+          "keywords": ["Physiotherapy", "Rehabilitation", "Therapy", "Exercise"]
+        },
+        {
+          "id": "prof_nurse",
+          "name": "Hemşire",
+          "icon": "heart.circle.fill",
+          "description": "Hasta bakımı, tıbbi prosedürler, sağlık gözetimi ve klinik uygulama.",
+          "keywords": ["Nursing", "Healthcare", "Patient Care", "Clinical"]
+        }
+      ]
+    },
+    {
+      "id": "cat_law",
+      "name": "Hukuk",
+      "icon": "scale.3d",
+      "order": 11,
+      "professions": [
+        {
+          "id": "prof_lawyer",
+          "name": "Avukat",
+          "icon": "briefcase.circle.fill",
+          "description": "Hukuki danışmanlık, dava takibi, sözleşme hazırlama ve müvekkil temsili.",
+          "keywords": ["Law", "Legal", "Attorney", "Court"]
+        },
+        {
+          "id": "prof_legal_consultant",
+          "name": "Hukuk Müşaviri",
+          "icon": "doc.text.magnifyingglass",
+          "description": "Kurumsal hukuk, uyum, risk yönetimi ve hukuki görüş hazırlama.",
+          "keywords": ["Legal", "Compliance", "Corporate", "Risk"]
+        }
+      ]
+    },
+    {
+      "id": "cat_education",
+      "name": "Eğitim",
+      "icon": "book.fill",
+      "order": 12,
+      "professions": [
+        {
+          "id": "prof_teacher",
+          "name": "Öğretmen",
+          "icon": "person.chalkboard",
+          "description": "Ders planlama, öğretim yöntemleri, sınıf yönetimi ve öğrenci değerlendirmesi.",
+          "keywords": ["Teaching", "Education", "Classroom", "Instruction"]
+        },
+        {
+          "id": "prof_corporate_trainer",
+          "name": "Kurumsal Eğitmen",
+          "icon": "person.2.badge.gearshape.fill",
+          "description": "Çalışan eğitimi, liderlik geliştirme, sunum becerileri ve eğitim materyali hazırlama.",
+          "keywords": ["Training", "Corporate", "Development", "Learning"]
+        },
+        {
+          "id": "prof_academic_researcher",
+          "name": "Akademik Araştırmacı",
+          "icon": "magnifyingglass",
+          "description": "Bilimsel araştırma, makale yazımı, veri analizi ve akademik yayın.",
+          "keywords": ["Research", "Academic", "Science", "Publication"]
         }
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.0",
-    "lastUpdated": "2026-01-10",
-    "totalCategories": 9,
-    "totalProfessions": 34,
+    "version": "1.1.0",
+    "lastUpdated": "2026-01-21",
+    "totalCategories": 12,
+    "totalProfessions": 72,
     "language": "tr"
   }
 }
