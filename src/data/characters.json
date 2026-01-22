@@ -18,8 +18,8 @@
       "order": 1
     },
     {
-      "id": "josh",
-      "name": "Josh",
+      "id": "louise",
+      "name": "Louise",
       "role": "AI Mülakat Asistanı",
       "personality": "Profesyonel, Objektif, Deneyimli",
       "expertise": "Kurumsal Mülakat Simülasyonu",
@@ -28,15 +28,15 @@
       "feedbackStyle": "Dengeli ve yapıcı. Hem güçlü hem zayıf yönleri detaylı açıklar. Örnek: 'Teknik olarak doğru, ancak daha detaylı açıklama beklerdim...'",
       "idealFor": "Gerçek mülakatlara hazırlananlar, deneyimli profesyoneller, objektif değerlendirme isteyenler",
       "difficulty": "medium",
-      "modelFile": "josh.glb",
+      "modelFile": "louise.glb",
       "badge": "DENGELİ",
       "badgeColor": "#007AFF",
-      "avatar": "josh_avatar",
+      "avatar": "louise_avatar",
       "order": 2
     },
     {
-      "id": "louise",
-      "name": "Louise",
+      "id": "josh",
+      "name": "Josh",
       "role": "AI Mülakat Asistanı",
       "personality": "Analitik, Detaycı, Mükemmeliyetçi",
       "expertise": "İleri Seviye Teknik Mülakat",
@@ -45,10 +45,10 @@
       "feedbackStyle": "Teknik ve ayrıntılı. Performans, complexity, best practices üzerine odaklanır. Örnek: 'Bu yaklaşım O(n²) complexity'ye sahip. Optimize edebilir misin?'",
       "idealFor": "İleri seviye profesyoneller, meydan okuma isteyenler, senior pozisyonlara hazırlananlar",
       "difficulty": "hard",
-      "modelFile": "louise.glb",
+      "modelFile": "josh.glb",
       "badge": "ZORLAYICI",
       "badgeColor": "#FF3B30",
-      "avatar": "louise_avatar",
+      "avatar": "josh_avatar",
       "order": 3
     },
     {
