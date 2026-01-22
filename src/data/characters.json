@@ -27,8 +27,8 @@
       "idealFor": "Gerçek mülakatlara hazırlananlar, deneyimli profesyoneller, objektif değerlendirme isteyenler",
       "difficulty": "medium",
       "modelFile": "josh.glb",
-      "badge": null,
-      "badgeColor": null,
+      "badge": "DENGELİ",
+      "badgeColor": "#007AFF",
       "avatar": "josh_avatar",
       "order": 2
     },
@@ -66,8 +66,8 @@
     }
   ],
   "metadata": {
-    "version": "1.0.0",
-    "lastUpdated": "2026-01-10",
+    "version": "1.1.0",
+    "lastUpdated": "2026-01-22",
     "totalCharacters": 4,
     "language": "tr",
     "description": "Intervium AI mülakat karakterleri. Her karakter farklı kişilik ve yaklaşıma sahiptir."
