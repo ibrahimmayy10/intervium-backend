@@ -91,6 +91,20 @@
           "keywords": ["PHP", "Laravel", "Backend", "Symfony", "Web"]
         },
         {
+          "id": "prof_backend_go",
+          "name": "Backend Developer (Go)",
+          "icon": "server.rack",
+          "description": "Go/Golang, Gin, gRPC, microservices, yüksek performanslı backend sistemler.",
+          "keywords": ["Go", "Golang", "Backend", "Microservices", "gRPC"]
+        },
+        {
+          "id": "prof_backend_rust",
+          "name": "Backend Developer (Rust)",
+          "icon": "server.rack",
+          "description": "Rust, Actix, Rocket, memory-safe ve performans odaklı backend geliştirme.",
+          "keywords": ["Rust", "Backend", "Systems", "Performance"]
+        },
+        {
           "id": "prof_fullstack",
           "name": "Full Stack Developer",
           "icon": "square.stack.3d.up",
@@ -103,6 +117,13 @@
           "icon": "gamecontroller.fill",
           "description": "Unity, Unreal Engine, C#, C++ ile oyun geliştirme ve 3D programlama.",
           "keywords": ["Game", "Unity", "Unreal", "C#", "C++", "3D"]
+        },
+        {
+          "id": "prof_ar_vr_developer",
+          "name": "AR/VR Developer",
+          "icon": "visionpro",
+          "description": "ARKit, ARCore, Unity XR, Meta Quest, sanal ve artırılmış gerçeklik uygulamaları.",
+          "keywords": ["AR", "VR", "Unity", "ARKit", "Meta Quest", "XR"]
         },
         {
           "id": "prof_blockchain",
@@ -119,6 +140,13 @@
           "keywords": ["QA", "Testing", "Automation", "Selenium", "Quality"]
         },
         {
+          "id": "prof_qa_manual",
+          "name": "QA Manual Tester",
+          "icon": "checklist",
+          "description": "Manuel test, test senaryoları, bug tracking, regresyon testi ve UAT.",
+          "keywords": ["QA", "Manual Testing", "Bug", "Test Cases"]
+        },
+        {
           "id": "prof_cloud_architect",
           "name": "Cloud Solutions Architect",
           "icon": "cloud.fill",
@@ -131,6 +159,34 @@
           "icon": "gearshape.2",
           "description": "CI/CD, Docker, Kubernetes, AWS/Azure, Infrastructure as Code konularında uzmanlaşma.",
           "keywords": ["DevOps", "Docker", "Kubernetes", "AWS", "CI/CD"]
+        },
+        {
+          "id": "prof_sre",
+          "name": "Site Reliability Engineer (SRE)",
+          "icon": "gauge.with.dots.needle.bottom.50percent",
+          "description": "System monitoring, incident response, SLA/SLO, performance optimization ve reliability.",
+          "keywords": ["SRE", "Monitoring", "Reliability", "Performance", "Incident"]
+        },
+        {
+          "id": "prof_security_engineer",
+          "name": "Cybersecurity Engineer",
+          "icon": "lock.shield",
+          "description": "Penetration testing, vulnerability assessment, security auditing, SIEM, SOC.",
+          "keywords": ["Security", "Pentesting", "Cybersecurity", "SIEM", "SOC"]
+        },
+        {
+          "id": "prof_database_admin",
+          "name": "Database Administrator (DBA)",
+          "icon": "cylinder.fill",
+          "description": "PostgreSQL, MySQL, Oracle, MongoDB, database optimization, backup/recovery.",
+          "keywords": ["Database", "DBA", "SQL", "MongoDB", "Optimization"]
+        },
+        {
+          "id": "prof_embedded_software",
+          "name": "Embedded Software Engineer",
+          "icon": "memorychip.fill",
+          "description": "C/C++, RTOS, firmware development, IoT devices, embedded Linux.",
+          "keywords": ["Embedded", "Firmware", "C", "RTOS", "IoT"]
         }
       ]
     },
@@ -181,6 +237,20 @@
           "icon": "figure.walk.motion",
           "description": "Robot tasarımı, kinematik, otonom sistemler ve endüstriyel robotik uygulamalar.",
           "keywords": ["Robotik", "Otomasyon", "Robot", "Mechatronics"]
+        },
+        {
+          "id": "prof_aerospace",
+          "name": "Havacılık Mühendisi",
+          "icon": "airplane",
+          "description": "Uçak tasarımı, aerodinamik, propulsion sistemleri, uçuş mekaniği.",
+          "keywords": ["Havacılık", "Aerospace", "Uçak", "Aerodinamik"]
+        },
+        {
+          "id": "prof_materials",
+          "name": "Malzeme Mühendisi",
+          "icon": "atom",
+          "description": "Malzeme karakterizasyonu, kompozit malzemeler, metallurji, nanoteknoloji.",
+          "keywords": ["Malzeme", "Metallurji", "Kompozit", "Materials"]
         }
       ]
     },
@@ -224,6 +294,20 @@
           "icon": "antenna.radiowaves.left.and.right",
           "description": "5G, fiber optik, kablosuz iletişim, network altyapısı ve telekomünikasyon protokolleri.",
           "keywords": ["Telekom", "5G", "Network", "Fiber Optik"]
+        },
+        {
+          "id": "prof_rf_engineer",
+          "name": "RF Engineer",
+          "icon": "wave.3.right",
+          "description": "RF devre tasarımı, anten sistemleri, mikrodalga mühendisliği, wireless systems.",
+          "keywords": ["RF", "Antenna", "Wireless", "Microwave"]
+        },
+        {
+          "id": "prof_fpga_engineer",
+          "name": "FPGA Engineer",
+          "icon": "cpu.fill",
+          "description": "VHDL, Verilog, FPGA tasarımı, hardware description language, digital design.",
+          "keywords": ["FPGA", "VHDL", "Verilog", "Digital Design"]
         }
       ]
     },
@@ -260,6 +344,20 @@
           "icon": "hammer.circle.fill",
           "description": "Proje yönetimi, şantiye organizasyonu, maliyet kontrolü ve yapım planlama.",
           "keywords": ["İnşaat", "Yönetim", "Şantiye", "Planlama"]
+        },
+        {
+          "id": "prof_hydraulic",
+          "name": "Hidrolik Mühendisi",
+          "icon": "drop.fill",
+          "description": "Su kaynakları, baraj tasarımı, sulama sistemleri, hidrolik yapılar.",
+          "keywords": ["Hidrolik", "Su", "Baraj", "İçmesuyu"]
+        },
+        {
+          "id": "prof_environmental",
+          "name": "Çevre Mühendisi",
+          "icon": "leaf.circle.fill",
+          "description": "Atık su arıtma, hava kirliliği, katı atık yönetimi, çevre danışmanlığı.",
+          "keywords": ["Çevre", "Arıtma", "Atık", "Kirliliği"]
         }
       ]
     },
@@ -303,6 +401,13 @@
           "icon": "chart.line.flattrend.xyaxis",
           "description": "Süreç iyileştirme, verimlilik artırma, israf eliminasyonu ve DMAIC metodolojisi.",
           "keywords": ["Lean", "Six Sigma", "İyileştirme", "Verimlilik"]
+        },
+        {
+          "id": "prof_operations_research",
+          "name": "Operasyon Araştırması Uzmanı",
+          "icon": "chart.xyaxis.line",
+          "description": "Matematiksel modelleme, simülasyon, optimizasyon, karar analizi.",
+          "keywords": ["OR", "Optimizasyon", "Simülasyon", "Modelleme"]
         }
       ]
     },
@@ -346,6 +451,27 @@
           "icon": "chart.bar.xaxis",
           "description": "SQL, Excel, Power BI, Tableau, veri görselleştirme ve iş analitiği.",
           "keywords": ["Data Analysis", "SQL", "Power BI", "Tableau"]
+        },
+        {
+          "id": "prof_nlp_engineer",
+          "name": "NLP Engineer",
+          "icon": "text.bubble",
+          "description": "Natural Language Processing, transformers, BERT, GPT, dil modelleri, chatbot geliştirme.",
+          "keywords": ["NLP", "Transformers", "BERT", "GPT", "Chatbot"]
+        },
+        {
+          "id": "prof_computer_vision",
+          "name": "Computer Vision Engineer",
+          "icon": "eye.fill",
+          "description": "Image processing, object detection, segmentation, CNN, OpenCV, YOLO.",
+          "keywords": ["Computer Vision", "CNN", "OpenCV", "Detection"]
+        },
+        {
+          "id": "prof_prompt_engineer",
+          "name": "Prompt Engineer",
+          "icon": "character.textbox",
+          "description": "LLM prompting, AI model optimization, generative AI, ChatGPT, Claude.",
+          "keywords": ["Prompt Engineering", "LLM", "GPT", "AI"]
         }
       ]
     },
@@ -389,6 +515,20 @@
           "icon": "cube.fill",
           "description": "Blender, Maya, 3ds Max, 3D modelleme, texturing, rendering ve oyun assetleri.",
           "keywords": ["3D", "Modeling", "Blender", "Maya", "Artist"]
+        },
+        {
+          "id": "prof_ux_researcher",
+          "name": "UX Researcher",
+          "icon": "person.text.rectangle",
+          "description": "Kullanıcı araştırması, user testing, persona oluşturma, A/B testing, nötr analiz.",
+          "keywords": ["UX Research", "Testing", "Persona", "User"]
+        },
+        {
+          "id": "prof_brand_designer",
+          "name": "Brand Designer",
+          "icon": "flag.fill",
+          "description": "Marka kimliği, logo tasarımı, brand guidelines, görsel dil oluşturma.",
+          "keywords": ["Branding", "Logo", "Identity", "Visual"]
         }
       ]
     },
@@ -432,6 +572,20 @@
           "icon": "person.badge.key.fill",
           "description": "Stratejik danışmanlık, iş geliştirme, pazar analizi ve organizasyonel dönüşüm.",
           "keywords": ["Consulting", "Strategy", "Business", "Transformation"]
+        },
+        {
+          "id": "prof_growth_hacker",
+          "name": "Growth Hacker",
+          "icon": "chart.line.uptrend.xyaxis.circle",
+          "description": "Viral marketing, büyüme stratejileri, A/B testing, conversion optimization.",
+          "keywords": ["Growth", "Marketing", "Viral", "Optimization"]
+        },
+        {
+          "id": "prof_ecommerce_manager",
+          "name": "E-Ticaret Yöneticisi",
+          "icon": "cart.fill",
+          "description": "Online satış, marketplace yönetimi, conversion rate optimization, e-ticaret stratejisi.",
+          "keywords": ["E-commerce", "Online Sales", "Marketplace", "CRO"]
         }
       ]
     },
@@ -468,6 +622,20 @@
           "icon": "speaker.wave.3.fill",
           "description": "Medya ilişkileri, kriz yönetimi, kurumsal iletişim ve marka itibar yönetimi.",
           "keywords": ["PR", "Media", "Communication", "Reputation"]
+        },
+        {
+          "id": "prof_talent_acquisition",
+          "name": "Talent Acquisition Specialist",
+          "icon": "person.badge.plus",
+          "description": "Headhunting, sourcing, employer branding, candidate experience, hiring strategy.",
+          "keywords": ["Talent", "Recruitment", "Headhunting", "Hiring"]
+        },
+        {
+          "id": "prof_social_media_manager",
+          "name": "Sosyal Medya Yöneticisi",
+          "icon": "bubbles.and.sparkles",
+          "description": "Social media strategy, community management, content creation, influencer marketing.",
+          "keywords": ["Social Media", "Community", "Content", "Influencer"]
         }
       ]
     },
@@ -504,6 +672,20 @@
           "icon": "heart.circle.fill",
           "description": "Hasta bakımı, tıbbi prosedürler, sağlık gözetimi ve klinik uygulama.",
           "keywords": ["Nursing", "Healthcare", "Patient Care", "Clinical"]
+        },
+        {
+          "id": "prof_pharmacist",
+          "name": "Eczacı",
+          "icon": "pills.fill",
+          "description": "İlaç danışmanlığı, farmakoloji, reçete yönetimi, sağlık ürünleri.",
+          "keywords": ["Pharmacy", "Medicine", "Drug", "Healthcare"]
+        },
+        {
+          "id": "prof_medical_device",
+          "name": "Biyomedikal Mühendisi",
+          "icon": "heart.text.square",
+          "description": "Tıbbi cihaz tasarımı, prostetik, görüntüleme sistemleri, medikal teknoloji.",
+          "keywords": ["Biomedical", "Medical Device", "Prosthetic", "Healthcare Tech"]
         }
       ]
     },
@@ -526,6 +708,13 @@
           "icon": "doc.text.magnifyingglass",
           "description": "Kurumsal hukuk, uyum, risk yönetimi ve hukuki görüş hazırlama.",
           "keywords": ["Legal", "Compliance", "Corporate", "Risk"]
+        },
+        {
+          "id": "prof_patent_attorney",
+          "name": "Patent Vekili",
+          "icon": "lightbulb.circle",
+          "description": "Patent başvurusu, fikri mülkiyet hukuku, trademark, telif hakları.",
+          "keywords": ["Patent", "IP", "Trademark", "Intellectual Property"]
         }
       ]
     },
@@ -555,15 +744,187 @@
           "icon": "magnifyingglass",
           "description": "Bilimsel araştırma, makale yazımı, veri analizi ve akademik yayın.",
           "keywords": ["Research", "Academic", "Science", "Publication"]
+        },
+        {
+          "id": "prof_instructional_designer",
+          "name": "Öğretim Tasarımcısı",
+          "icon": "book.pages",
+          "description": "E-learning, kurs tasarımı, LMS, SCORM, öğrenme deneyimi tasarımı.",
+          "keywords": ["Instructional Design", "E-learning", "LMS", "Course"]
+        }
+      ]
+    },
+    {
+      "id": "cat_architecture",
+      "name": "Mimarlık & İç Mimarlık",
+      "icon": "building.2",
+      "order": 13,
+      "professions": [
+        {
+          "id": "prof_architect",
+          "name": "Mimar",
+          "icon": "pencil.and.ruler",
+          "description": "Mimari tasarım, yapı projelendirme, AutoCAD, SketchUp, 3D modelleme, ruhsat işlemleri.",
+          "keywords": ["Mimarlık", "Tasarım", "AutoCAD", "Proje", "İnşaat"]
+        },
+        {
+          "id": "prof_interior_designer",
+          "name": "İç Mimar",
+          "icon": "sofa",
+          "description": "İç mekan tasarımı, mobilya seçimi, renk teorisi, aydınlatma, dekorasyon.",
+          "keywords": ["İç Mimarlık", "Dekorasyon", "Mekan", "Tasarım"]
+        },
+        {
+          "id": "prof_landscape_architect",
+          "name": "Peyzaj Mimarı",
+          "icon": "tree.fill",
+          "description": "Peyzaj tasarımı, bahçe düzenleme, dış mekan planlaması, bitki seçimi.",
+          "keywords": ["Peyzaj", "Bahçe", "Dış Mekan", "Yeşil Alan"]
+        },
+        {
+          "id": "prof_urban_planner",
+          "name": "Şehir Plancısı",
+          "icon": "map.fill",
+          "description": "Kentsel planlama, imar planları, şehircilik, GIS, sürdürülebilir şehirler.",
+          "keywords": ["Şehircilik", "Planlama", "İmar", "Kent"]
+        }
+      ]
+    },
+    {
+      "id": "cat_science",
+      "name": "Fen Bilimleri",
+      "icon": "flask.fill",
+      "order": 14,
+      "professions": [
+        {
+          "id": "prof_chemist",
+          "name": "Kimyager",
+          "icon": "atom",
+          "description": "Kimyasal analiz, laboratuvar çalışmaları, ürün geliştirme, kalite kontrol.",
+          "keywords": ["Kimya", "Laboratuvar", "Analiz", "R&D"]
+        },
+        {
+          "id": "prof_biologist",
+          "name": "Biyolog",
+          "icon": "leaf.circle",
+          "description": "Biyolojik araştırma, genetik, mikrobiyoloji, ekoloji, biyoteknoloji.",
+          "keywords": ["Biyoloji", "Genetik", "Mikrobiyoloji", "Araştırma"]
+        },
+        {
+          "id": "prof_physicist",
+          "name": "Fizikçi",
+          "icon": "waveform.path",
+          "description": "Teorik ve uygulamalı fizik, kuantum mekaniği, parçacık fiziği, optik.",
+          "keywords": ["Fizik", "Kuantum", "Araştırma", "Bilim"]
+        },
+        {
+          "id": "prof_geologist",
+          "name": "Jeoloji Mühendisi",
+          "icon": "globe.europe.africa",
+          "description": "Jeolojik haritalama, maden arama, saha çalışmaları, yer bilimleri.",
+          "keywords": ["Jeoloji", "Maden", "Yer", "Harita"]
+        },
+        {
+          "id": "prof_environmental_scientist",
+          "name": "Çevre Bilimci",
+          "icon": "wind",
+          "description": "Çevre etki değerlendirmesi, sürdürülebilirlik, iklim değişikliği, ekoloji.",
+          "keywords": ["Çevre", "Sürdürülebilirlik", "İklim", "Ekoloji"]
+        }
+      ]
+    },
+    {
+      "id": "cat_media",
+      "name": "Medya & İletişim",
+      "icon": "tv.and.mediabox",
+      "order": 15,
+      "professions": [
+        {
+          "id": "prof_journalist",
+          "name": "Gazeteci",
+          "icon": "newspaper.fill",
+          "description": "Haber yazımı, röportaj, araştırmacı gazetecilik, editörlük.",
+          "keywords": ["Gazetecilik", "Haber", "Medya", "Yazı"]
+        },
+        {
+          "id": "prof_video_editor",
+          "name": "Video Editörü",
+          "icon": "play.rectangle.on.rectangle",
+          "description": "Premiere Pro, Final Cut Pro, DaVinci Resolve, kurgu, renk düzeltme, ses miksaji.",
+          "keywords": ["Video", "Editing", "Premiere", "Kurgu"]
+        },
+        {
+          "id": "prof_photographer",
+          "name": "Fotoğrafçı",
+          "icon": "camera.fill",
+          "description": "Dijital fotoğrafçılık, stüdyo çekimleri, Lightroom, Photoshop, kompozisyon.",
+          "keywords": ["Fotoğraf", "Çekim", "Studio", "Photo"]
+        },
+        {
+          "id": "prof_sound_engineer",
+          "name": "Ses Mühendisi",
+          "icon": "waveform",
+          "description": "Ses kayıt, mixing, mastering, Pro Tools, stüdyo tekniği, akustik.",
+          "keywords": ["Ses", "Müzik", "Studio", "Mixing"]
+        },
+        {
+          "id": "prof_podcaster",
+          "name": "Podcast Yapımcısı",
+          "icon": "mic.fill",
+          "description": "Podcast prodüksiyonu, ses düzenleme, içerik stratejisi, dağıtım.",
+          "keywords": ["Podcast", "Audio", "Production", "Content"]
+        }
+      ]
+    },
+    {
+      "id": "cat_finance",
+      "name": "Finans & Bankacılık",
+      "icon": "banknote.fill",
+      "order": 16,
+      "professions": [
+        {
+          "id": "prof_investment_banker",
+          "name": "Yatırım Bankacısı",
+          "icon": "building.columns",
+          "description": "Kurumsal finansman, M&A, sermaye piyasaları, due diligence.",
+          "keywords": ["Yatırım", "Bankacılık", "M&A", "Finans"]
+        },
+        {
+          "id": "prof_portfolio_manager",
+          "name": "Portföy Yöneticisi",
+          "icon": "chart.pie.fill",
+          "description": "Asset management, portföy stratejisi, risk yönetimi, yatırım kararları.",
+          "keywords": ["Portföy", "Yatırım", "Asset", "Risk"]
+        },
+        {
+          "id": "prof_risk_analyst",
+          "name": "Risk Analisti",
+          "icon": "exclamationmark.triangle.fill",
+          "description": "Finansal risk analizi, stress testing, VaR, Basel, risk modelleme.",
+          "keywords": ["Risk", "Analiz", "Finans", "Modelleme"]
+        },
+        {
+          "id": "prof_actuary",
+          "name": "Aktüer",
+          "icon": "percent",
+          "description": "Sigorta matematiği, risk hesaplama, istatistiksel modelleme, pricing.",
+          "keywords": ["Aktüerya", "Sigorta", "Risk", "İstatistik"]
+        },
+        {
+          "id": "prof_crypto_analyst",
+          "name": "Kripto Para Analisti",
+          "icon": "bitcoinsign.circle",
+          "description": "Blockchain analizi, kripto piyasaları, DeFi, tokenomics, trading stratejileri.",
+          "keywords": ["Crypto", "Blockchain", "Bitcoin", "Trading"]
         }
       ]
     }
   ],
   "metadata": {
-    "version": "1.1.0",
-    "lastUpdated": "2026-01-21",
-    "totalCategories": 12,
-    "totalProfessions": 72,
+    "version": "2.0.0",
+    "lastUpdated": "2026-02-01",
+    "totalCategories": 16,
+    "totalProfessions": 115,
     "language": "tr"
   }
 }
