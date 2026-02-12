@@ -34,11 +34,11 @@ const interviewSchema = new mongoose.Schema({
     type: Date
   },
   duration: {
-    type: Number, // Dakika cinsinden
+    type: Number, // dakika cinsinden
     min: 0
   },
   
-  // Sonuçlar
+  // Ana Sonuçlar
   overallScore: {
     type: Number,
     min: 0,
@@ -48,16 +48,43 @@ const interviewSchema = new mongoose.Schema({
     type: String,
     maxlength: [2000, 'Geri bildirim en fazla 2000 karakter olabilir']
   },
+  
+  // Detaylı Skorlar
+  technicalScore: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+  communicationScore: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+  detailedness: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+  
+  // Güçlü Yönler
   strengths: [{
     type: String,
     maxlength: [500, 'Güçlü yön açıklaması en fazla 500 karakter olabilir']
   }],
-  weaknesses: [{
+  
+  // İyileştirme Önerileri (Swift'teki "improvements" ile aynı)
+  improvements: [{
     type: String,
-    maxlength: [500, 'Gelişim alanı açıklaması en fazla 500 karakter olabilir']
+    maxlength: [500, 'İyileştirme önerisi en fazla 500 karakter olabilir']
   }],
   
-  // İstatistikler (opsiyonel)
+  // İşe Alım Önerisi
+  recommendation: {
+    type: String,
+    maxlength: [500, 'Öneri en fazla 500 karakter olabilir']
+  },
+  
+  // İstatistikler
   questionCount: {
     type: Number,
     min: 0,
@@ -68,9 +95,8 @@ const interviewSchema = new mongoose.Schema({
     min: 0,
     default: 0
   }
-  
 }, {
-  timestamps: true // createdAt, updatedAt otomatik ekler
+  timestamps: true
 });
 
 // Virtual field: Başarı yüzdesi
@@ -79,18 +105,27 @@ interviewSchema.virtual('successRate').get(function() {
   return Math.round((this.correctAnswers / this.questionCount) * 100);
 });
 
-// Index'ler (performans için)
-interviewSchema.index({ userId: 1, createdAt: -1 }); // Kullanıcının mülakatları
-interviewSchema.index({ professionId: 1 }); // Mesleğe göre
-interviewSchema.index({ status: 1 }); // Duruma göre
-interviewSchema.index({ overallScore: -1 }); // Puana göre sıralama
+// Virtual field: Ortalama detay skoru
+interviewSchema.virtual('averageDetailScore').get(function() {
+  const scores = [this.technicalScore, this.communicationScore, this.detailedness].filter(s => s != null);
+  if (scores.length === 0) return 0;
+  return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+});
 
-// Mülakat tamamlandığında otomatik süre hesapla
-interviewSchema.pre('save', function() {  // ← next parametresini kaldır
-  if (this.isModified('completedAt') && this.completedAt && this.startedAt) {
+// Index'ler
+interviewSchema.index({ userId: 1, createdAt: -1 });
+interviewSchema.index({ professionId: 1 });
+interviewSchema.index({ status: 1 });
+interviewSchema.index({ overallScore: -1 });
+interviewSchema.index({ technicalScore: -1 });
+
+// Mülakat tamamlandığında otomatik süre hesapla (eğer manuel gönderilmemişse)
+interviewSchema.pre('save', function(next) {
+  if (this.isModified('completedAt') && this.completedAt && this.startedAt && !this.duration) {
     const durationMs = this.completedAt - this.startedAt;
-    this.duration = Math.round(durationMs / 60000); // Milisaniyeden dakikaya
+    this.duration = Math.round(durationMs / 60000); // milisaniye -> dakika
   }
+  next();
 });
 
 // JSON response'da __v gösterme
@@ -100,25 +135,21 @@ interviewSchema.methods.toJSON = function() {
   return interview;
 };
 
-// Static method: Kullanıcının ortalama puanı
+// Static methods
 interviewSchema.statics.getUserAverageScore = async function(userId) {
   const result = await this.aggregate([
     { $match: { userId: mongoose.Types.ObjectId(userId), status: 'completed' } },
     { $group: { _id: null, avgScore: { $avg: '$overallScore' } } }
   ]);
-  
   return result.length > 0 ? Math.round(result[0].avgScore) : 0;
 };
 
-// Static method: Kullanıcının toplam mülakat sayısı
 interviewSchema.statics.getUserInterviewCount = async function(userId, status = null) {
   const query = { userId };
   if (status) query.status = status;
-  
   return await this.countDocuments(query);
 };
 
-// Static method: En iyi performans
 interviewSchema.statics.getUserBestScore = async function(userId) {
   const result = await this.findOne({ 
     userId, 
@@ -126,8 +157,15 @@ interviewSchema.statics.getUserBestScore = async function(userId) {
   })
   .sort({ overallScore: -1 })
   .select('overallScore professionId createdAt');
-  
   return result;
+};
+
+interviewSchema.statics.getUserAverageTechnicalScore = async function(userId) {
+  const result = await this.aggregate([
+    { $match: { userId: mongoose.Types.ObjectId(userId), status: 'completed', technicalScore: { $exists: true } } },
+    { $group: { _id: null, avgTechnical: { $avg: '$technicalScore' } } }
+  ]);
+  return result.length > 0 ? Math.round(result[0].avgTechnical) : 0;
 };
 
 module.exports = mongoose.model('Interview', interviewSchema);

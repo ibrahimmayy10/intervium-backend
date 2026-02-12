@@ -6,9 +6,22 @@ const User = require('../models/User');
 // @access  Private
 exports.createInterview = async (req, res) => {
   try {
-    const { professionId, characterId, overallScore, feedback, strengths, weaknesses, questionCount, correctAnswers } = req.body;
+    const { 
+      professionId, 
+      characterId, 
+      overallScore, 
+      feedback, 
+      strengths, 
+      improvements,        // Swift'teki "improvements"
+      technicalScore,
+      communicationScore,
+      detailedness,
+      recommendation,
+      questionCount, 
+      correctAnswers,
+      duration             // Frontend'den gönderilirse (dakika cinsinden)
+    } = req.body;
 
-    // Kullanıcı ID'sini req.user'dan al (middleware'den geliyor)
     const userId = req.user.id;
 
     // Yeni mülakat oluştur
@@ -16,14 +29,19 @@ exports.createInterview = async (req, res) => {
       userId,
       professionId,
       characterId,
-      status: 'completed', // Mülakat tamamlandı olarak gelecek
+      status: 'completed',
       completedAt: new Date(),
-      overallScore,
-      feedback,
+      overallScore: overallScore || 0,
+      feedback: feedback || '',
       strengths: strengths || [],
-      weaknesses: weaknesses || [],
+      improvements: improvements || [],     // "weaknesses" yerine "improvements"
+      technicalScore: technicalScore || 0,
+      communicationScore: communicationScore || 0,
+      detailedness: detailedness || 0,
+      recommendation: recommendation || '',
       questionCount: questionCount || 0,
-      correctAnswers: correctAnswers || 0
+      correctAnswers: correctAnswers || 0,
+      duration: duration || null            // null ise pre-save hook hesaplar
     });
 
     res.status(201).json({
@@ -58,21 +76,17 @@ exports.getUserInterviews = async (req, res) => {
     const userId = req.user.id;
     const { status, professionId, limit = 10, page = 1 } = req.query;
 
-    // Query oluştur
     const query = { userId };
     if (status) query.status = status;
     if (professionId) query.professionId = professionId;
 
-    // Pagination
     const skip = (page - 1) * limit;
 
-    // Mülakatları getir (en yeni önce)
     const interviews = await Interview.find(query)
       .sort({ createdAt: -1 })
       .limit(parseInt(limit))
       .skip(skip);
 
-    // Toplam sayı
     const total = await Interview.countDocuments(query);
 
     res.status(200).json({
@@ -107,7 +121,6 @@ exports.getInterview = async (req, res) => {
       });
     }
 
-    // Sadece kendi mülakatına erişebilir
     if (interview.userId.toString() !== req.user.id) {
       return res.status(403).json({
         success: false,
@@ -151,7 +164,6 @@ exports.updateInterview = async (req, res) => {
       });
     }
 
-    // Sadece kendi mülakatını güncelleyebilir
     if (interview.userId.toString() !== req.user.id) {
       return res.status(403).json({
         success: false,
@@ -160,14 +172,28 @@ exports.updateInterview = async (req, res) => {
     }
 
     // Güncellenebilir alanlar
-    const { overallScore, feedback, strengths, weaknesses, status } = req.body;
+    const { 
+      overallScore, 
+      feedback, 
+      strengths, 
+      improvements,  // "weaknesses" yerine
+      status,
+      technicalScore,
+      communicationScore,
+      detailedness,
+      recommendation
+    } = req.body;
 
     const updateData = {};
     if (overallScore !== undefined) updateData.overallScore = overallScore;
     if (feedback !== undefined) updateData.feedback = feedback;
     if (strengths !== undefined) updateData.strengths = strengths;
-    if (weaknesses !== undefined) updateData.weaknesses = weaknesses;
+    if (improvements !== undefined) updateData.improvements = improvements;
     if (status !== undefined) updateData.status = status;
+    if (technicalScore !== undefined) updateData.technicalScore = technicalScore;
+    if (communicationScore !== undefined) updateData.communicationScore = communicationScore;
+    if (detailedness !== undefined) updateData.detailedness = detailedness;
+    if (recommendation !== undefined) updateData.recommendation = recommendation;
 
     interview = await Interview.findByIdAndUpdate(
       req.params.id,
@@ -220,7 +246,6 @@ exports.deleteInterview = async (req, res) => {
       });
     }
 
-    // Sadece kendi mülakatını silebilir
     if (interview.userId.toString() !== req.user.id) {
       return res.status(403).json({
         success: false,
@@ -260,16 +285,11 @@ exports.getUserStats = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // Toplam mülakat sayısı
     const totalInterviews = await Interview.getUserInterviewCount(userId, 'completed');
-
-    // Ortalama puan
     const averageScore = await Interview.getUserAverageScore(userId);
-
-    // En iyi performans
+    const averageTechnicalScore = await Interview.getUserAverageTechnicalScore(userId);
     const bestScore = await Interview.getUserBestScore(userId);
 
-    // Son 7 gün
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     
@@ -279,6 +299,19 @@ exports.getUserStats = async (req, res) => {
       createdAt: { $gte: sevenDaysAgo }
     });
 
+    // Detaylı skor ortalamaları
+    const detailedScores = await Interview.aggregate([
+      { $match: { userId: req.user._id, status: 'completed' } },
+      { 
+        $group: { 
+          _id: null,
+          avgTechnical: { $avg: '$technicalScore' },
+          avgCommunication: { $avg: '$communicationScore' },
+          avgDetailedness: { $avg: '$detailedness' }
+        } 
+      }
+    ]);
+
     // Mesleğe göre dağılım
     const professionStats = await Interview.aggregate([
       { $match: { userId: req.user._id, status: 'completed' } },
@@ -286,7 +319,8 @@ exports.getUserStats = async (req, res) => {
         $group: { 
           _id: '$professionId', 
           count: { $sum: 1 },
-          avgScore: { $avg: '$overallScore' }
+          avgScore: { $avg: '$overallScore' },
+          avgTechnical: { $avg: '$technicalScore' }
         } 
       },
       { $sort: { count: -1 } },
@@ -306,11 +340,26 @@ exports.getUserStats = async (req, res) => {
       { $sort: { count: -1 } }
     ]);
 
+    // Gelişim trendi (son 10 mülakat)
+    const progressTrend = await Interview.find({
+      userId,
+      status: 'completed'
+    })
+    .sort({ createdAt: -1 })
+    .limit(10)
+    .select('overallScore technicalScore communicationScore createdAt');
+
     res.status(200).json({
       success: true,
       data: {
         totalInterviews,
         averageScore,
+        averageTechnicalScore,
+        detailedScores: detailedScores.length > 0 ? {
+          technical: Math.round(detailedScores[0].avgTechnical || 0),
+          communication: Math.round(detailedScores[0].avgCommunication || 0),
+          detailedness: Math.round(detailedScores[0].avgDetailedness || 0)
+        } : null,
         bestScore: bestScore ? {
           score: bestScore.overallScore,
           professionId: bestScore.professionId,
@@ -320,13 +369,15 @@ exports.getUserStats = async (req, res) => {
         professionStats: professionStats.map(stat => ({
           professionId: stat._id,
           count: stat.count,
-          averageScore: Math.round(stat.avgScore)
+          averageScore: Math.round(stat.avgScore),
+          averageTechnical: Math.round(stat.avgTechnical || 0)
         })),
         characterStats: characterStats.map(stat => ({
           characterId: stat._id,
           count: stat.count,
           averageScore: Math.round(stat.avgScore)
-        }))
+        })),
+        progressTrend: progressTrend.reverse()
       }
     });
 
