@@ -136,20 +136,50 @@ interviewSchema.methods.toJSON = function() {
 };
 
 // Static methods
+// models/Interview.js
+
+// ✅ getUserAverageScore (ObjectId düzeltmesi)
 interviewSchema.statics.getUserAverageScore = async function(userId) {
   const result = await this.aggregate([
-    { $match: { userId: mongoose.Types.ObjectId(userId), status: 'completed' } },
-    { $group: { _id: null, avgScore: { $avg: '$overallScore' } } }
+    { 
+      $match: { 
+        userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+        status: 'completed' 
+      } 
+    },
+    { 
+      $group: { 
+        _id: null, 
+        avgScore: { $avg: '$overallScore' } 
+      } 
+    }
   ]);
+  
   return result.length > 0 ? Math.round(result[0].avgScore) : 0;
 };
 
-interviewSchema.statics.getUserInterviewCount = async function(userId, status = null) {
-  const query = { userId };
-  if (status) query.status = status;
-  return await this.countDocuments(query);
+// ✅ getUserAverageTechnicalScore (ObjectId düzeltmesi)
+interviewSchema.statics.getUserAverageTechnicalScore = async function(userId) {
+  const result = await this.aggregate([
+    { 
+      $match: { 
+        userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+        status: 'completed', 
+        technicalScore: { $exists: true } 
+      } 
+    },
+    { 
+      $group: { 
+        _id: null, 
+        avgTechnical: { $avg: '$technicalScore' } 
+      } 
+    }
+  ]);
+  
+  return result.length > 0 ? Math.round(result[0].avgTechnical) : 0;
 };
 
+// ✅ getUserBestScore (zaten doğru ama kontrol edelim)
 interviewSchema.statics.getUserBestScore = async function(userId) {
   const result = await this.findOne({ 
     userId, 
@@ -157,15 +187,15 @@ interviewSchema.statics.getUserBestScore = async function(userId) {
   })
   .sort({ overallScore: -1 })
   .select('overallScore professionId createdAt');
+  
   return result;
 };
 
-interviewSchema.statics.getUserAverageTechnicalScore = async function(userId) {
-  const result = await this.aggregate([
-    { $match: { userId: mongoose.Types.ObjectId(userId), status: 'completed', technicalScore: { $exists: true } } },
-    { $group: { _id: null, avgTechnical: { $avg: '$technicalScore' } } }
-  ]);
-  return result.length > 0 ? Math.round(result[0].avgTechnical) : 0;
+// ✅ getUserInterviewCount (zaten doğru)
+interviewSchema.statics.getUserInterviewCount = async function(userId, status = null) {
+  const query = { userId };
+  if (status) query.status = status;
+  return await this.countDocuments(query);
 };
 
 module.exports = mongoose.model('Interview', interviewSchema);

@@ -281,15 +281,53 @@ exports.deleteInterview = async (req, res) => {
 // @desc    Get user statistics
 // @route   GET /api/v1/interviews/stats
 // @access  Private
+// @desc    Get user statistics
+// @route   GET /api/v1/interviews/stats
+// @access  Private
 exports.getUserStats = async (req, res) => {
   try {
     const userId = req.user.id;
+    
+    console.log('📊 İstatistik istendi, userId:', userId);
 
-    const totalInterviews = await Interview.getUserInterviewCount(userId, 'completed');
+    // Toplam mülakat sayısı
+    const totalInterviews = await Interview.countDocuments({
+      userId,
+      status: 'completed'
+    });
+
+    console.log('✅ Toplam mülakat:', totalInterviews);
+
+    // Eğer hiç mülakat yoksa boş data döndür
+    if (totalInterviews === 0) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          totalInterviews: 0,
+          averageScore: 0,
+          averageTechnicalScore: 0,
+          detailedScores: null,
+          bestScore: null,
+          recentInterviews: 0,
+          professionStats: [],
+          characterStats: [],
+          progressTrend: []
+        }
+      });
+    }
+
+    // Ortalama skorlar (static method kullanıyoruz)
     const averageScore = await Interview.getUserAverageScore(userId);
     const averageTechnicalScore = await Interview.getUserAverageTechnicalScore(userId);
+
+    console.log('✅ Ortalama skorlar:', { averageScore, averageTechnicalScore });
+
+    // En iyi performans
     const bestScore = await Interview.getUserBestScore(userId);
 
+    console.log('✅ En iyi skor:', bestScore);
+
+    // Son 7 gün
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     
@@ -299,9 +337,16 @@ exports.getUserStats = async (req, res) => {
       createdAt: { $gte: sevenDaysAgo }
     });
 
-    // Detaylı skor ortalamaları
+    console.log('✅ Son 7 gün:', recentInterviews);
+
+    // ✅ Detaylı skor ortalamaları (ObjectId düzeltmesi)
     const detailedScores = await Interview.aggregate([
-      { $match: { userId: req.user._id, status: 'completed' } },
+      { 
+        $match: { 
+          userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+          status: 'completed' 
+        } 
+      },
       { 
         $group: { 
           _id: null,
@@ -312,9 +357,16 @@ exports.getUserStats = async (req, res) => {
       }
     ]);
 
-    // Mesleğe göre dağılım
+    console.log('✅ Detaylı skorlar:', detailedScores);
+
+    // ✅ Mesleğe göre dağılım (ObjectId düzeltmesi)
     const professionStats = await Interview.aggregate([
-      { $match: { userId: req.user._id, status: 'completed' } },
+      { 
+        $match: { 
+          userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+          status: 'completed' 
+        } 
+      },
       { 
         $group: { 
           _id: '$professionId', 
@@ -327,9 +379,16 @@ exports.getUserStats = async (req, res) => {
       { $limit: 5 }
     ]);
 
-    // Karaktere göre dağılım
+    console.log('✅ Meslek istatistikleri:', professionStats);
+
+    // ✅ Karaktere göre dağılım (ObjectId düzeltmesi)
     const characterStats = await Interview.aggregate([
-      { $match: { userId: req.user._id, status: 'completed' } },
+      { 
+        $match: { 
+          userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+          status: 'completed' 
+        } 
+      },
       { 
         $group: { 
           _id: '$characterId', 
@@ -340,7 +399,9 @@ exports.getUserStats = async (req, res) => {
       { $sort: { count: -1 } }
     ]);
 
-    // Gelişim trendi (son 10 mülakat)
+    console.log('✅ Karakter istatistikleri:', characterStats);
+
+    // ✅ Gelişim trendi (son 10 mülakat)
     const progressTrend = await Interview.find({
       userId,
       status: 'completed'
@@ -349,43 +410,52 @@ exports.getUserStats = async (req, res) => {
     .limit(10)
     .select('overallScore technicalScore communicationScore createdAt');
 
+    console.log('✅ Gelişim trendi:', progressTrend.length, 'adet');
+
+    const responseData = {
+      totalInterviews,
+      averageScore,
+      averageTechnicalScore,
+      detailedScores: detailedScores.length > 0 ? {
+        technical: Math.round(detailedScores[0].avgTechnical || 0),
+        communication: Math.round(detailedScores[0].avgCommunication || 0),
+        detailedness: Math.round(detailedScores[0].avgDetailedness || 0)
+      } : null,
+      bestScore: bestScore ? {
+        score: bestScore.overallScore,
+        professionId: bestScore.professionId,
+        date: bestScore.createdAt
+      } : null,
+      recentInterviews,
+      professionStats: professionStats.map(stat => ({
+        professionId: stat._id,
+        count: stat.count,
+        averageScore: Math.round(stat.avgScore),
+        averageTechnical: Math.round(stat.avgTechnical || 0)
+      })),
+      characterStats: characterStats.map(stat => ({
+        characterId: stat._id,
+        count: stat.count,
+        averageScore: Math.round(stat.avgScore)
+      })),
+      progressTrend: progressTrend.reverse()
+    };
+
+    console.log('✅ Response gönderiliyor');
+
     res.status(200).json({
       success: true,
-      data: {
-        totalInterviews,
-        averageScore,
-        averageTechnicalScore,
-        detailedScores: detailedScores.length > 0 ? {
-          technical: Math.round(detailedScores[0].avgTechnical || 0),
-          communication: Math.round(detailedScores[0].avgCommunication || 0),
-          detailedness: Math.round(detailedScores[0].avgDetailedness || 0)
-        } : null,
-        bestScore: bestScore ? {
-          score: bestScore.overallScore,
-          professionId: bestScore.professionId,
-          date: bestScore.createdAt
-        } : null,
-        recentInterviews,
-        professionStats: professionStats.map(stat => ({
-          professionId: stat._id,
-          count: stat.count,
-          averageScore: Math.round(stat.avgScore),
-          averageTechnical: Math.round(stat.avgTechnical || 0)
-        })),
-        characterStats: characterStats.map(stat => ({
-          characterId: stat._id,
-          count: stat.count,
-          averageScore: Math.round(stat.avgScore)
-        })),
-        progressTrend: progressTrend.reverse()
-      }
+      data: responseData
     });
 
   } catch (error) {
-    console.error('Get user stats error:', error);
+    console.error('❌ Get user stats error:', error);
+    console.error('❌ Error stack:', error.stack);
+    
     res.status(500).json({
       success: false,
-      message: 'İstatistikler alınırken hata oluştu'
+      message: 'İstatistikler alınırken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
