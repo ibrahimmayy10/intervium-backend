@@ -1,5 +1,6 @@
 const Interview = require('../models/Interview');
 const User = require('../models/User');
+const mongoose = require('mongoose'); // ✅ EKLEME
 
 // @desc    Create new interview
 // @route   POST /api/v1/interviews
@@ -12,19 +13,26 @@ exports.createInterview = async (req, res) => {
       overallScore, 
       feedback, 
       strengths, 
-      improvements,        // Swift'teki "improvements"
+      improvements,
       technicalScore,
       communicationScore,
       detailedness,
       recommendation,
       questionCount, 
       correctAnswers,
-      duration             // Frontend'den gönderilirse (dakika cinsinden)
+      duration
     } = req.body;
+
+    // ✅ Validasyon ekleyelim
+    if (!professionId || !characterId) {
+      return res.status(400).json({
+        success: false,
+        message: 'Meslek ve karakter bilgisi gereklidir'
+      });
+    }
 
     const userId = req.user.id;
 
-    // Yeni mülakat oluştur
     const interview = await Interview.create({
       userId,
       professionId,
@@ -34,14 +42,14 @@ exports.createInterview = async (req, res) => {
       overallScore: overallScore || 0,
       feedback: feedback || '',
       strengths: strengths || [],
-      improvements: improvements || [],     // "weaknesses" yerine "improvements"
+      improvements: improvements || [],
       technicalScore: technicalScore || 0,
       communicationScore: communicationScore || 0,
       detailedness: detailedness || 0,
       recommendation: recommendation || '',
       questionCount: questionCount || 0,
       correctAnswers: correctAnswers || 0,
-      duration: duration || null            // null ise pre-save hook hesaplar
+      duration: duration || null
     });
 
     res.status(201).json({
@@ -51,7 +59,7 @@ exports.createInterview = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Create interview error:', error);
+    console.error('❌ Create interview error:', error);
     
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
@@ -63,7 +71,8 @@ exports.createInterview = async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: 'Mülakat kaydedilirken hata oluştu'
+      message: 'Mülakat kaydedilirken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
@@ -80,7 +89,7 @@ exports.getUserInterviews = async (req, res) => {
     if (status) query.status = status;
     if (professionId) query.professionId = professionId;
 
-    const skip = (page - 1) * limit;
+    const skip = (page - 1) * parseInt(limit);
 
     const interviews = await Interview.find(query)
       .sort({ createdAt: -1 })
@@ -94,15 +103,16 @@ exports.getUserInterviews = async (req, res) => {
       count: interviews.length,
       total,
       page: parseInt(page),
-      pages: Math.ceil(total / limit),
+      pages: Math.ceil(total / parseInt(limit)),
       data: interviews
     });
 
   } catch (error) {
-    console.error('Get user interviews error:', error);
+    console.error('❌ Get user interviews error:', error);
     res.status(500).json({
       success: false,
-      message: 'Mülakatlar alınırken hata oluştu'
+      message: 'Mülakatlar alınırken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
@@ -112,6 +122,14 @@ exports.getUserInterviews = async (req, res) => {
 // @access  Private
 exports.getInterview = async (req, res) => {
   try {
+    // ✅ ObjectId validasyonu
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({
+        success: false,
+        message: 'Geçersiz mülakat ID'
+      });
+    }
+
     const interview = await Interview.findById(req.params.id);
 
     if (!interview) {
@@ -134,18 +152,12 @@ exports.getInterview = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Get interview error:', error);
+    console.error('❌ Get interview error:', error);
     
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        message: 'Mülakat bulunamadı'
-      });
-    }
-
     res.status(500).json({
       success: false,
-      message: 'Mülakat alınırken hata oluştu'
+      message: 'Mülakat alınırken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
@@ -155,6 +167,14 @@ exports.getInterview = async (req, res) => {
 // @access  Private
 exports.updateInterview = async (req, res) => {
   try {
+    // ✅ ObjectId validasyonu
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({
+        success: false,
+        message: 'Geçersiz mülakat ID'
+      });
+    }
+
     let interview = await Interview.findById(req.params.id);
 
     if (!interview) {
@@ -171,12 +191,11 @@ exports.updateInterview = async (req, res) => {
       });
     }
 
-    // Güncellenebilir alanlar
     const { 
       overallScore, 
       feedback, 
       strengths, 
-      improvements,  // "weaknesses" yerine
+      improvements,
       status,
       technicalScore,
       communicationScore,
@@ -208,15 +227,8 @@ exports.updateInterview = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Update interview error:', error);
+    console.error('❌ Update interview error:', error);
     
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        message: 'Mülakat bulunamadı'
-      });
-    }
-
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({
@@ -227,7 +239,8 @@ exports.updateInterview = async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: 'Mülakat güncellenirken hata oluştu'
+      message: 'Mülakat güncellenirken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
@@ -237,6 +250,14 @@ exports.updateInterview = async (req, res) => {
 // @access  Private
 exports.deleteInterview = async (req, res) => {
   try {
+    // ✅ ObjectId validasyonu
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({
+        success: false,
+        message: 'Geçersiz mülakat ID'
+      });
+    }
+
     const interview = await Interview.findById(req.params.id);
 
     if (!interview) {
@@ -262,25 +283,16 @@ exports.deleteInterview = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Delete interview error:', error);
+    console.error('❌ Delete interview error:', error);
     
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        message: 'Mülakat bulunamadı'
-      });
-    }
-
     res.status(500).json({
       success: false,
-      message: 'Mülakat silinirken hata oluştu'
+      message: 'Mülakat silinirken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
 
-// @desc    Get user statistics
-// @route   GET /api/v1/interviews/stats
-// @access  Private
 // @desc    Get user statistics
 // @route   GET /api/v1/interviews/stats
 // @access  Private
@@ -290,9 +302,17 @@ exports.getUserStats = async (req, res) => {
     
     console.log('📊 İstatistik istendi, userId:', userId);
 
+    // ✅ userId validasyonu
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Geçersiz kullanıcı ID'
+      });
+    }
+
     // Toplam mülakat sayısı
     const totalInterviews = await Interview.countDocuments({
-      userId,
+      userId: new mongoose.Types.ObjectId(userId),
       status: 'completed'
     });
 
@@ -306,7 +326,11 @@ exports.getUserStats = async (req, res) => {
           totalInterviews: 0,
           averageScore: 0,
           averageTechnicalScore: 0,
-          detailedScores: null,
+          detailedScores: {
+            technical: 0,
+            communication: 0,
+            detailedness: 0
+          },
           bestScore: null,
           recentInterviews: 0,
           professionStats: [],
@@ -316,7 +340,7 @@ exports.getUserStats = async (req, res) => {
       });
     }
 
-    // Ortalama skorlar (static method kullanıyoruz)
+    // Ortalama skorlar
     const averageScore = await Interview.getUserAverageScore(userId);
     const averageTechnicalScore = await Interview.getUserAverageTechnicalScore(userId);
 
@@ -332,18 +356,18 @@ exports.getUserStats = async (req, res) => {
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     
     const recentInterviews = await Interview.countDocuments({
-      userId,
+      userId: new mongoose.Types.ObjectId(userId),
       status: 'completed',
       createdAt: { $gte: sevenDaysAgo }
     });
 
     console.log('✅ Son 7 gün:', recentInterviews);
 
-    // ✅ Detaylı skor ortalamaları (ObjectId düzeltmesi)
+    // Detaylı skor ortalamaları
     const detailedScores = await Interview.aggregate([
       { 
         $match: { 
-          userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+          userId: new mongoose.Types.ObjectId(userId),
           status: 'completed' 
         } 
       },
@@ -359,11 +383,11 @@ exports.getUserStats = async (req, res) => {
 
     console.log('✅ Detaylı skorlar:', detailedScores);
 
-    // ✅ Mesleğe göre dağılım (ObjectId düzeltmesi)
+    // Mesleğe göre dağılım
     const professionStats = await Interview.aggregate([
       { 
         $match: { 
-          userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+          userId: new mongoose.Types.ObjectId(userId),
           status: 'completed' 
         } 
       },
@@ -381,11 +405,11 @@ exports.getUserStats = async (req, res) => {
 
     console.log('✅ Meslek istatistikleri:', professionStats);
 
-    // ✅ Karaktere göre dağılım (ObjectId düzeltmesi)
+    // Karaktere göre dağılım
     const characterStats = await Interview.aggregate([
       { 
         $match: { 
-          userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
+          userId: new mongoose.Types.ObjectId(userId),
           status: 'completed' 
         } 
       },
@@ -401,9 +425,9 @@ exports.getUserStats = async (req, res) => {
 
     console.log('✅ Karakter istatistikleri:', characterStats);
 
-    // ✅ Gelişim trendi (son 10 mülakat)
+    // Gelişim trendi (son 10 mülakat)
     const progressTrend = await Interview.find({
-      userId,
+      userId: new mongoose.Types.ObjectId(userId),
       status: 'completed'
     })
     .sort({ createdAt: -1 })
@@ -420,7 +444,11 @@ exports.getUserStats = async (req, res) => {
         technical: Math.round(detailedScores[0].avgTechnical || 0),
         communication: Math.round(detailedScores[0].avgCommunication || 0),
         detailedness: Math.round(detailedScores[0].avgDetailedness || 0)
-      } : null,
+      } : {
+        technical: 0,
+        communication: 0,
+        detailedness: 0
+      },
       bestScore: bestScore ? {
         score: bestScore.overallScore,
         professionId: bestScore.professionId,
@@ -430,13 +458,13 @@ exports.getUserStats = async (req, res) => {
       professionStats: professionStats.map(stat => ({
         professionId: stat._id,
         count: stat.count,
-        averageScore: Math.round(stat.avgScore),
+        averageScore: Math.round(stat.avgScore || 0),
         averageTechnical: Math.round(stat.avgTechnical || 0)
       })),
       characterStats: characterStats.map(stat => ({
         characterId: stat._id,
         count: stat.count,
-        averageScore: Math.round(stat.avgScore)
+        averageScore: Math.round(stat.avgScore || 0)
       })),
       progressTrend: progressTrend.reverse()
     };
@@ -467,8 +495,16 @@ exports.getRecentInterviews = async (req, res) => {
   try {
     const userId = req.user.id;
 
+    // ✅ userId validasyonu
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Geçersiz kullanıcı ID'
+      });
+    }
+
     const interviews = await Interview.find({ 
-      userId, 
+      userId: new mongoose.Types.ObjectId(userId), 
       status: 'completed' 
     })
       .sort({ createdAt: -1 })
@@ -482,10 +518,11 @@ exports.getRecentInterviews = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Get recent interviews error:', error);
+    console.error('❌ Get recent interviews error:', error);
     res.status(500).json({
       success: false,
-      message: 'Son mülakatlar alınırken hata oluştu'
+      message: 'Son mülakatlar alınırken hata oluştu',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
