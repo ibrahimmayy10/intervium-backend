@@ -1,3 +1,4 @@
+// professions.js
 const express = require('express');
 const router = express.Router();
 const {
@@ -8,11 +9,12 @@ const {
   searchProfessions
 } = require('../controllers/ProfessionsController');
 
-// Public routes - Authentication gerekmez
+// Özel route'lar önce
 router.get('/categories', getCategories);
 router.get('/search', searchProfessions);
 router.get('/category/:categoryId', getProfessionsByCategory);
+
+// Parametre alan route en sona
 router.get('/:professionId', getProfession);
-router.get('/', getAllProfessions);
 
 module.exports = router;

@@ -526,3 +526,49 @@ exports.getRecentInterviews = async (req, res) => {
     });
   }
 };
+
+// @desc    Get single profession
+// @route   GET /api/v1/professions/:professionId
+// @access  Public
+exports.getProfession = async (req, res) => {
+  try {
+    const { professionId } = req.params;
+
+    let foundProfession = null;
+    let foundCategory = null;
+
+    // Tüm kategorilerde ara
+    for (const category of professionsData.categories) {
+      const profession = category.professions.find(prof => prof.id === professionId);
+      if (profession) {
+        foundProfession = profession;
+        foundCategory = {
+          id: category.id,
+          name: category.name,
+          icon: category.icon
+        };
+        break;
+      }
+    }
+
+    if (!foundProfession) {
+      return res.status(404).json({
+        success: false,
+        message: 'Meslek bulunamadı'
+      });
+    }
+
+    // Swift modelinizle uyumlu olması için sadece profession'ı döndür
+    res.status(200).json({
+      success: true,
+      data: foundProfession
+    });
+
+  } catch (error) {
+    console.error('Get profession error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Meslek alınırken hata oluştu'
+    });
+  }
+};

@@ -1,3 +1,4 @@
+// characters.js
 const express = require('express');
 const router = express.Router();
 const {
@@ -8,12 +9,14 @@ const {
 } = require('../controllers/CharactersController');
 const { protect } = require('../middleware/AuthMiddleware');
 
-// Public routes
-router.get('/', getAllCharacters);
+// Özel route'lar önce gelmeli
 router.get('/difficulty/:level', getCharactersByDifficulty);
-router.get('/:characterId', getCharacter);
-
-// Protected routes
 router.get('/recommend', protect, getRecommendedCharacter);
+
+// Genel routes
+router.get('/', getAllCharacters);
+
+// Parametre alan route en sona
+router.get('/:characterId', getCharacter);
 
 module.exports = router;
