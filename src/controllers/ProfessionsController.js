@@ -84,7 +84,7 @@ exports.getProfessionsByCategory = async (req, res) => {
   }
 };
 
-// @desc    Get single profession
+// @desc    Get single profession by ID
 // @route   GET /api/v1/professions/:professionId
 // @access  Public
 exports.getProfession = async (req, res) => {
@@ -92,18 +92,12 @@ exports.getProfession = async (req, res) => {
     const { professionId } = req.params;
 
     let foundProfession = null;
-    let foundCategory = null;
 
     // Tüm kategorilerde ara
     for (const category of professionsData.categories) {
       const profession = category.professions.find(prof => prof.id === professionId);
       if (profession) {
         foundProfession = profession;
-        foundCategory = {
-          id: category.id,
-          name: category.name,
-          icon: category.icon
-        };
         break;
       }
     }
@@ -115,12 +109,10 @@ exports.getProfession = async (req, res) => {
       });
     }
 
+    // Swift modeliyle uyumlu format
     res.status(200).json({
       success: true,
-      data: {
-        profession: foundProfession,
-        category: foundCategory
-      }
+      data: foundProfession
     });
 
   } catch (error) {

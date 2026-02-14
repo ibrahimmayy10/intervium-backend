@@ -9,12 +9,12 @@ const {
   searchProfessions
 } = require('../controllers/ProfessionsController');
 
-// Özel route'lar önce
+// ÖNEMLİ: Spesifik route'lar ÖNCE gelir
 router.get('/categories', getCategories);
 router.get('/search', searchProfessions);
 router.get('/category/:categoryId', getProfessionsByCategory);
 
-// Parametre alan route en sona
+// Genel parametre alan route EN SONA
 router.get('/:professionId', getProfession);
 
 module.exports = router;

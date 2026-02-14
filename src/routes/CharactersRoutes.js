@@ -9,14 +9,12 @@ const {
 } = require('../controllers/CharactersController');
 const { protect } = require('../middleware/AuthMiddleware');
 
-// Özel route'lar önce gelmeli
+// ÖNEMLİ: Spesifik route'lar ÖNCE gelir
 router.get('/difficulty/:level', getCharactersByDifficulty);
 router.get('/recommend', protect, getRecommendedCharacter);
-
-// Genel routes
 router.get('/', getAllCharacters);
 
-// Parametre alan route en sona
+// Genel parametre alan route EN SONA
 router.get('/:characterId', getCharacter);
 
 module.exports = router;
