@@ -535,18 +535,12 @@ exports.getProfession = async (req, res) => {
     const { professionId } = req.params;
 
     let foundProfession = null;
-    let foundCategory = null;
 
     // Tüm kategorilerde ara
     for (const category of professionsData.categories) {
       const profession = category.professions.find(prof => prof.id === professionId);
       if (profession) {
         foundProfession = profession;
-        foundCategory = {
-          id: category.id,
-          name: category.name,
-          icon: category.icon
-        };
         break;
       }
     }
@@ -558,10 +552,16 @@ exports.getProfession = async (req, res) => {
       });
     }
 
-    // Swift modelinizle uyumlu olması için sadece profession'ı döndür
+    // Profession nesnesini düzgün formatta döndür
     res.status(200).json({
       success: true,
-      data: foundProfession
+      data: {
+        id: foundProfession.id,
+        name: foundProfession.name,
+        icon: foundProfession.icon,
+        description: foundProfession.description,
+        keywords: foundProfession.keywords
+      }
     });
 
   } catch (error) {

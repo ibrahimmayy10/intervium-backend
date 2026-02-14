@@ -36,10 +36,28 @@ exports.getCharacter = async (req, res) => {
       });
     }
 
+    // Character nesnesini düzgün formatta döndür
     res.status(200).json({
       success: true,
-      data: character
+      data: {
+        id: character.id,
+        name: character.name,
+        role: character.role,
+        personality: character.personality,
+        expertise: character.expertise,
+        approach: character.approach,
+        tone: character.tone,
+        feedbackStyle: character.feedbackStyle,
+        idealFor: character.idealFor,
+        difficulty: character.difficulty,
+        modelFile: character.modelFile,
+        badge: character.badge,
+        badgeColor: character.badgeColor,
+        avatar: character.avatar,
+        order: character.order
+      }
     });
+
   } catch (error) {
     console.error('Get character error:', error);
     res.status(500).json({
