@@ -7,6 +7,7 @@ const {
   updateInterview,
   deleteInterview,
   getUserStats,
+  getUserStatsByProfession, // ✅ YENİ
   getRecentInterviews
 } = require('../controllers/InterviewController');
 const { protect } = require('../middleware/AuthMiddleware');
@@ -14,8 +15,9 @@ const { protect } = require('../middleware/AuthMiddleware');
 // Tüm routes protected (authentication gerekli)
 router.use(protect);
 
-// Stats ve Recent endpoints (önce tanımla, yoksa :id ile karışır)
+// Stats endpoints (önce tanımla, yoksa :id ile karışır)
 router.get('/stats', getUserStats);
+router.get('/stats/profession/:professionId', getUserStatsByProfession); // ✅ YENİ
 router.get('/recent', getRecentInterviews);
 
 // CRUD endpoints
