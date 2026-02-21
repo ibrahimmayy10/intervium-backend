@@ -165,3 +165,112 @@ exports.getMe = async (req, res) => {
     });
   }
 };
+
+// @desc    Update profile
+// @route   PUT /api/v1/auth/profile
+// @access  Private
+exports.updateProfile = async (req, res) => {
+  try {
+    const { name, surname, email } = req.body;
+
+    // Email başkası tarafından kullanılıyor mu?
+    if (email) {
+      const existingUser = await User.findOne({ email, _id: { $ne: req.user.id } });
+      if (existingUser) {
+        return res.status(400).json({
+          success: false,
+          message: 'Bu email adresi zaten kullanılıyor'
+        });
+      }
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { name, surname, email },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Profil güncellendi',
+      data: {
+        id: updatedUser._id,
+        name: updatedUser.name,
+        surname: updatedUser.surname,
+        email: updatedUser.email,
+        fullName: updatedUser.fullName,
+        createdAt: updatedUser.createdAt
+      }
+    });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        message: messages[0] || 'Geçersiz veri'
+      });
+    }
+    res.status(500).json({
+      success: false,
+      message: 'Profil güncellenirken bir hata oluştu'
+    });
+  }
+};
+
+// @desc    Change password
+// @route   PUT /api/v1/auth/change-password
+// @access  Private
+exports.changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Mevcut ve yeni şifre gereklidir'
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Yeni şifre en az 6 karakter olmalıdır'
+      });
+    }
+
+    // Password'u select ile getir
+    const user = await User.findById(req.user.id).select('+password');
+
+    // Mevcut şifreyi doğrula
+    const isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Mevcut şifre hatalı'
+      });
+    }
+
+    // Aynı şifre mi?
+    if (currentPassword === newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Yeni şifre mevcut şifreyle aynı olamaz'
+      });
+    }
+
+    user.password = newPassword;
+    await user.save(); // pre-save hook şifreyi otomatik hashler
+
+    res.status(200).json({
+      success: true,
+      message: 'Şifre başarıyla güncellendi'
+    });
+  } catch (error) {
+    console.error('Change password error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Şifre değiştirilirken bir hata oluştu'
+    });
+  }
+};
