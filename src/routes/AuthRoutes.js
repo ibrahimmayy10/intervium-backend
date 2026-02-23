@@ -5,7 +5,8 @@ const {
   login,
   getMe,
   updateProfile,
-  changePassword
+  changePassword,
+  deleteAccount
 } = require('../controllers/AuthController');
 const { protect } = require('../middleware/AuthMiddleware');
 
@@ -17,5 +18,6 @@ router.post('/login', login);
 router.get('/me', protect, getMe);
 router.put('/profile', protect, updateProfile);
 router.put('/change-password', protect, changePassword);
+router.delete('/account', protect, deleteAccount);
 
 module.exports = router;

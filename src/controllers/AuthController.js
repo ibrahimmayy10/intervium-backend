@@ -274,3 +274,49 @@ exports.changePassword = async (req, res) => {
     });
   }
 };
+
+// @desc    Delete account
+// @route   DELETE /api/v1/auth/account
+// @access  Private
+exports.deleteAccount = async (req, res) => {
+  try {
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Hesabınızı silmek için şifrenizi girmeniz gerekiyor'
+      });
+    }
+
+    // Şifreyi doğrula
+    const user = await User.findById(req.user.id).select('+password');
+    const isMatch = await user.comparePassword(password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Şifre hatalı'
+      });
+    }
+
+    // Kullanıcıya ait tüm mülakatları sil
+    const Interview = require('../models/Interview');
+    await Interview.deleteMany({ userId: req.user.id });
+
+    // Kullanıcıyı sil
+    await User.findByIdAndDelete(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      message: 'Hesabınız ve tüm verileriniz başarıyla silindi'
+    });
+
+  } catch (error) {
+    console.error('Delete account error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Hesap silinirken bir hata oluştu'
+    });
+  }
+};
