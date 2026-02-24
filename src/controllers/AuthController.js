@@ -1,12 +1,19 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// JWT token oluştur
-const generateToken = (userId) => {
+const generateAccessToken = (userId) => {
   return jwt.sign(
     { id: userId },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRE }
+  );
+};
+
+const generateRefreshToken = (userId) => {
+  return jwt.sign(
+    { id: userId },
+    process.env.JWT_REFRESH_SECRET,
+    { expiresIn: process.env.JWT_REFRESH_EXPIRE }
   );
 };
 
@@ -17,7 +24,6 @@ exports.register = async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
 
-    // Email zaten var mı kontrol et
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
@@ -26,16 +32,13 @@ exports.register = async (req, res) => {
       });
     }
 
-    // Yeni user oluştur
-    const user = await User.create({
-      name,
-      surname,
-      email,
-      password
-    });
+    const user = await User.create({ name, surname, email, password });
 
-    // JWT token oluştur
-    const token = generateToken(user._id);
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
 
     res.status(201).json({
       success: true,
@@ -49,26 +52,18 @@ exports.register = async (req, res) => {
           fullName: user.fullName,
           createdAt: user.createdAt
         },
-        token
+        token: accessToken,
+        refreshToken
       }
     });
 
   } catch (error) {
     console.error('Register error:', error);
-    
-    // Validation error
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({
-        success: false,
-        message: messages[0] || 'Geçersiz veri'
-      });
+      return res.status(400).json({ success: false, message: messages[0] || 'Geçersiz veri' });
     }
-
-    res.status(500).json({
-      success: false,
-      message: 'Kayıt sırasında bir hata oluştu'
-    });
+    res.status(500).json({ success: false, message: 'Kayıt sırasında bir hata oluştu' });
   }
 };
 
@@ -79,36 +74,32 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Email ve password kontrolü
     if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: 'Email ve şifre gereklidir'
-      });
+      return res.status(400).json({ success: false, message: 'Email ve şifre gereklidir' });
     }
 
-    // User'ı bul (password'u da getir)
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select('+password +refreshToken');
 
     if (!user) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'Email veya şifre hatalı'
       });
     }
 
-    // Password kontrolü
     const isPasswordCorrect = await user.comparePassword(password);
-
     if (!isPasswordCorrect) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'Email veya şifre hatalı'
       });
     }
 
-    // JWT token oluştur
-    const token = generateToken(user._id);
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
@@ -122,16 +113,74 @@ exports.login = async (req, res) => {
           fullName: user.fullName,
           createdAt: user.createdAt
         },
-        token
+        token: accessToken,
+        refreshToken
       }
     });
 
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Giriş sırasında bir hata oluştu'
+    res.status(500).json({ success: false, message: 'Giriş sırasında bir hata oluştu' });
+  }
+};
+
+// @desc    Refresh access token
+// @route   POST /api/v1/auth/refresh
+// @access  Public
+exports.refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(401).json({ success: false, message: 'Refresh token gerekli' });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    } catch {
+      return res.status(401).json({ success: false, message: 'Geçersiz veya süresi dolmuş refresh token' });
+    }
+
+    const user = await User.findById(decoded.id).select('+refreshToken');
+    if (!user || user.refreshToken !== refreshToken) {
+      return res.status(401).json({ success: false, message: 'Geçersiz refresh token' });
+    }
+
+    // Rotation: her seferinde yeni token üret
+    const newAccessToken = generateAccessToken(user._id);
+    const newRefreshToken = generateRefreshToken(user._id);
+
+    user.refreshToken = newRefreshToken;
+    await user.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        token: newAccessToken,
+        refreshToken: newRefreshToken
+      }
     });
+
+  } catch (error) {
+    console.error('Refresh token error:', error);
+    res.status(500).json({ success: false, message: 'Token yenilenemedi' });
+  }
+};
+
+// @desc    Logout
+// @route   POST /api/v1/auth/logout
+// @access  Private
+exports.logout = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (user) {
+      user.refreshToken = null;
+      await user.save({ validateBeforeSave: false });
+    }
+    res.status(200).json({ success: true, message: 'Çıkış başarılı' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Çıkış sırasında hata oluştu' });
   }
 };
 
@@ -140,9 +189,7 @@ exports.login = async (req, res) => {
 // @access  Private
 exports.getMe = async (req, res) => {
   try {
-    // req.user middleware'den geliyor
     const user = await User.findById(req.user.id);
-
     res.status(200).json({
       success: true,
       data: {
@@ -156,13 +203,9 @@ exports.getMe = async (req, res) => {
         }
       }
     });
-
   } catch (error) {
     console.error('Get me error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Kullanıcı bilgileri alınamadı'
-    });
+    res.status(500).json({ success: false, message: 'Kullanıcı bilgileri alınamadı' });
   }
 };
 
@@ -173,14 +216,10 @@ exports.updateProfile = async (req, res) => {
   try {
     const { name, surname, email } = req.body;
 
-    // Email başkası tarafından kullanılıyor mu?
     if (email) {
       const existingUser = await User.findOne({ email, _id: { $ne: req.user.id } });
       if (existingUser) {
-        return res.status(400).json({
-          success: false,
-          message: 'Bu email adresi zaten kullanılıyor'
-        });
+        return res.status(400).json({ success: false, message: 'Bu email adresi zaten kullanılıyor' });
       }
     }
 
@@ -206,15 +245,9 @@ exports.updateProfile = async (req, res) => {
     console.error('Update profile error:', error);
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({
-        success: false,
-        message: messages[0] || 'Geçersiz veri'
-      });
+      return res.status(400).json({ success: false, message: messages[0] || 'Geçersiz veri' });
     }
-    res.status(500).json({
-      success: false,
-      message: 'Profil güncellenirken bir hata oluştu'
-    });
+    res.status(500).json({ success: false, message: 'Profil güncellenirken bir hata oluştu' });
   }
 };
 
@@ -226,52 +259,31 @@ exports.changePassword = async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || !newPassword) {
-      return res.status(400).json({
-        success: false,
-        message: 'Mevcut ve yeni şifre gereklidir'
-      });
+      return res.status(400).json({ success: false, message: 'Mevcut ve yeni şifre gereklidir' });
     }
 
     if (newPassword.length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: 'Yeni şifre en az 6 karakter olmalıdır'
-      });
+      return res.status(400).json({ success: false, message: 'Yeni şifre en az 6 karakter olmalıdır' });
     }
 
-    // Password'u select ile getir
     const user = await User.findById(req.user.id).select('+password');
 
-    // Mevcut şifreyi doğrula
     const isMatch = await user.comparePassword(currentPassword);
     if (!isMatch) {
-      return res.status(400).json({
-        success: false,
-        message: 'Mevcut şifre hatalı'
-      });
+      return res.status(400).json({ success: false, message: 'Mevcut şifre hatalı' });
     }
 
-    // Aynı şifre mi?
     if (currentPassword === newPassword) {
-      return res.status(400).json({
-        success: false,
-        message: 'Yeni şifre mevcut şifreyle aynı olamaz'
-      });
+      return res.status(400).json({ success: false, message: 'Yeni şifre mevcut şifreyle aynı olamaz' });
     }
 
     user.password = newPassword;
-    await user.save(); // pre-save hook şifreyi otomatik hashler
+    await user.save();
 
-    res.status(200).json({
-      success: true,
-      message: 'Şifre başarıyla güncellendi'
-    });
+    res.status(200).json({ success: true, message: 'Şifre başarıyla güncellendi' });
   } catch (error) {
     console.error('Change password error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Şifre değiştirilirken bir hata oluştu'
-    });
+    res.status(500).json({ success: false, message: 'Şifre değiştirilirken bir hata oluştu' });
   }
 };
 
@@ -283,40 +295,23 @@ exports.deleteAccount = async (req, res) => {
     const { password } = req.body;
 
     if (!password) {
-      return res.status(400).json({
-        success: false,
-        message: 'Hesabınızı silmek için şifrenizi girmeniz gerekiyor'
-      });
+      return res.status(400).json({ success: false, message: 'Hesabınızı silmek için şifrenizi girmeniz gerekiyor' });
     }
 
-    // Şifreyi doğrula
     const user = await User.findById(req.user.id).select('+password');
     const isMatch = await user.comparePassword(password);
 
     if (!isMatch) {
-      return res.status(400).json({
-        success: false,
-        message: 'Şifre hatalı'
-      });
+      return res.status(400).json({ success: false, message: 'Şifre hatalı' });
     }
 
-    // Kullanıcıya ait tüm mülakatları sil
     const Interview = require('../models/Interview');
     await Interview.deleteMany({ userId: req.user.id });
-
-    // Kullanıcıyı sil
     await User.findByIdAndDelete(req.user.id);
 
-    res.status(200).json({
-      success: true,
-      message: 'Hesabınız ve tüm verileriniz başarıyla silindi'
-    });
-
+    res.status(200).json({ success: true, message: 'Hesabınız ve tüm verileriniz başarıyla silindi' });
   } catch (error) {
     console.error('Delete account error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Hesap silinirken bir hata oluştu'
-    });
+    res.status(500).json({ success: false, message: 'Hesap silinirken bir hata oluştu' });
   }
 };

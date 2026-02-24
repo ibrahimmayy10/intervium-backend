@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Şifre gereklidir'],
     minlength: [6, 'Şifre en az 8 karakter olmalıdır'],
     select: false // Query'lerde otomatik gelmesin
+  },
+  refreshToken: {
+    type: String,
+    select: false
   }
 }, {
   timestamps: true // createdAt, updatedAt otomatik ekler
