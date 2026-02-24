@@ -119,8 +119,8 @@ exports.login = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Login error:', error.message, error.stack);
-    res.status(500).json({ success: false, message: error.message });
+    console.error('Login error:', error);
+    res.status(500).json({ success: false, message: 'Giriş sırasında bir hata oluştu' });
   }
 };
 
