@@ -74,6 +74,8 @@ const buildVerificationEmailHTML = (name, code) => `
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
   <title>E-posta Doğrulama</title>
 </head>
 <body style="margin:0;padding:0;background-color:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
@@ -105,7 +107,7 @@ const buildVerificationEmailHTML = (name, code) => `
               </div>
 
               <p style="margin:0;color:#9ca3af;font-size:13px;line-height:1.6;text-align:center;">
-                Bu kod <strong>15 dakika</strong> geçerlidir.<br/>
+                Bu kod <strong>2 dakika</strong> geçerlidir.<br/>
                 Eğer bu işlemi siz yapmadıysanız bu e-postayı görmezden gelebilirsiniz.
               </p>
             </td>
@@ -165,7 +167,7 @@ const buildPasswordResetEmailHTML = (name, code) => `
               </div>
 
               <p style="margin:0;color:#9ca3af;font-size:13px;line-height:1.6;text-align:center;">
-                Bu kod <strong>15 dakika</strong> geçerlidir.<br/>
+                Bu kod <strong>2 dakika</strong> geçerlidir.<br/>
                 Eğer bu işlemi siz yapmadıysanız şifreniz güvende, bu e-postayı görmezden gelebilirsiniz.
               </p>
             </td>
