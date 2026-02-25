@@ -1,3 +1,5 @@
+// models/User.js
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -30,43 +32,68 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Şifre gereklidir'],
-    minlength: [6, 'Şifre en az 8 karakter olmalıdır'],
-    select: false // Query'lerde otomatik gelmesin
+    minlength: [6, 'Şifre en az 6 karakter olmalıdır'],
+    select: false
   },
   refreshToken: {
     type: String,
     select: false
+  },
+
+  // ─── Email Doğrulama ───────────────────────────────────────────
+  isEmailVerified: {
+    type: Boolean,
+    default: false
+  },
+  emailVerificationCode: {
+    type: String,
+    select: false
+  },
+  emailVerificationExpire: {
+    type: Date,
+    select: false
+  },
+
+  // ─── Şifre Sıfırlama ──────────────────────────────────────────
+  passwordResetCode: {
+    type: String,
+    select: false
+  },
+  passwordResetExpire: {
+    type: Date,
+    select: false
   }
+
 }, {
-  timestamps: true // createdAt, updatedAt otomatik ekler
+  timestamps: true
 });
 
-// Virtual field: Full name
-userSchema.virtual('fullName').get(function() {
+// Virtual: Full name
+userSchema.virtual('fullName').get(function () {
   return `${this.name} ${this.surname}`;
 });
 
-// Password'u hashle (kaydetmeden önce)
-userSchema.pre('save', async function() {  // ← next parametresini kaldırdık
-  // Eğer password değişmediyse skip et
-  if (!this.isModified('password')) {
-    return;  // ← next() yerine return
-  }
-
-  // Password'u hashle (bcrypt)
+// Password hash
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-});  // ← next() kaldırıldı
+});
 
-// Password karşılaştırma metodu
-userSchema.methods.comparePassword = async function(candidatePassword) {
+// Password karşılaştırma
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// JSON response'da password'u gösterme
-userSchema.methods.toJSON = function() {
+// JSON response'da hassas alanları gizle
+userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password;
+  delete user.refreshToken;
+  delete user.emailVerificationCode;
+  delete user.emailVerificationExpire;
+  delete user.passwordResetCode;
+  delete user.passwordResetExpire;
   delete user.__v;
   return user;
 };

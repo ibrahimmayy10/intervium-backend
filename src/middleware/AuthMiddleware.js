@@ -1,3 +1,5 @@
+// middleware/AuthMiddleware.js
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -6,12 +8,10 @@ exports.protect = async (req, res, next) => {
   try {
     let token;
 
-    // Header'dan token al
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
 
-    // Token var mı kontrol et
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -19,12 +19,9 @@ exports.protect = async (req, res, next) => {
       });
     }
 
-    // Token'ı doğrula
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // User'ı bul
     const user = await User.findById(decoded.id);
-
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -32,7 +29,15 @@ exports.protect = async (req, res, next) => {
       });
     }
 
-    // User'ı request'e ekle
+    // Email doğrulanmamışsa engelle
+    if (!user.isEmailVerified) {
+      return res.status(403).json({
+        success: false,
+        message: 'E-posta adresiniz doğrulanmamış',
+        data: { requiresVerification: true, email: user.email }
+      });
+    }
+
     req.user = user;
     next();
 
@@ -40,22 +45,12 @@ exports.protect = async (req, res, next) => {
     console.error('Auth middleware error:', error);
 
     if (error.name === 'JsonWebTokenError') {
-      return res.status(401).json({
-        success: false,
-        message: 'Geçersiz token'
-      });
+      return res.status(401).json({ success: false, message: 'Geçersiz token' });
     }
-
     if (error.name === 'TokenExpiredError') {
-      return res.status(401).json({
-        success: false,
-        message: 'Token süresi dolmuş'
-      });
+      return res.status(401).json({ success: false, message: 'Token süresi dolmuş' });
     }
 
-    return res.status(401).json({
-      success: false,
-      message: 'Yetkilendirme hatası'
-    });
+    return res.status(401).json({ success: false, message: 'Yetkilendirme hatası' });
   }
 };

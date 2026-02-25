@@ -1,3 +1,5 @@
+// routes/AuthRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const {
@@ -8,7 +10,11 @@ const {
   getMe,
   updateProfile,
   changePassword,
-  deleteAccount
+  deleteAccount,
+  verifyEmail,
+  resendVerification,
+  forgotPassword,
+  resetPassword
 } = require('../controllers/AuthController');
 const { protect } = require('../middleware/AuthMiddleware');
 
@@ -16,6 +22,10 @@ const { protect } = require('../middleware/AuthMiddleware');
 router.post('/register', register);
 router.post('/login', login);
 router.post('/refresh', refreshToken);
+router.post('/verify-email', verifyEmail);
+router.post('/resend-verification', resendVerification);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
 
 // Protected routes
 router.post('/logout', protect, logout);

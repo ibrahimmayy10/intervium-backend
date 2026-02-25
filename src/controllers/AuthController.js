@@ -1,48 +1,148 @@
+// controllers/AuthController.js
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { 
+  sendVerificationEmail, 
+  sendPasswordResetEmail,
+  generateVerificationCode 
+} = require('../services/EmailService');
 
-const generateAccessToken = (userId) => {
-  return jwt.sign(
-    { id: userId },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRE }
-  );
-};
+// ─── Token Helpers ────────────────────────────────────────────────────────────
 
-const generateRefreshToken = (userId) => {
-  return jwt.sign(
-    { id: userId },
-    process.env.JWT_REFRESH_SECRET,
-    { expiresIn: process.env.JWT_REFRESH_EXPIRE }
-  );
-};
+const generateAccessToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
 
-// @desc    Register user
+const generateRefreshToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, { expiresIn: process.env.JWT_REFRESH_EXPIRE });
+
+// Kodun süresi dolmuş mu?
+const isCodeExpired = (expireDate) => !expireDate || new Date() > new Date(expireDate);
+
+// ─── Register ─────────────────────────────────────────────────────────────────
+
+// @desc    Register user — email doğrulama kodu gönderir, token VERMEZ
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
 
+    // Email zaten var mı?
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      // Doğrulanmamış hesap varsa kodu yeniden gönder
+      if (!existingUser.isEmailVerified) {
+        const code = generateVerificationCode();
+        existingUser.emailVerificationCode = code;
+        existingUser.emailVerificationExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 dk
+        await existingUser.save({ validateBeforeSave: false });
+
+        await sendVerificationEmail(email, existingUser.name, code);
+
+        return res.status(200).json({
+          success: true,
+          message: 'Doğrulama kodu e-posta adresinize tekrar gönderildi',
+          data: { email, requiresVerification: true }
+        });
+      }
+
       return res.status(400).json({
         success: false,
         message: 'Bu email adresi zaten kullanılıyor'
       });
     }
 
-    const user = await User.create({ name, surname, email, password });
+    // Doğrulama kodu üret
+    const code = generateVerificationCode();
+    const codeExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 dk
 
-    const accessToken = generateAccessToken(user._id);
-    const refreshToken = generateRefreshToken(user._id);
+    // Kullanıcıyı oluştur (henüz doğrulanmamış)
+    const user = await User.create({
+      name,
+      surname,
+      email,
+      password,
+      isEmailVerified: false,
+      emailVerificationCode: code,
+      emailVerificationExpire: codeExpire
+    });
 
-    user.refreshToken = refreshToken;
-    await user.save({ validateBeforeSave: false });
+    // Email gönder
+    await sendVerificationEmail(email, name, code);
 
     res.status(201).json({
       success: true,
-      message: 'Kayıt başarılı',
+      message: 'Doğrulama kodu e-posta adresinize gönderildi',
+      data: {
+        email,
+        requiresVerification: true
+      }
+    });
+
+  } catch (error) {
+    console.error('Register error:', error);
+    if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ success: false, message: messages[0] || 'Geçersiz veri' });
+    }
+    res.status(500).json({ success: false, message: 'Kayıt sırasında bir hata oluştu' });
+  }
+};
+
+// ─── Verify Email ─────────────────────────────────────────────────────────────
+
+// @desc    Email doğrulama kodu kontrol et — başarılıysa token döner
+// @route   POST /api/v1/auth/verify-email
+// @access  Public
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { email, code } = req.body;
+
+    if (!email || !code) {
+      return res.status(400).json({ success: false, message: 'Email ve kod gereklidir' });
+    }
+
+    const user = await User.findOne({ email })
+      .select('+emailVerificationCode +emailVerificationExpire');
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Kullanıcı bulunamadı' });
+    }
+
+    if (user.isEmailVerified) {
+      return res.status(400).json({ success: false, message: 'Bu hesap zaten doğrulanmış' });
+    }
+
+    // Kod süresi dolmuş mu?
+    if (isCodeExpired(user.emailVerificationExpire)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Doğrulama kodunun süresi dolmuş. Lütfen yeni kod isteyin',
+        data: { codeExpired: true }
+      });
+    }
+
+    // Kod doğru mu?
+    if (user.emailVerificationCode !== code.trim()) {
+      return res.status(400).json({ success: false, message: 'Geçersiz doğrulama kodu' });
+    }
+
+    // Hesabı doğrula, kodları temizle
+    user.isEmailVerified = true;
+    user.emailVerificationCode = undefined;
+    user.emailVerificationExpire = undefined;
+
+    // Token üret
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+    user.refreshToken = refreshToken;
+
+    await user.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      message: 'E-posta adresiniz başarıyla doğrulandı',
       data: {
         user: {
           id: user._id,
@@ -58,14 +158,53 @@ exports.register = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Register error:', error);
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({ success: false, message: messages[0] || 'Geçersiz veri' });
-    }
-    res.status(500).json({ success: false, message: 'Kayıt sırasında bir hata oluştu' });
+    console.error('Verify email error:', error);
+    res.status(500).json({ success: false, message: 'Doğrulama sırasında bir hata oluştu' });
   }
 };
+
+// ─── Resend Verification Code ─────────────────────────────────────────────────
+
+// @desc    Yeni doğrulama kodu gönder
+// @route   POST /api/v1/auth/resend-verification
+// @access  Public
+exports.resendVerification = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email gereklidir' });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Kullanıcı bulunamadı' });
+    }
+
+    if (user.isEmailVerified) {
+      return res.status(400).json({ success: false, message: 'Bu hesap zaten doğrulanmış' });
+    }
+
+    const code = generateVerificationCode();
+    user.emailVerificationCode = code;
+    user.emailVerificationExpire = new Date(Date.now() + 15 * 60 * 1000);
+    await user.save({ validateBeforeSave: false });
+
+    await sendVerificationEmail(email, user.name, code);
+
+    res.status(200).json({
+      success: true,
+      message: 'Doğrulama kodu tekrar gönderildi'
+    });
+
+  } catch (error) {
+    console.error('Resend verification error:', error);
+    res.status(500).json({ success: false, message: 'Kod gönderilemedi' });
+  }
+};
+
+// ─── Login ────────────────────────────────────────────────────────────────────
 
 // @desc    Login user
 // @route   POST /api/v1/auth/login
@@ -81,17 +220,27 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email }).select('+password +refreshToken');
 
     if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: 'Email veya şifre hatalı'
-      });
+      return res.status(400).json({ success: false, message: 'Email veya şifre hatalı' });
     }
 
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect) {
-      return res.status(400).json({
+      return res.status(400).json({ success: false, message: 'Email veya şifre hatalı' });
+    }
+
+    // Email doğrulanmamışsa kod tekrar gönder
+    if (!user.isEmailVerified) {
+      const code = generateVerificationCode();
+      user.emailVerificationCode = code;
+      user.emailVerificationExpire = new Date(Date.now() + 15 * 60 * 1000);
+      await user.save({ validateBeforeSave: false });
+
+      await sendVerificationEmail(email, user.name, code);
+
+      return res.status(403).json({
         success: false,
-        message: 'Email veya şifre hatalı'
+        message: 'E-posta adresiniz doğrulanmamış. Doğrulama kodu tekrar gönderildi.',
+        data: { email, requiresVerification: true }
       });
     }
 
@@ -124,9 +273,105 @@ exports.login = async (req, res) => {
   }
 };
 
-// @desc    Refresh access token
-// @route   POST /api/v1/auth/refresh
+// ─── Forgot Password ──────────────────────────────────────────────────────────
+
+// @desc    Şifre sıfırlama kodu gönder
+// @route   POST /api/v1/auth/forgot-password
 // @access  Public
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email gereklidir' });
+    }
+
+    const user = await User.findOne({ email });
+
+    // Güvenlik: kullanıcı yoksa bile aynı mesajı döndür
+    if (!user) {
+      return res.status(200).json({
+        success: true,
+        message: 'Şifre sıfırlama kodu e-posta adresinize gönderildi'
+      });
+    }
+
+    const code = generateVerificationCode();
+    user.passwordResetCode = code;
+    user.passwordResetExpire = new Date(Date.now() + 15 * 60 * 1000);
+    await user.save({ validateBeforeSave: false });
+
+    await sendPasswordResetEmail(email, user.name, code);
+
+    res.status(200).json({
+      success: true,
+      message: 'Şifre sıfırlama kodu e-posta adresinize gönderildi'
+    });
+
+  } catch (error) {
+    console.error('Forgot password error:', error);
+    res.status(500).json({ success: false, message: 'Kod gönderilemedi' });
+  }
+};
+
+// ─── Reset Password ───────────────────────────────────────────────────────────
+
+// @desc    Kod + yeni şifre ile şifre sıfırla
+// @route   POST /api/v1/auth/reset-password
+// @access  Public
+exports.resetPassword = async (req, res) => {
+  try {
+    const { email, code, newPassword } = req.body;
+
+    if (!email || !code || !newPassword) {
+      return res.status(400).json({ success: false, message: 'Email, kod ve yeni şifre gereklidir' });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ success: false, message: 'Şifre en az 6 karakter olmalıdır' });
+    }
+
+    const user = await User.findOne({ email })
+      .select('+passwordResetCode +passwordResetExpire +password');
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Kullanıcı bulunamadı' });
+    }
+
+    if (isCodeExpired(user.passwordResetExpire)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Şifre sıfırlama kodunun süresi dolmuş. Lütfen yeni kod isteyin',
+        data: { codeExpired: true }
+      });
+    }
+
+    if (user.passwordResetCode !== code.trim()) {
+      return res.status(400).json({ success: false, message: 'Geçersiz sıfırlama kodu' });
+    }
+
+    // Şifreyi güncelle, kodu temizle
+    user.password = newPassword;
+    user.passwordResetCode = undefined;
+    user.passwordResetExpire = undefined;
+    // Tüm oturumları geçersiz kıl
+    user.refreshToken = undefined;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Şifreniz başarıyla sıfırlandı. Lütfen yeni şifrenizle giriş yapın.'
+    });
+
+  } catch (error) {
+    console.error('Reset password error:', error);
+    res.status(500).json({ success: false, message: 'Şifre sıfırlanırken hata oluştu' });
+  }
+};
+
+// ─── Mevcut endpoint'ler (değişmedi) ─────────────────────────────────────────
+
 exports.refreshToken = async (req, res) => {
   try {
     const { refreshToken } = req.body;
@@ -147,7 +392,6 @@ exports.refreshToken = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Geçersiz refresh token' });
     }
 
-    // Rotation: her seferinde yeni token üret
     const newAccessToken = generateAccessToken(user._id);
     const newRefreshToken = generateRefreshToken(user._id);
 
@@ -156,10 +400,7 @@ exports.refreshToken = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: {
-        token: newAccessToken,
-        refreshToken: newRefreshToken
-      }
+      data: { token: newAccessToken, refreshToken: newRefreshToken }
     });
 
   } catch (error) {
@@ -168,9 +409,6 @@ exports.refreshToken = async (req, res) => {
   }
 };
 
-// @desc    Logout
-// @route   POST /api/v1/auth/logout
-// @access  Private
 exports.logout = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -184,9 +422,6 @@ exports.logout = async (req, res) => {
   }
 };
 
-// @desc    Get current user
-// @route   GET /api/v1/auth/me
-// @access  Private
 exports.getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -209,9 +444,6 @@ exports.getMe = async (req, res) => {
   }
 };
 
-// @desc    Update profile
-// @route   PUT /api/v1/auth/profile
-// @access  Private
 exports.updateProfile = async (req, res) => {
   try {
     const { name, surname, email } = req.body;
@@ -251,9 +483,6 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-// @desc    Change password
-// @route   PUT /api/v1/auth/change-password
-// @access  Private
 exports.changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
@@ -267,7 +496,6 @@ exports.changePassword = async (req, res) => {
     }
 
     const user = await User.findById(req.user.id).select('+password');
-
     const isMatch = await user.comparePassword(currentPassword);
     if (!isMatch) {
       return res.status(400).json({ success: false, message: 'Mevcut şifre hatalı' });
@@ -287,9 +515,6 @@ exports.changePassword = async (req, res) => {
   }
 };
 
-// @desc    Delete account
-// @route   DELETE /api/v1/auth/account
-// @access  Private
 exports.deleteAccount = async (req, res) => {
   try {
     const { password } = req.body;
