@@ -98,7 +98,7 @@
         {
           "id": "prof_backend_node",
           "name": "Backend Developer (Node.js)",
-          "icon": "server.rack",
+          "icon": "nodejs",
           "description": "Node.js, Express, MongoDB, RESTful API, Microservices ile backend geliştirme.",
           "keywords": [
             "Node.js",
@@ -111,7 +111,7 @@
         {
           "id": "prof_backend_python",
           "name": "Backend Developer (Python)",
-          "icon": "server.rack",
+          "icon": "python",
           "description": "Python, Django, FastAPI, PostgreSQL ile backend sistemler geliştirme.",
           "keywords": [
             "Python",
@@ -151,7 +151,7 @@
         {
           "id": "prof_backend_php",
           "name": "Backend Developer (PHP)",
-          "icon": "server.rack",
+          "icon": "php",
           "description": "PHP, Laravel, Symfony, MySQL ile web backend geliştirme.",
           "keywords": [
             "PHP",
@@ -177,7 +177,7 @@
         {
           "id": "prof_backend_rust",
           "name": "Backend Developer (Rust)",
-          "icon": "server.rack",
+          "icon": "rust",
           "description": "Rust, Actix, Rocket, memory-safe ve performans odaklı backend geliştirme.",
           "keywords": [
             "Rust",
@@ -671,13 +671,13 @@
     {
       "id": "cat_genetics",
       "name": "Genetik & Biyomühendislik",
-      "icon": "dna",
+      "icon": "waveform.path.ecg.magnifyingglass",
       "order": 6,
       "professions": [
         {
           "id": "prof_genetic_engineer",
           "name": "Genetik Mühendisi",
-          "icon": "dna",
+          "icon": "point.3.filled.connected.trianglepath.dotted",
           "description": "Gen düzenleme, CRISPR, rekombinant DNA teknolojisi, transgenik organizmalar.",
           "keywords": [
             "Genetik Mühendisliği",
@@ -744,6 +744,54 @@
             "Laboratuvar",
             "Mikrobiyoloji",
             "İmmünoloji"
+          ]
+        },
+        {
+          "id": "prof_biotechnologist",
+          "name": "Biyoteknoloji Uzmanı",
+          "icon": "waveform.path.ecg.magnifyingglass",
+          "description": "Rekombinant DNA, biyofarmakologlar, hücre kültürü, biyosensörler.",
+          "keywords": [
+            "Biyoteknoloji",
+            "DNA",
+            "Hücre Kültürü",
+            "Biyofarma"
+          ]
+        },
+        {
+          "id": "prof_immunologist",
+          "name": "İmmünolog",
+          "icon": "cross.vial.fill",
+          "description": "Bağışıklık sistemi araştırması, aşı geliştirme, otoimmün hastalıklar, immünoterapi.",
+          "keywords": [
+            "İmmünoloji",
+            "Bağışıklık",
+            "Aşı",
+            "İmmünoterapi"
+          ]
+        },
+        {
+          "id": "prof_microbiologist",
+          "name": "Mikrobiyolog",
+          "icon": "allergens.fill",
+          "description": "Bakteri, virüs, mantar araştırması, antimikrobiyal direnç, klinik mikrobiyoloji.",
+          "keywords": [
+            "Mikrobiyoloji",
+            "Bakteri",
+            "Virüs",
+            "Antimikrobiyal"
+          ]
+        },
+        {
+          "id": "prof_toxicologist",
+          "name": "Toksikolog",
+          "icon": "exclamationmark.triangle.fill",
+          "description": "Kimyasal/biyolojik madde toksisitesi, ilaç güvenliği, çevre toksikolojisi, risk değerlendirmesi.",
+          "keywords": [
+            "Toksikoloji",
+            "Zehir",
+            "İlaç Güvenliği",
+            "Çevre"
           ]
         }
       ]
@@ -1653,7 +1701,7 @@
         {
           "id": "prof_market_researcher",
           "name": "Pazar Araştırma Uzmanı",
-          "icon": "doc.text.magnifyingglass.fill",
+          "icon": "magnifyingglass.circle.fill",
           "description": "Anket tasarımı, odak grup, tüketici içgörüleri, rekabet analizi, raporlama.",
           "keywords": [
             "Pazar Araştırma",
@@ -2000,7 +2048,7 @@
         {
           "id": "prof_vet_pathologist",
           "name": "Veteriner Patolog",
-          "icon": "testtube.2",
+          "icon": "microscope",
           "description": "Doku incelemesi, otopsi, hastalık tanısı, histopatoloji.",
           "keywords": [
             "Patoloji",
@@ -2332,7 +2380,7 @@
         {
           "id": "prof_pathologist",
           "name": "Patoloji Uzmanı",
-          "icon": "microscope",
+          "icon": "testtube.2",
           "description": "Doku incelemesi, biyopsi değerlendirme, otopsi, sitopatoloji, immünohistokimya.",
           "keywords": [
             "Patoloji",
@@ -2356,7 +2404,7 @@
         {
           "id": "prof_medical_geneticist",
           "name": "Tıbbi Genetik Uzmanı",
-          "icon": "dna",
+          "icon": "point.3.filled.connected.trianglepath.dotted",
           "description": "Genetik danışmanlık, prenatal tanı, kalıtsal hastalıklar, gen terapisi.",
           "keywords": [
             "Genetik",
@@ -2671,7 +2719,7 @@
         {
           "id": "prof_teacher",
           "name": "Öğretmen",
-          "icon": "person.chalkboard",
+          "icon": "long.text.page.and.pencil.fill",
           "description": "Ders planlama, öğretim yöntemleri, sınıf yönetimi ve öğrenci değerlendirmesi.",
           "keywords": [
             "Teaching",
@@ -2916,7 +2964,7 @@
         {
           "id": "prof_forestry",
           "name": "Orman Mühendisi",
-          "icon": "trees.fill",
+          "icon": "tree.fill",
           "description": "Ormancılık yönetimi, ağaçlandırma, yangın koruma, biyoçeşitlilik.",
           "keywords": [
             "Orman",
@@ -3204,7 +3252,7 @@
         {
           "id": "prof_treasury_manager",
           "name": "Hazine Yöneticisi",
-          "icon": "vault.fill",
+          "icon": "chart.line.uptrend.xyaxis",
           "description": "Nakit yönetimi, kur riski, likidite planlaması, banka ilişkileri.",
           "keywords": [
             "Hazine",
@@ -3279,18 +3327,6 @@
             "Sürdürülebilirlik",
             "İklim",
             "Ekoloji"
-          ]
-        },
-        {
-          "id": "prof_biotechnologist",
-          "name": "Biyoteknoloji Uzmanı",
-          "icon": "dna",
-          "description": "Rekombinant DNA, biyofarmakologlar, hücre kültürü, biyosensörler.",
-          "keywords": [
-            "Biyoteknoloji",
-            "DNA",
-            "Hücre Kültürü",
-            "Biyofarma"
           ]
         },
         {
@@ -3789,10 +3825,10 @@
     }
   ],
   "metadata": {
-    "version": "4.0.0",
+    "version": "4.1.0",
     "lastUpdated": "2026-02-27",
     "totalCategories": 32,
-    "totalProfessions": 291,
+    "totalProfessions": 294,
     "language": "tr"
   }
 }
