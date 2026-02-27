@@ -11,210 +11,740 @@
           "name": "iOS Developer",
           "icon": "apple.logo",
           "description": "Swift, UIKit, SwiftUI, Core Data, Networking, Architecture Patterns konularında iOS uygulama geliştirme.",
-          "keywords": ["iOS", "Swift", "UIKit", "SwiftUI", "Xcode", "Apple"]
+          "keywords": [
+            "iOS",
+            "Swift",
+            "UIKit",
+            "SwiftUI",
+            "Xcode",
+            "Apple"
+          ]
         },
         {
           "id": "prof_android",
           "name": "Android Developer",
           "icon": "android",
           "description": "Kotlin, Java, Jetpack Compose, Room, Retrofit ile Android uygulama geliştirme.",
-          "keywords": ["Android", "Kotlin", "Java", "Jetpack", "Google"]
+          "keywords": [
+            "Android",
+            "Kotlin",
+            "Java",
+            "Jetpack",
+            "Google"
+          ]
         },
         {
           "id": "prof_flutter",
           "name": "Flutter Developer",
           "icon": "flutter",
           "description": "Dart dili ile cross-platform mobil uygulama geliştirme.",
-          "keywords": ["Flutter", "Dart", "Cross-platform", "Mobile"]
+          "keywords": [
+            "Flutter",
+            "Dart",
+            "Cross-platform",
+            "Mobile"
+          ]
         },
         {
           "id": "prof_react_native",
           "name": "React Native Developer",
           "icon": "react",
           "description": "JavaScript/TypeScript ile cross-platform mobil uygulama geliştirme.",
-          "keywords": ["React Native", "JavaScript", "TypeScript", "Mobile"]
+          "keywords": [
+            "React Native",
+            "JavaScript",
+            "TypeScript",
+            "Mobile"
+          ]
         },
         {
           "id": "prof_frontend_react",
           "name": "Frontend Developer (React)",
-          "icon": "react",
+          "icon": "globe",
           "description": "React, Hooks, Redux, Next.js ile modern web arayüzleri geliştirme.",
-          "keywords": ["React", "Frontend", "JavaScript", "Web", "UI"]
+          "keywords": [
+            "React",
+            "Frontend",
+            "JavaScript",
+            "Web",
+            "UI"
+          ]
         },
         {
           "id": "prof_frontend_vue",
           "name": "Frontend Developer (Vue.js)",
-          "icon": "vue",
+          "icon": "globe",
           "description": "Vue.js, Vuex, Nuxt.js ile web uygulamaları geliştirme.",
-          "keywords": ["Vue", "Frontend", "JavaScript", "Web"]
+          "keywords": [
+            "Vue",
+            "Frontend",
+            "JavaScript",
+            "Web"
+          ]
         },
         {
           "id": "prof_frontend_angular",
           "name": "Frontend Developer (Angular)",
-          "icon": "angular",
+          "icon": "globe",
           "description": "Angular, TypeScript, RxJS, NgRx ile enterprise web uygulamaları geliştirme.",
-          "keywords": ["Angular", "Frontend", "TypeScript", "Web", "Enterprise"]
+          "keywords": [
+            "Angular",
+            "Frontend",
+            "TypeScript",
+            "Web",
+            "Enterprise"
+          ]
         },
         {
           "id": "prof_backend_node",
           "name": "Backend Developer (Node.js)",
           "icon": "server.rack",
           "description": "Node.js, Express, MongoDB, RESTful API, Microservices ile backend geliştirme.",
-          "keywords": ["Node.js", "Backend", "Express", "API", "MongoDB"]
+          "keywords": [
+            "Node.js",
+            "Backend",
+            "Express",
+            "API",
+            "MongoDB"
+          ]
         },
         {
           "id": "prof_backend_python",
           "name": "Backend Developer (Python)",
           "icon": "server.rack",
           "description": "Python, Django, FastAPI, PostgreSQL ile backend sistemler geliştirme.",
-          "keywords": ["Python", "Backend", "Django", "FastAPI", "API"]
+          "keywords": [
+            "Python",
+            "Backend",
+            "Django",
+            "FastAPI",
+            "API"
+          ]
         },
         {
           "id": "prof_backend_dotnet",
           "name": "Backend Developer (ASP.NET)",
           "icon": "server.rack",
           "description": "C#, ASP.NET Core, Entity Framework, SQL Server, Web API ile enterprise backend geliştirme.",
-          "keywords": ["ASP.NET", "C#", "Backend", ".NET Core", "Microsoft", "Enterprise"]
+          "keywords": [
+            "ASP.NET",
+            "C#",
+            "Backend",
+            ".NET Core",
+            "Microsoft",
+            "Enterprise"
+          ]
         },
         {
           "id": "prof_backend_java",
           "name": "Backend Developer (Java/Spring)",
           "icon": "server.rack",
           "description": "Java, Spring Boot, Hibernate, MySQL ile enterprise backend sistemler geliştirme.",
-          "keywords": ["Java", "Spring", "Backend", "Hibernate", "Enterprise"]
+          "keywords": [
+            "Java",
+            "Spring",
+            "Backend",
+            "Hibernate",
+            "Enterprise"
+          ]
         },
         {
           "id": "prof_backend_php",
           "name": "Backend Developer (PHP)",
           "icon": "server.rack",
           "description": "PHP, Laravel, Symfony, MySQL ile web backend geliştirme.",
-          "keywords": ["PHP", "Laravel", "Backend", "Symfony", "Web"]
+          "keywords": [
+            "PHP",
+            "Laravel",
+            "Backend",
+            "Symfony",
+            "Web"
+          ]
         },
         {
           "id": "prof_backend_go",
           "name": "Backend Developer (Go)",
           "icon": "server.rack",
           "description": "Go/Golang, Gin, gRPC, microservices, yüksek performanslı backend sistemler.",
-          "keywords": ["Go", "Golang", "Backend", "Microservices", "gRPC"]
+          "keywords": [
+            "Go",
+            "Golang",
+            "Backend",
+            "Microservices",
+            "gRPC"
+          ]
         },
         {
           "id": "prof_backend_rust",
           "name": "Backend Developer (Rust)",
           "icon": "server.rack",
           "description": "Rust, Actix, Rocket, memory-safe ve performans odaklı backend geliştirme.",
-          "keywords": ["Rust", "Backend", "Systems", "Performance"]
+          "keywords": [
+            "Rust",
+            "Backend",
+            "Systems",
+            "Performance"
+          ]
         },
         {
           "id": "prof_fullstack",
           "name": "Full Stack Developer",
           "icon": "square.stack.3d.up",
           "description": "Frontend ve Backend teknolojileri ile end-to-end uygulama geliştirme.",
-          "keywords": ["Full Stack", "Frontend", "Backend", "Web"]
+          "keywords": [
+            "Full Stack",
+            "Frontend",
+            "Backend",
+            "Web"
+          ]
         },
         {
           "id": "prof_game_developer",
           "name": "Oyun Geliştiricisi",
           "icon": "gamecontroller.fill",
           "description": "Unity, Unreal Engine, C#, C++ ile oyun geliştirme ve 3D programlama.",
-          "keywords": ["Game", "Unity", "Unreal", "C#", "C++", "3D"]
+          "keywords": [
+            "Game",
+            "Unity",
+            "Unreal",
+            "C#",
+            "C++",
+            "3D"
+          ]
         },
         {
           "id": "prof_ar_vr_developer",
           "name": "AR/VR Developer",
           "icon": "visionpro",
           "description": "ARKit, ARCore, Unity XR, Meta Quest, sanal ve artırılmış gerçeklik uygulamaları.",
-          "keywords": ["AR", "VR", "Unity", "ARKit", "Meta Quest", "XR"]
+          "keywords": [
+            "AR",
+            "VR",
+            "Unity",
+            "ARKit",
+            "Meta Quest",
+            "XR"
+          ]
         },
         {
           "id": "prof_blockchain",
           "name": "Blockchain Developer",
           "icon": "link",
           "description": "Solidity, Smart Contracts, Web3, Ethereum, DeFi uygulama geliştirme.",
-          "keywords": ["Blockchain", "Solidity", "Web3", "Ethereum", "Crypto"]
+          "keywords": [
+            "Blockchain",
+            "Solidity",
+            "Web3",
+            "Ethereum",
+            "Crypto"
+          ]
         },
         {
           "id": "prof_qa_automation",
           "name": "QA Automation Engineer",
           "icon": "testtube.2",
           "description": "Selenium, Appium, JUnit, test otomasyon framework'leri ve CI/CD entegrasyonu.",
-          "keywords": ["QA", "Testing", "Automation", "Selenium", "Quality"]
+          "keywords": [
+            "QA",
+            "Testing",
+            "Automation",
+            "Selenium",
+            "Quality"
+          ]
         },
         {
           "id": "prof_qa_manual",
           "name": "QA Manual Tester",
           "icon": "checklist",
           "description": "Manuel test, test senaryoları, bug tracking, regresyon testi ve UAT.",
-          "keywords": ["QA", "Manual Testing", "Bug", "Test Cases"]
+          "keywords": [
+            "QA",
+            "Manual Testing",
+            "Bug",
+            "Test Cases"
+          ]
         },
         {
           "id": "prof_cloud_architect",
           "name": "Cloud Solutions Architect",
           "icon": "cloud.fill",
           "description": "AWS, Azure, GCP, cloud migration, serverless architecture ve cloud security.",
-          "keywords": ["Cloud", "AWS", "Azure", "GCP", "Architecture"]
+          "keywords": [
+            "Cloud",
+            "AWS",
+            "Azure",
+            "GCP",
+            "Architecture"
+          ]
         },
         {
           "id": "prof_devops",
           "name": "DevOps Engineer",
           "icon": "gearshape.2",
           "description": "CI/CD, Docker, Kubernetes, AWS/Azure, Infrastructure as Code konularında uzmanlaşma.",
-          "keywords": ["DevOps", "Docker", "Kubernetes", "AWS", "CI/CD"]
+          "keywords": [
+            "DevOps",
+            "Docker",
+            "Kubernetes",
+            "AWS",
+            "CI/CD"
+          ]
         },
         {
           "id": "prof_sre",
           "name": "Site Reliability Engineer (SRE)",
           "icon": "gauge.with.dots.needle.bottom.50percent",
           "description": "System monitoring, incident response, SLA/SLO, performance optimization ve reliability.",
-          "keywords": ["SRE", "Monitoring", "Reliability", "Performance", "Incident"]
+          "keywords": [
+            "SRE",
+            "Monitoring",
+            "Reliability",
+            "Performance",
+            "Incident"
+          ]
         },
         {
           "id": "prof_security_engineer",
           "name": "Cybersecurity Engineer",
           "icon": "lock.shield",
           "description": "Penetration testing, vulnerability assessment, security auditing, SIEM, SOC.",
-          "keywords": ["Security", "Pentesting", "Cybersecurity", "SIEM", "SOC"]
+          "keywords": [
+            "Security",
+            "Pentesting",
+            "Cybersecurity",
+            "SIEM",
+            "SOC"
+          ]
         },
         {
           "id": "prof_database_admin",
           "name": "Database Administrator (DBA)",
           "icon": "cylinder.fill",
           "description": "PostgreSQL, MySQL, Oracle, MongoDB, database optimization, backup/recovery.",
-          "keywords": ["Database", "DBA", "SQL", "MongoDB", "Optimization"]
+          "keywords": [
+            "Database",
+            "DBA",
+            "SQL",
+            "MongoDB",
+            "Optimization"
+          ]
         },
         {
           "id": "prof_embedded_software",
           "name": "Embedded Software Engineer",
           "icon": "memorychip.fill",
           "description": "C/C++, RTOS, firmware development, IoT devices, embedded Linux.",
-          "keywords": ["Embedded", "Firmware", "C", "RTOS", "IoT"]
+          "keywords": [
+            "Embedded",
+            "Firmware",
+            "C",
+            "RTOS",
+            "IoT"
+          ]
         },
         {
           "id": "prof_platform_engineer",
           "name": "Platform Engineer",
           "icon": "server.rack",
           "description": "Internal developer platforms, Kubernetes, Helm, Terraform, GitOps, developer experience.",
-          "keywords": ["Platform", "Kubernetes", "Terraform", "GitOps", "DevEx"]
+          "keywords": [
+            "Platform",
+            "Kubernetes",
+            "Terraform",
+            "GitOps",
+            "DevEx"
+          ]
         },
         {
           "id": "prof_software_architect",
           "name": "Yazılım Mimarı",
           "icon": "square.stack.3d.up.fill",
           "description": "Sistem tasarımı, mimari kararlar, scalability, design patterns, teknik liderlik.",
-          "keywords": ["Architecture", "System Design", "Scalability", "Tech Lead"]
+          "keywords": [
+            "Architecture",
+            "System Design",
+            "Scalability",
+            "Tech Lead"
+          ]
         },
         {
           "id": "prof_technical_writer",
           "name": "Teknik Yazar",
           "icon": "doc.richtext",
           "description": "API dokümantasyonu, kullanım kılavuzları, teknik blog, developer docs.",
-          "keywords": ["Technical Writing", "Documentation", "API Docs", "Markdown"]
+          "keywords": [
+            "Technical Writing",
+            "Documentation",
+            "API Docs",
+            "Markdown"
+          ]
         },
         {
           "id": "prof_scrum_master",
           "name": "Scrum Master",
           "icon": "arrow.3.trianglepath",
           "description": "Agile koçluk, sprint planlama, retrospektif yönetimi, takım verimliliği.",
-          "keywords": ["Scrum", "Agile", "Sprint", "Coaching", "Kanban"]
+          "keywords": [
+            "Scrum",
+            "Agile",
+            "Sprint",
+            "Coaching",
+            "Kanban"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_aerospace",
+      "name": "Havacılık & Uzay Mühendisliği",
+      "icon": "airplane.circle.fill",
+      "order": 2,
+      "professions": [
+        {
+          "id": "prof_aerospace",
+          "name": "Havacılık ve Uzay Mühendisi",
+          "icon": "airplane",
+          "description": "Uçak tasarımı, aerodinamik, propulsion sistemleri, uçuş mekaniği, uzay araçları.",
+          "keywords": [
+            "Havacılık",
+            "Aerospace",
+            "Uçak",
+            "Aerodinamik",
+            "Uzay"
+          ]
+        },
+        {
+          "id": "prof_defense_engineer",
+          "name": "Savunma Sanayi Mühendisi",
+          "icon": "shield.fill",
+          "description": "Savunma sistemleri, balistik, silah sistemleri, araç ve platform geliştirme.",
+          "keywords": [
+            "Savunma",
+            "Defense",
+            "Balistik",
+            "Platform"
+          ]
+        },
+        {
+          "id": "prof_avionics",
+          "name": "Aviyonik Mühendisi",
+          "icon": "antenna.radiowaves.left.and.right",
+          "description": "Uçak elektrik/elektronik sistemleri, uçuş kontrol bilgisayarları, navigation.",
+          "keywords": [
+            "Aviyonik",
+            "Uçak Elektroniği",
+            "Navigation",
+            "Flight Control"
+          ]
+        },
+        {
+          "id": "prof_propulsion",
+          "name": "İtki Sistemleri Mühendisi",
+          "icon": "flame.fill",
+          "description": "Jet motoru, roket motoru, yanma odası tasarımı, turbofan/turboprop.",
+          "keywords": [
+            "İtki",
+            "Jet Motoru",
+            "Roket",
+            "Turbofan"
+          ]
+        },
+        {
+          "id": "prof_spacecraft",
+          "name": "Uzay Araçları Mühendisi",
+          "icon": "sparkles",
+          "description": "Uydu tasarımı, uzay araçları, yörünge mekaniği, telemetri, uzay misyonu.",
+          "keywords": [
+            "Uzay",
+            "Uydu",
+            "Yörünge",
+            "Spacecraft"
+          ]
+        },
+        {
+          "id": "prof_uav_engineer",
+          "name": "İnsansız Hava Aracı (İHA) Mühendisi",
+          "icon": "paperplane.fill",
+          "description": "Drone tasarımı, otonom uçuş sistemleri, görev yük entegrasyonu, İHA yazılımı.",
+          "keywords": [
+            "İHA",
+            "Drone",
+            "UAV",
+            "Otonom Uçuş"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_mechatronics",
+      "name": "Mekatronik & Robotik Mühendisliği",
+      "icon": "gearshape.2.fill",
+      "order": 3,
+      "professions": [
+        {
+          "id": "prof_mechatronics",
+          "name": "Mekatronik Mühendisi",
+          "icon": "gearshape.2.fill",
+          "description": "Mekanik, elektronik ve yazılımın entegrasyonu, akıllı sistemler, kontrol mühendisliği.",
+          "keywords": [
+            "Mekatronik",
+            "Kontrol",
+            "Elektronik",
+            "Mekanik",
+            "Sistem"
+          ]
+        },
+        {
+          "id": "prof_robotics",
+          "name": "Robotik Mühendisi",
+          "icon": "figure.walk.motion",
+          "description": "Robot tasarımı, kinematik, otonom sistemler ve endüstriyel robotik uygulamalar.",
+          "keywords": [
+            "Robotik",
+            "Otomasyon",
+            "Robot",
+            "Mechatronics"
+          ]
+        },
+        {
+          "id": "prof_automation_systems",
+          "name": "Endüstriyel Otomasyon Mühendisi",
+          "icon": "arrow.triangle.2.circlepath.circle.fill",
+          "description": "Endüstriyel robot programlama, PLC, vision sistemleri, akıllı üretim.",
+          "keywords": [
+            "Endüstriyel Otomasyon",
+            "Robot",
+            "PLC",
+            "Akıllı Üretim"
+          ]
+        },
+        {
+          "id": "prof_autonomous_systems",
+          "name": "Otonom Sistemler Mühendisi",
+          "icon": "car.circle.fill",
+          "description": "Otonom araç, LIDAR, sensör füzyonu, path planning, SLAM.",
+          "keywords": [
+            "Otonom",
+            "LIDAR",
+            "SLAM",
+            "Self-Driving"
+          ]
+        },
+        {
+          "id": "prof_mechatronics_design",
+          "name": "Mekatronik Sistem Tasarımcısı",
+          "icon": "cpu.fill",
+          "description": "Mekanik-elektronik-yazılım entegrasyonu, aktuatör seçimi, gömülü kontrol.",
+          "keywords": [
+            "Mekatronik Tasarım",
+            "Aktuatör",
+            "Kontrol",
+            "Sistem"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_naval",
+      "name": "Gemi İnşaatı & Deniz Teknolojisi",
+      "icon": "ferry.fill",
+      "order": 4,
+      "professions": [
+        {
+          "id": "prof_naval_architect",
+          "name": "Gemi İnşaat Mühendisi",
+          "icon": "ferry.fill",
+          "description": "Gemi tasarımı, tekne yapısı, stabilite analizi, denizcilik mühendisliği.",
+          "keywords": [
+            "Gemi",
+            "Deniz",
+            "Naval",
+            "Stabilite"
+          ]
+        },
+        {
+          "id": "prof_marine_engineer",
+          "name": "Deniz Makineleri Mühendisi",
+          "icon": "engine.combustion.fill",
+          "description": "Gemi makine dairesi, dizel/gaz türbin motorları, şaft sistemi, pompa.",
+          "keywords": [
+            "Deniz Makineleri",
+            "Gemi Motoru",
+            "Makine Dairesi",
+            "Marine"
+          ]
+        },
+        {
+          "id": "prof_offshore_engineer",
+          "name": "Açık Deniz (Offshore) Mühendisi",
+          "icon": "water.waves",
+          "description": "Platform tasarımı, denizaltı boru hatları, offshore yapılar, deniz riski.",
+          "keywords": [
+            "Offshore",
+            "Platform",
+            "Deniz",
+            "Boru Hattı"
+          ]
+        },
+        {
+          "id": "prof_port_manager",
+          "name": "Liman ve Deniz Ulaştırma Uzmanı",
+          "icon": "ferry.fill",
+          "description": "Liman operasyonları, deniz ticareti, gemi trafik kontrolü, deniz sigortası.",
+          "keywords": [
+            "Liman",
+            "Denizcilik",
+            "Gemi",
+            "Deniz Ticareti"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_materials",
+      "name": "Malzeme & Metalurji Mühendisliği",
+      "icon": "atom",
+      "order": 5,
+      "professions": [
+        {
+          "id": "prof_materials",
+          "name": "Malzeme Mühendisi",
+          "icon": "atom",
+          "description": "Malzeme karakterizasyonu, kompozit malzemeler, metallurji, nanoteknoloji.",
+          "keywords": [
+            "Malzeme",
+            "Metallurji",
+            "Kompozit",
+            "Materials"
+          ]
+        },
+        {
+          "id": "prof_metallurgist",
+          "name": "Metalurji Mühendisi",
+          "icon": "flame.circle.fill",
+          "description": "Metal üretim prosesleri, döküm, dövme, ısıl işlem, metalografik analiz.",
+          "keywords": [
+            "Metalurji",
+            "Metal",
+            "Döküm",
+            "Isıl İşlem"
+          ]
+        },
+        {
+          "id": "prof_ceramics_engineer",
+          "name": "Seramik & Cam Mühendisi",
+          "icon": "square.fill",
+          "description": "Seramik üretimi, cam teknolojisi, refrakter malzemeler, sırlama.",
+          "keywords": [
+            "Seramik",
+            "Cam",
+            "Refrakter",
+            "Malzeme"
+          ]
+        },
+        {
+          "id": "prof_nanomaterials",
+          "name": "Nanoteknoloji & Nanomateryaller Uzmanı",
+          "icon": "circle.dotted",
+          "description": "Nanomateryal sentezi, karakterizasyon, nanoteknoloji uygulamaları.",
+          "keywords": [
+            "Nano",
+            "Nanoteknoloji",
+            "Malzeme",
+            "Araştırma"
+          ]
+        },
+        {
+          "id": "prof_composite_engineer",
+          "name": "Kompozit Malzeme Mühendisi",
+          "icon": "square.3.layers.3d.fill",
+          "description": "Karbon fiber, fiber takviyeli polimerler, havacılık ve otomotiv kompozitleri.",
+          "keywords": [
+            "Kompozit",
+            "Karbon Fiber",
+            "FRP",
+            "Havacılık"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_genetics",
+      "name": "Genetik & Biyomühendislik",
+      "icon": "dna",
+      "order": 6,
+      "professions": [
+        {
+          "id": "prof_genetic_engineer",
+          "name": "Genetik Mühendisi",
+          "icon": "dna",
+          "description": "Gen düzenleme, CRISPR, rekombinant DNA teknolojisi, transgenik organizmalar.",
+          "keywords": [
+            "Genetik Mühendisliği",
+            "CRISPR",
+            "Gen Düzenleme",
+            "DNA"
+          ]
+        },
+        {
+          "id": "prof_bioinformatics",
+          "name": "Biyoinformatik Uzmanı",
+          "icon": "cpu",
+          "description": "Genomik veri analizi, sekans hizalama, biyolojik veri tabanları, Python/R.",
+          "keywords": [
+            "Biyoinformatik",
+            "Genomik",
+            "Sekans",
+            "Biyoloji"
+          ]
+        },
+        {
+          "id": "prof_molecular_biologist",
+          "name": "Moleküler Biyolog",
+          "icon": "circle.hexagongrid.fill",
+          "description": "PCR, Western blot, hücre kültürü, protein ekspresyonu, moleküler teknikler.",
+          "keywords": [
+            "Moleküler Biyoloji",
+            "PCR",
+            "Protein",
+            "Hücre"
+          ]
+        },
+        {
+          "id": "prof_bioprocess_engineer",
+          "name": "Biyoproses Mühendisi",
+          "icon": "arrow.3.trianglepath",
+          "description": "Biyoreaktör tasarımı, fermentasyon, biyoilaç üretimi, downstream processing.",
+          "keywords": [
+            "Biyoproses",
+            "Fermentasyon",
+            "Biyoreaktör",
+            "Üretim"
+          ]
+        },
+        {
+          "id": "prof_genomics_specialist",
+          "name": "Genomik & Proteomik Uzmanı",
+          "icon": "waveform.path",
+          "description": "Tüm genom analizi, next-generation sequencing, proteomik, metabolomik.",
+          "keywords": [
+            "Genomik",
+            "NGS",
+            "Proteomik",
+            "Sekans"
+          ]
+        },
+        {
+          "id": "prof_biomedical_scientist",
+          "name": "Biyomedikal Bilim Uzmanı",
+          "icon": "cross.case.fill",
+          "description": "Tıbbi laboratuvar bilimleri, klinik mikrobiyoloji, immünoloji, transfüzyon.",
+          "keywords": [
+            "Biyomedikal",
+            "Laboratuvar",
+            "Mikrobiyoloji",
+            "İmmünoloji"
+          ]
         }
       ]
     },
@@ -222,98 +752,92 @@
       "id": "cat_mechanical",
       "name": "Makine Mühendisliği",
       "icon": "gearshape.fill",
-      "order": 2,
+      "order": 7,
       "professions": [
         {
           "id": "prof_automotive",
           "name": "Otomotiv Mühendisi",
           "icon": "car.fill",
           "description": "Araç tasarımı, motor sistemleri, dinamik analiz ve otomotiv teknolojileri.",
-          "keywords": ["Otomotiv", "Araç", "Motor", "Tasarım"]
+          "keywords": [
+            "Otomotiv",
+            "Araç",
+            "Motor",
+            "Tasarım"
+          ]
         },
         {
           "id": "prof_production",
           "name": "Üretim Mühendisi",
           "icon": "hammer.fill",
           "description": "Üretim süreçleri, tezgah teknolojileri, kalıp tasarımı ve imalat yöntemleri.",
-          "keywords": ["Üretim", "İmalat", "Tezgah", "Kalıp"]
+          "keywords": [
+            "Üretim",
+            "İmalat",
+            "Tezgah",
+            "Kalıp"
+          ]
         },
         {
           "id": "prof_hvac",
           "name": "HVAC Mühendisi",
           "icon": "thermometer",
           "description": "Isıtma, soğutma, havalandırma sistemleri, enerji verimliliği ve iklim kontrolü.",
-          "keywords": ["HVAC", "Isıtma", "Soğutma", "İklimlendirme"]
+          "keywords": [
+            "HVAC",
+            "Isıtma",
+            "Soğutma",
+            "İklimlendirme"
+          ]
         },
         {
           "id": "prof_machine_design",
           "name": "Makine Tasarım Mühendisi",
           "icon": "pencil.and.ruler.fill",
           "description": "CAD/CAM, sonlu elemanlar analizi, makine elemanları ve mekanik sistem tasarımı.",
-          "keywords": ["Tasarım", "CAD", "CAM", "Mekanik"]
+          "keywords": [
+            "Tasarım",
+            "CAD",
+            "CAM",
+            "Mekanik"
+          ]
         },
         {
           "id": "prof_energy_systems",
           "name": "Enerji Sistemleri Mühendisi",
           "icon": "bolt.batteryblock.fill",
           "description": "Yenilenebilir enerji, güneş panelleri, rüzgar türbinleri ve enerji depolama sistemleri.",
-          "keywords": ["Enerji", "Yenilenebilir", "Güneş", "Rüzgar"]
-        },
-        {
-          "id": "prof_robotics",
-          "name": "Robotik Mühendisi",
-          "icon": "figure.walk.motion",
-          "description": "Robot tasarımı, kinematik, otonom sistemler ve endüstriyel robotik uygulamalar.",
-          "keywords": ["Robotik", "Otomasyon", "Robot", "Mechatronics"]
-        },
-        {
-          "id": "prof_aerospace",
-          "name": "Havacılık ve Uzay Mühendisi",
-          "icon": "airplane",
-          "description": "Uçak tasarımı, aerodinamik, propulsion sistemleri, uçuş mekaniği, uzay araçları.",
-          "keywords": ["Havacılık", "Aerospace", "Uçak", "Aerodinamik", "Uzay"]
-        },
-        {
-          "id": "prof_materials",
-          "name": "Malzeme Mühendisi",
-          "icon": "atom",
-          "description": "Malzeme karakterizasyonu, kompozit malzemeler, metallurji, nanoteknoloji.",
-          "keywords": ["Malzeme", "Metallurji", "Kompozit", "Materials"]
-        },
-        {
-          "id": "prof_mechatronics",
-          "name": "Mekatronik Mühendisi",
-          "icon": "gearshape.2.fill",
-          "description": "Mekanik, elektronik ve yazılımın entegrasyonu, akıllı sistemler, kontrol mühendisliği.",
-          "keywords": ["Mekatronik", "Kontrol", "Elektronik", "Mekanik", "Sistem"]
+          "keywords": [
+            "Enerji",
+            "Yenilenebilir",
+            "Güneş",
+            "Rüzgar"
+          ]
         },
         {
           "id": "prof_thermodynamics",
           "name": "Termodinamik / Isı-Akışkan Mühendisi",
           "icon": "flame.fill",
           "description": "Termodinamik analiz, ısı transferi, akışkanlar mekaniği, CFD simülasyonu.",
-          "keywords": ["Termodinamik", "Isı Transferi", "CFD", "Akışkan"]
+          "keywords": [
+            "Termodinamik",
+            "Isı Transferi",
+            "CFD",
+            "Akışkan"
+          ]
         },
         {
           "id": "prof_maintenance_engineer",
           "name": "Bakım Güvenilirlik Mühendisi",
           "icon": "wrench.and.screwdriver.fill",
           "description": "Planlı bakım, arıza analizi, RCM, TPM, yedek parça yönetimi.",
-          "keywords": ["Bakım", "Güvenilirlik", "RCM", "TPM", "Arıza"]
-        },
-        {
-          "id": "prof_naval_architect",
-          "name": "Gemi İnşaat Mühendisi",
-          "icon": "ferry.fill",
-          "description": "Gemi tasarımı, tekne yapısı, stabilite analizi, denizcilik mühendisliği.",
-          "keywords": ["Gemi", "Deniz", "Naval", "Stabilite"]
-        },
-        {
-          "id": "prof_defense_engineer",
-          "name": "Savunma Sanayi Mühendisi",
-          "icon": "shield.fill",
-          "description": "Savunma sistemleri, balistik, silah sistemleri, araç ve platform geliştirme.",
-          "keywords": ["Savunma", "Defense", "Balistik", "Platform"]
+          "keywords": [
+            "Bakım",
+            "Güvenilirlik",
+            "RCM",
+            "TPM",
+            "Arıza"
+          ]
         }
       ]
     },
@@ -321,84 +845,143 @@
       "id": "cat_electrical",
       "name": "Elektrik-Elektronik Mühendisliği",
       "icon": "bolt.fill",
-      "order": 3,
+      "order": 8,
       "professions": [
         {
           "id": "prof_power_systems",
           "name": "Güç Sistemleri Mühendisi",
           "icon": "powerplug.fill",
           "description": "Elektrik üretimi, iletimi, dağıtımı, trafo ve şalt sistemleri.",
-          "keywords": ["Güç", "Enerji", "Elektrik", "Trafo"]
+          "keywords": [
+            "Güç",
+            "Enerji",
+            "Elektrik",
+            "Trafo"
+          ]
         },
         {
           "id": "prof_electronics_design",
           "name": "Elektronik Tasarım Mühendisi",
           "icon": "cpu",
           "description": "PCB tasarımı, devre analizi, analog/dijital elektronik ve sinyal işleme.",
-          "keywords": ["Elektronik", "PCB", "Devre", "Tasarım"]
+          "keywords": [
+            "Elektronik",
+            "PCB",
+            "Devre",
+            "Tasarım"
+          ]
         },
         {
           "id": "prof_embedded_systems",
           "name": "Gömülü Sistemler Mühendisi",
           "icon": "memorychip",
           "description": "Mikrodenetleyici programlama, RTOS, IoT ve donanım-yazılım entegrasyonu.",
-          "keywords": ["Gömülü", "Mikrodenetleyici", "IoT", "RTOS"]
+          "keywords": [
+            "Gömülü",
+            "Mikrodenetleyici",
+            "IoT",
+            "RTOS"
+          ]
         },
         {
           "id": "prof_automation",
           "name": "Otomasyon Mühendisi",
           "icon": "arrow.triangle.2.circlepath",
           "description": "PLC programlama, SCADA, endüstriyel otomasyon ve kontrol sistemleri.",
-          "keywords": ["Otomasyon", "PLC", "SCADA", "Kontrol"]
+          "keywords": [
+            "Otomasyon",
+            "PLC",
+            "SCADA",
+            "Kontrol"
+          ]
         },
         {
           "id": "prof_telecommunications",
           "name": "Telekomünikasyon Mühendisi",
           "icon": "antenna.radiowaves.left.and.right",
           "description": "5G, fiber optik, kablosuz iletişim, network altyapısı ve telekomünikasyon protokolleri.",
-          "keywords": ["Telekom", "5G", "Network", "Fiber Optik"]
+          "keywords": [
+            "Telekom",
+            "5G",
+            "Network",
+            "Fiber Optik"
+          ]
         },
         {
           "id": "prof_rf_engineer",
           "name": "RF Engineer",
           "icon": "wave.3.right",
           "description": "RF devre tasarımı, anten sistemleri, mikrodalga mühendisliği, wireless systems.",
-          "keywords": ["RF", "Antenna", "Wireless", "Microwave"]
+          "keywords": [
+            "RF",
+            "Antenna",
+            "Wireless",
+            "Microwave"
+          ]
         },
         {
           "id": "prof_fpga_engineer",
           "name": "FPGA Engineer",
           "icon": "cpu.fill",
           "description": "VHDL, Verilog, FPGA tasarımı, hardware description language, digital design.",
-          "keywords": ["FPGA", "VHDL", "Verilog", "Digital Design"]
+          "keywords": [
+            "FPGA",
+            "VHDL",
+            "Verilog",
+            "Digital Design"
+          ]
         },
         {
           "id": "prof_control_systems",
           "name": "Kontrol Sistemleri Mühendisi",
           "icon": "slider.horizontal.3",
           "description": "PID kontrolü, feedback sistemleri, dinamik sistem modelleme, MATLAB/Simulink.",
-          "keywords": ["Kontrol", "PID", "MATLAB", "Simulink", "Dinamik"]
+          "keywords": [
+            "Kontrol",
+            "PID",
+            "MATLAB",
+            "Simulink",
+            "Dinamik"
+          ]
         },
         {
           "id": "prof_signal_processing",
           "name": "Sinyal İşleme Mühendisi",
           "icon": "waveform.path.ecg.rectangle",
           "description": "DSP, FFT, filtre tasarımı, ses/görüntü işleme, radar sinyal işleme.",
-          "keywords": ["Sinyal", "DSP", "FFT", "Filtre", "Radar"]
+          "keywords": [
+            "Sinyal",
+            "DSP",
+            "FFT",
+            "Filtre",
+            "Radar"
+          ]
         },
         {
           "id": "prof_iot_engineer",
           "name": "IoT Mühendisi",
           "icon": "wifi",
           "description": "Nesnelerin interneti, sensor sistemleri, MQTT, edge computing, akıllı cihazlar.",
-          "keywords": ["IoT", "Sensor", "MQTT", "Edge", "Akıllı Cihaz"]
+          "keywords": [
+            "IoT",
+            "Sensor",
+            "MQTT",
+            "Edge",
+            "Akıllı Cihaz"
+          ]
         },
         {
           "id": "prof_vlsi_engineer",
           "name": "VLSI / Çip Tasarım Mühendisi",
           "icon": "cpu.fill",
           "description": "ASIC tasarımı, yarı iletken, CMOS teknolojisi, chip layout, fabrication.",
-          "keywords": ["VLSI", "ASIC", "Çip", "Yarı İletken", "CMOS"]
+          "keywords": [
+            "VLSI",
+            "ASIC",
+            "Çip",
+            "Yarı İletken",
+            "CMOS"
+          ]
         }
       ]
     },
@@ -406,70 +989,116 @@
       "id": "cat_civil",
       "name": "İnşaat Mühendisliği",
       "icon": "building.columns.fill",
-      "order": 4,
+      "order": 9,
       "professions": [
         {
           "id": "prof_structural",
           "name": "Yapı Mühendisi",
           "icon": "square.grid.3x3.fill",
           "description": "Yapı statiği, betonarme tasarım, çelik yapılar, deprem mühendisliği ve yapısal analiz.",
-          "keywords": ["Yapı", "Statik", "Betonarme", "Deprem", "Tasarım"]
+          "keywords": [
+            "Yapı",
+            "Statik",
+            "Betonarme",
+            "Deprem",
+            "Tasarım"
+          ]
         },
         {
           "id": "prof_geotechnical",
           "name": "Geoteknik Mühendisi",
           "icon": "mountain.2.fill",
           "description": "Zemin mekaniği, temel tasarımı, şev stabilitesi ve zemin iyileştirme.",
-          "keywords": ["Zemin", "Temel", "Geoteknik", "Şev"]
+          "keywords": [
+            "Zemin",
+            "Temel",
+            "Geoteknik",
+            "Şev"
+          ]
         },
         {
           "id": "prof_transportation",
           "name": "Ulaştırma Mühendisi",
           "icon": "road.lanes",
           "description": "Karayolu tasarımı, trafik analizi, köprü ve tünel mühendisliği.",
-          "keywords": ["Ulaştırma", "Karayolu", "Köprü", "Trafik"]
+          "keywords": [
+            "Ulaştırma",
+            "Karayolu",
+            "Köprü",
+            "Trafik"
+          ]
         },
         {
           "id": "prof_construction_management",
           "name": "İnşaat Yönetimi Uzmanı",
           "icon": "hammer.circle.fill",
           "description": "Proje yönetimi, şantiye organizasyonu, maliyet kontrolü ve yapım planlama.",
-          "keywords": ["İnşaat", "Yönetim", "Şantiye", "Planlama"]
+          "keywords": [
+            "İnşaat",
+            "Yönetim",
+            "Şantiye",
+            "Planlama"
+          ]
         },
         {
           "id": "prof_hydraulic",
           "name": "Hidrolik Mühendisi",
           "icon": "drop.fill",
           "description": "Su kaynakları, baraj tasarımı, sulama sistemleri, hidrolik yapılar.",
-          "keywords": ["Hidrolik", "Su", "Baraj", "İçmesuyu"]
+          "keywords": [
+            "Hidrolik",
+            "Su",
+            "Baraj",
+            "İçmesuyu"
+          ]
         },
         {
           "id": "prof_environmental",
           "name": "Çevre Mühendisi",
           "icon": "leaf.circle.fill",
           "description": "Atık su arıtma, hava kirliliği, katı atık yönetimi, çevre danışmanlığı.",
-          "keywords": ["Çevre", "Arıtma", "Atık", "Kirliliği"]
+          "keywords": [
+            "Çevre",
+            "Arıtma",
+            "Atık",
+            "Kirliliği"
+          ]
         },
         {
           "id": "prof_tunnel_engineer",
           "name": "Tünel Mühendisi",
           "icon": "arrow.forward.circle.fill",
           "description": "Tünel tasarımı, kazı yöntemleri, tünel güçlendirme ve yeraltı yapıları.",
-          "keywords": ["Tünel", "Yeraltı", "Kazı", "TBM"]
+          "keywords": [
+            "Tünel",
+            "Yeraltı",
+            "Kazı",
+            "TBM"
+          ]
         },
         {
           "id": "prof_cost_estimator",
           "name": "Metraj ve Keşif Mühendisi",
           "icon": "list.number",
           "description": "Yapı maliyeti hesaplama, metraj, keşif, hakediş ve ihale süreçleri.",
-          "keywords": ["Metraj", "Keşif", "Maliyet", "Hakediş"]
+          "keywords": [
+            "Metraj",
+            "Keşif",
+            "Maliyet",
+            "Hakediş"
+          ]
         },
         {
           "id": "prof_bim_specialist",
           "name": "BIM Uzmanı",
           "icon": "cube.fill",
           "description": "Building Information Modeling, Revit, Navisworks, 4D/5D planlama.",
-          "keywords": ["BIM", "Revit", "Navisworks", "Dijital İnşaat"]
+          "keywords": [
+            "BIM",
+            "Revit",
+            "Navisworks",
+            "Dijital İnşaat"
+          ]
         }
       ]
     },
@@ -477,49 +1106,68 @@
       "id": "cat_chemical_engineering",
       "name": "Kimya Mühendisliği",
       "icon": "flask.fill",
-      "order": 5,
+      "order": 10,
       "professions": [
         {
           "id": "prof_chemical_process",
           "name": "Proses Mühendisi",
           "icon": "arrow.triangle.2.circlepath.circle.fill",
           "description": "Kimyasal proses tasarımı, akış şeması hazırlama, P&ID, HAZOP, proses optimizasyonu.",
-          "keywords": ["Proses", "Kimya", "HAZOP", "P&ID", "Optimizasyon"]
+          "keywords": [
+            "Proses",
+            "Kimya",
+            "HAZOP",
+            "P&ID",
+            "Optimizasyon"
+          ]
         },
         {
           "id": "prof_petrochemical",
           "name": "Petrokimya Mühendisi",
           "icon": "drop.circle.fill",
           "description": "Petrol rafineri süreçleri, doğalgaz işleme, hidrokrakin, petrokimya ürünleri.",
-          "keywords": ["Petrokimya", "Rafineri", "Petrol", "Doğalgaz"]
+          "keywords": [
+            "Petrokimya",
+            "Rafineri",
+            "Petrol",
+            "Doğalgaz"
+          ]
         },
         {
           "id": "prof_polymer_engineer",
           "name": "Polimer Mühendisi",
           "icon": "link.circle.fill",
           "description": "Polimer sentezi, plastik işleme, reoloji, malzeme testleri, enjeksiyon kalıplama.",
-          "keywords": ["Polimer", "Plastik", "Reoloji", "Malzeme"]
-        },
-        {
-          "id": "prof_food_engineer",
-          "name": "Gıda Mühendisi",
-          "icon": "fork.knife.circle.fill",
-          "description": "Gıda üretim süreçleri, HACCP, gıda güvenliği, ambalaj teknolojisi, kalite kontrol.",
-          "keywords": ["Gıda", "HACCP", "Gıda Güvenliği", "Üretim"]
+          "keywords": [
+            "Polimer",
+            "Plastik",
+            "Reoloji",
+            "Malzeme"
+          ]
         },
         {
           "id": "prof_pharmaceutical_engineer",
           "name": "İlaç / Biyoproses Mühendisi",
           "icon": "pills.circle.fill",
           "description": "İlaç üretim prosesleri, GMP, fermentasyon, biyoreaktör tasarımı, validasyon.",
-          "keywords": ["İlaç", "GMP", "Biyoproses", "Fermentasyon"]
+          "keywords": [
+            "İlaç",
+            "GMP",
+            "Biyoproses",
+            "Fermentasyon"
+          ]
         },
         {
           "id": "prof_environmental_chemical",
           "name": "Çevre ve Sürdürülebilirlik Mühendisi",
           "icon": "leaf.fill",
           "description": "Endüstriyel atık arıtma, emisyon kontrolü, LCA, yeşil kimya, sürdürülebilirlik.",
-          "keywords": ["Çevre", "Emisyon", "LCA", "Sürdürülebilirlik"]
+          "keywords": [
+            "Çevre",
+            "Emisyon",
+            "LCA",
+            "Sürdürülebilirlik"
+          ]
         }
       ]
     },
@@ -527,63 +1175,91 @@
       "id": "cat_industrial",
       "name": "Endüstri Mühendisliği",
       "icon": "building.2.fill",
-      "order": 6,
+      "order": 11,
       "professions": [
         {
           "id": "prof_production_planning",
           "name": "Üretim Planlama Uzmanı",
           "icon": "calendar.badge.clock",
           "description": "Üretim planlama, kapasite yönetimi, malzeme ihtiyaç planlaması (MRP).",
-          "keywords": ["Üretim", "Planlama", "MRP", "Kapasite"]
+          "keywords": [
+            "Üretim",
+            "Planlama",
+            "MRP",
+            "Kapasite"
+          ]
         },
         {
           "id": "prof_quality_control",
           "name": "Kalite Kontrol Mühendisi",
           "icon": "checkmark.seal.fill",
           "description": "ISO standartları, kalite yönetim sistemleri, istatistiksel proses kontrolü.",
-          "keywords": ["Kalite", "ISO", "QC", "İstatistik"]
+          "keywords": [
+            "Kalite",
+            "ISO",
+            "QC",
+            "İstatistik"
+          ]
         },
         {
           "id": "prof_supply_chain",
           "name": "Tedarik Zinciri Uzmanı",
           "icon": "shippingbox.fill",
           "description": "Lojistik yönetimi, stok kontrolü, tedarikçi ilişkileri ve dağıtım ağları.",
-          "keywords": ["Tedarik", "Lojistik", "Stok", "Dağıtım"]
+          "keywords": [
+            "Tedarik",
+            "Lojistik",
+            "Stok",
+            "Dağıtım"
+          ]
         },
         {
           "id": "prof_project_management",
           "name": "Proje Yönetimi Uzmanı",
           "icon": "chart.bar.doc.horizontal.fill",
           "description": "Proje planlama, risk yönetimi, kaynak optimizasyonu, Agile/Scrum metodolojileri.",
-          "keywords": ["Proje", "Yönetim", "Agile", "Scrum"]
+          "keywords": [
+            "Proje",
+            "Yönetim",
+            "Agile",
+            "Scrum"
+          ]
         },
         {
           "id": "prof_lean_six_sigma",
           "name": "Lean Six Sigma Uzmanı",
           "icon": "chart.line.flattrend.xyaxis",
           "description": "Süreç iyileştirme, verimlilik artırma, israf eliminasyonu ve DMAIC metodolojisi.",
-          "keywords": ["Lean", "Six Sigma", "İyileştirme", "Verimlilik"]
+          "keywords": [
+            "Lean",
+            "Six Sigma",
+            "İyileştirme",
+            "Verimlilik"
+          ]
         },
         {
           "id": "prof_operations_research",
           "name": "Operasyon Araştırması Uzmanı",
           "icon": "chart.xyaxis.line",
           "description": "Matematiksel modelleme, simülasyon, optimizasyon, karar analizi.",
-          "keywords": ["OR", "Optimizasyon", "Simülasyon", "Modelleme"]
+          "keywords": [
+            "OR",
+            "Optimizasyon",
+            "Simülasyon",
+            "Modelleme"
+          ]
         },
         {
           "id": "prof_ergonomics",
           "name": "Ergonomi / İş Güvenliği Uzmanı",
           "icon": "figure.arms.open",
           "description": "İş yeri ergonomisi, çalışan sağlığı, iş güvenliği mevzuatı, risk değerlendirmesi.",
-          "keywords": ["Ergonomi", "İş Güvenliği", "Risk", "OHS"]
-        },
-        {
-          "id": "prof_industrial_design",
-          "name": "Endüstriyel Tasarımcı",
-          "icon": "paintpalette.fill",
-          "description": "Ürün tasarımı, prototip geliştirme, kullanıcı odaklı tasarım, üretilebilirlik.",
-          "keywords": ["Endüstriyel Tasarım", "Ürün", "Prototip", "Industrial Design"]
+          "keywords": [
+            "Ergonomi",
+            "İş Güvenliği",
+            "Risk",
+            "OHS"
+          ]
         }
       ]
     },
@@ -591,84 +1267,141 @@
       "id": "cat_data_ai",
       "name": "Veri Bilimi & Yapay Zeka",
       "icon": "brain.head.profile",
-      "order": 7,
+      "order": 12,
       "professions": [
         {
           "id": "prof_data_scientist",
           "name": "Data Scientist",
           "icon": "chart.xyaxis.line",
           "description": "Python, Pandas, NumPy, Scikit-learn, Machine Learning, veri analizi ve modelleme.",
-          "keywords": ["Data Science", "Python", "ML", "Analytics"]
+          "keywords": [
+            "Data Science",
+            "Python",
+            "ML",
+            "Analytics"
+          ]
         },
         {
           "id": "prof_ml_engineer",
           "name": "Machine Learning Engineer",
           "icon": "cpu.fill",
           "description": "ML model geliştirme, TensorFlow, PyTorch, model deployment ve MLOps.",
-          "keywords": ["Machine Learning", "TensorFlow", "PyTorch", "AI"]
+          "keywords": [
+            "Machine Learning",
+            "TensorFlow",
+            "PyTorch",
+            "AI"
+          ]
         },
         {
           "id": "prof_ai_engineer",
           "name": "AI Engineer",
           "icon": "sparkles",
           "description": "Yapay zeka sistemleri, NLP, Computer Vision, Deep Learning ve AI entegrasyonu.",
-          "keywords": ["AI", "Deep Learning", "NLP", "Computer Vision"]
+          "keywords": [
+            "AI",
+            "Deep Learning",
+            "NLP",
+            "Computer Vision"
+          ]
         },
         {
           "id": "prof_data_engineer",
           "name": "Data Engineer",
           "icon": "cylinder.split.1x2.fill",
           "description": "ETL süreçleri, Apache Spark, Kafka, veri pipeline'ları ve big data teknolojileri.",
-          "keywords": ["Data Engineering", "ETL", "Spark", "Big Data"]
+          "keywords": [
+            "Data Engineering",
+            "ETL",
+            "Spark",
+            "Big Data"
+          ]
         },
         {
           "id": "prof_data_analyst",
           "name": "Data Analyst",
           "icon": "chart.bar.xaxis",
           "description": "SQL, Excel, Power BI, Tableau, veri görselleştirme ve iş analitiği.",
-          "keywords": ["Data Analysis", "SQL", "Power BI", "Tableau"]
+          "keywords": [
+            "Data Analysis",
+            "SQL",
+            "Power BI",
+            "Tableau"
+          ]
         },
         {
           "id": "prof_nlp_engineer",
           "name": "NLP Engineer",
           "icon": "text.bubble",
           "description": "Natural Language Processing, transformers, BERT, GPT, dil modelleri, chatbot geliştirme.",
-          "keywords": ["NLP", "Transformers", "BERT", "GPT", "Chatbot"]
+          "keywords": [
+            "NLP",
+            "Transformers",
+            "BERT",
+            "GPT",
+            "Chatbot"
+          ]
         },
         {
           "id": "prof_computer_vision",
           "name": "Computer Vision Engineer",
           "icon": "eye.fill",
           "description": "Image processing, object detection, segmentation, CNN, OpenCV, YOLO.",
-          "keywords": ["Computer Vision", "CNN", "OpenCV", "Detection"]
+          "keywords": [
+            "Computer Vision",
+            "CNN",
+            "OpenCV",
+            "Detection"
+          ]
         },
         {
           "id": "prof_prompt_engineer",
           "name": "Prompt Engineer",
           "icon": "character.textbox",
           "description": "LLM prompting, AI model optimization, generative AI, ChatGPT, Claude.",
-          "keywords": ["Prompt Engineering", "LLM", "GPT", "AI"]
+          "keywords": [
+            "Prompt Engineering",
+            "LLM",
+            "GPT",
+            "AI"
+          ]
         },
         {
           "id": "prof_mlops_engineer",
           "name": "MLOps Engineer",
           "icon": "gearshape.circle.fill",
           "description": "ML pipeline yönetimi, model monitoring, feature store, Kubeflow, MLflow.",
-          "keywords": ["MLOps", "Pipeline", "Model Monitoring", "Kubeflow"]
+          "keywords": [
+            "MLOps",
+            "Pipeline",
+            "Model Monitoring",
+            "Kubeflow"
+          ]
         },
         {
           "id": "prof_ai_researcher",
           "name": "AI Araştırmacısı",
           "icon": "brain.fill",
           "description": "Akademik araştırma, yeni model mimarileri, reinforcement learning, makale yayını.",
-          "keywords": ["AI Research", "Reinforcement Learning", "Akademik", "Model"]
+          "keywords": [
+            "AI Research",
+            "Reinforcement Learning",
+            "Akademik",
+            "Model"
+          ]
         },
         {
           "id": "prof_bi_developer",
           "name": "Business Intelligence Developer",
           "icon": "chart.pie.fill",
           "description": "Power BI, Tableau, Looker, veri ambarı, dashboard geliştirme, raporlama.",
-          "keywords": ["BI", "Power BI", "Tableau", "Dashboard", "Reporting"]
+          "keywords": [
+            "BI",
+            "Power BI",
+            "Tableau",
+            "Dashboard",
+            "Reporting"
+          ]
         }
       ]
     },
@@ -676,77 +1409,142 @@
       "id": "cat_design",
       "name": "Tasarım & Ürün",
       "icon": "paintpalette.fill",
-      "order": 8,
+      "order": 13,
       "professions": [
         {
           "id": "prof_ux_ui",
           "name": "UX/UI Designer",
           "icon": "rectangle.on.rectangle.angled",
           "description": "Figma, Sketch, kullanıcı araştırması, wireframing, prototyping ve kullanılabilirlik testleri.",
-          "keywords": ["UX", "UI", "Figma", "Design", "Prototype"]
+          "keywords": [
+            "UX",
+            "UI",
+            "Figma",
+            "Design",
+            "Prototype"
+          ]
         },
         {
           "id": "prof_product_manager",
           "name": "Ürün Yöneticisi",
           "icon": "star.fill",
           "description": "Ürün stratejisi, roadmap planlama, kullanıcı ihtiyaç analizi ve product-market fit.",
-          "keywords": ["Product", "Management", "Strategy", "Roadmap"]
+          "keywords": [
+            "Product",
+            "Management",
+            "Strategy",
+            "Roadmap"
+          ]
         },
         {
           "id": "prof_graphic_designer",
           "name": "Grafik Tasarımcı",
           "icon": "photo.on.rectangle.angled",
           "description": "Adobe Creative Suite, branding, tipografi, görsel tasarım ve yaratıcı konseptler.",
-          "keywords": ["Graphic", "Adobe", "Branding", "Visual"]
+          "keywords": [
+            "Graphic",
+            "Adobe",
+            "Branding",
+            "Visual"
+          ]
         },
         {
           "id": "prof_motion_graphics",
           "name": "Motion Graphics Designer",
           "icon": "video.fill",
           "description": "After Effects, Cinema 4D, 2D/3D animasyon, video editing ve görsel efektler.",
-          "keywords": ["Motion", "Animation", "After Effects", "Video"]
+          "keywords": [
+            "Motion",
+            "Animation",
+            "After Effects",
+            "Video"
+          ]
         },
         {
           "id": "prof_3d_artist",
           "name": "3D Artist",
           "icon": "cube.fill",
           "description": "Blender, Maya, 3ds Max, 3D modelleme, texturing, rendering ve oyun assetleri.",
-          "keywords": ["3D", "Modeling", "Blender", "Maya", "Artist"]
+          "keywords": [
+            "3D",
+            "Modeling",
+            "Blender",
+            "Maya",
+            "Artist"
+          ]
         },
         {
           "id": "prof_ux_researcher",
           "name": "UX Researcher",
           "icon": "person.text.rectangle",
           "description": "Kullanıcı araştırması, user testing, persona oluşturma, A/B testing, nötr analiz.",
-          "keywords": ["UX Research", "Testing", "Persona", "User"]
+          "keywords": [
+            "UX Research",
+            "Testing",
+            "Persona",
+            "User"
+          ]
         },
         {
           "id": "prof_brand_designer",
           "name": "Brand Designer",
           "icon": "flag.fill",
           "description": "Marka kimliği, logo tasarımı, brand guidelines, görsel dil oluşturma.",
-          "keywords": ["Branding", "Logo", "Identity", "Visual"]
+          "keywords": [
+            "Branding",
+            "Logo",
+            "Identity",
+            "Visual"
+          ]
         },
         {
           "id": "prof_product_designer",
           "name": "Ürün Tasarımcısı",
           "icon": "cube.transparent.fill",
           "description": "Fiziksel ürün tasarımı, prototip, ergonomi, üretim için tasarım (DFM).",
-          "keywords": ["Product Design", "Prototype", "DFM", "Ergonomi"]
+          "keywords": [
+            "Product Design",
+            "Prototype",
+            "DFM",
+            "Ergonomi"
+          ]
         },
         {
           "id": "prof_fashion_designer",
           "name": "Moda Tasarımcısı",
           "icon": "tshirt.fill",
           "description": "Giysi tasarımı, koleksiyon hazırlama, kalıp, kumaş seçimi, trend analizi.",
-          "keywords": ["Moda", "Fashion", "Koleksiyon", "Tasarım"]
+          "keywords": [
+            "Moda",
+            "Fashion",
+            "Koleksiyon",
+            "Tasarım"
+          ]
         },
         {
           "id": "prof_web_designer",
           "name": "Web Tasarımcısı",
           "icon": "network",
           "description": "Web arayüz tasarımı, responsive design, CSS, görsel hiyerarşi ve web estetiği.",
-          "keywords": ["Web Design", "Responsive", "CSS", "UI", "Figma"]
+          "keywords": [
+            "Web Design",
+            "Responsive",
+            "CSS",
+            "UI",
+            "Figma"
+          ]
+        },
+        {
+          "id": "prof_industrial_design",
+          "name": "Endüstriyel Tasarımcı",
+          "icon": "paintpalette.fill",
+          "description": "Ürün tasarımı, prototip geliştirme, kullanıcı odaklı tasarım, üretilebilirlik.",
+          "keywords": [
+            "Endüstriyel Tasarım",
+            "Ürün",
+            "Prototip",
+            "Industrial Design"
+          ]
         }
       ]
     },
@@ -754,105 +1552,175 @@
       "id": "cat_sales_marketing",
       "name": "Satış & Pazarlama",
       "icon": "megaphone.fill",
-      "order": 9,
+      "order": 14,
       "professions": [
         {
           "id": "prof_sales_representative",
           "name": "Satış Temsilcisi",
           "icon": "person.fill.badge.plus",
           "description": "Müşteri ziyareti, ürün tanıtımı, teklif hazırlama, satış hedefi yönetimi.",
-          "keywords": ["Satış", "Müşteri", "Teklif", "Sales Rep"]
+          "keywords": [
+            "Satış",
+            "Müşteri",
+            "Teklif",
+            "Sales Rep"
+          ]
         },
         {
           "id": "prof_key_account_manager",
           "name": "Key Account Manager",
           "icon": "person.badge.key.fill",
           "description": "Büyük müşteri yönetimi, uzun vadeli ilişki kurma, sözleşme yenileme, büyütme.",
-          "keywords": ["KAM", "Hesap Yönetimi", "B2B", "Müşteri"]
+          "keywords": [
+            "KAM",
+            "Hesap Yönetimi",
+            "B2B",
+            "Müşteri"
+          ]
         },
         {
           "id": "prof_sales_manager",
           "name": "Satış Müdürü",
           "icon": "chart.line.uptrend.xyaxis",
           "description": "Satış ekibi yönetimi, hedef belirleme, performans takibi, bölge stratejisi.",
-          "keywords": ["Satış Yönetimi", "Hedef", "Ekip", "Strateji"]
+          "keywords": [
+            "Satış Yönetimi",
+            "Hedef",
+            "Ekip",
+            "Strateji"
+          ]
         },
         {
           "id": "prof_digital_marketing",
           "name": "Dijital Pazarlama Uzmanı",
           "icon": "megaphone.fill",
           "description": "SEO/SEM, sosyal medya, content marketing, Google Analytics ve kampanya yönetimi.",
-          "keywords": ["Marketing", "SEO", "Social Media", "Analytics"]
+          "keywords": [
+            "Marketing",
+            "SEO",
+            "Social Media",
+            "Analytics"
+          ]
         },
         {
           "id": "prof_seo_specialist",
           "name": "SEO Uzmanı",
           "icon": "magnifyingglass.circle.fill",
           "description": "Arama motoru optimizasyonu, anahtar kelime araştırması, link building, teknik SEO.",
-          "keywords": ["SEO", "Anahtar Kelime", "Google", "Organik"]
+          "keywords": [
+            "SEO",
+            "Anahtar Kelime",
+            "Google",
+            "Organik"
+          ]
         },
         {
           "id": "prof_performance_marketing",
           "name": "Performance Marketing Uzmanı",
           "icon": "chart.bar.fill",
           "description": "Google Ads, Meta Ads, programatik reklam, ROAS optimizasyonu, A/B testi.",
-          "keywords": ["Performance", "Google Ads", "Meta Ads", "ROAS"]
+          "keywords": [
+            "Performance",
+            "Google Ads",
+            "Meta Ads",
+            "ROAS"
+          ]
         },
         {
           "id": "prof_brand_manager",
           "name": "Marka Yöneticisi",
           "icon": "flag.2.crossed.fill",
           "description": "Marka stratejisi, konumlandırma, pazar analizi, kampanya planlaması, bütçe yönetimi.",
-          "keywords": ["Marka", "Brand", "Strateji", "Kampanya"]
+          "keywords": [
+            "Marka",
+            "Brand",
+            "Strateji",
+            "Kampanya"
+          ]
         },
         {
           "id": "prof_crm_specialist",
           "name": "CRM Uzmanı",
           "icon": "person.3.sequence.fill",
           "description": "Salesforce, HubSpot, müşteri segmentasyonu, lifecycle marketing, retention.",
-          "keywords": ["CRM", "Salesforce", "HubSpot", "Retention"]
+          "keywords": [
+            "CRM",
+            "Salesforce",
+            "HubSpot",
+            "Retention"
+          ]
         },
         {
           "id": "prof_market_researcher",
           "name": "Pazar Araştırma Uzmanı",
           "icon": "doc.text.magnifyingglass.fill",
           "description": "Anket tasarımı, odak grup, tüketici içgörüleri, rekabet analizi, raporlama.",
-          "keywords": ["Pazar Araştırma", "Anket", "Tüketici", "Insight"]
+          "keywords": [
+            "Pazar Araştırma",
+            "Anket",
+            "Tüketici",
+            "Insight"
+          ]
         },
         {
           "id": "prof_growth_hacker",
           "name": "Growth Hacker",
           "icon": "chart.line.uptrend.xyaxis.circle",
           "description": "Viral marketing, büyüme stratejileri, A/B testing, conversion optimization.",
-          "keywords": ["Growth", "Marketing", "Viral", "Optimization"]
+          "keywords": [
+            "Growth",
+            "Marketing",
+            "Viral",
+            "Optimization"
+          ]
         },
         {
           "id": "prof_ecommerce_manager",
           "name": "E-Ticaret Yöneticisi",
           "icon": "cart.fill",
           "description": "Online satış, marketplace yönetimi, conversion rate optimization, e-ticaret stratejisi.",
-          "keywords": ["E-commerce", "Online Sales", "Marketplace", "CRO"]
+          "keywords": [
+            "E-commerce",
+            "Online Sales",
+            "Marketplace",
+            "CRO"
+          ]
         },
         {
           "id": "prof_affiliate_marketing",
           "name": "Affiliate Marketing Uzmanı",
           "icon": "link.badge.plus",
           "description": "Affiliate program yönetimi, influencer partnership, komisyon modelleri, tracking.",
-          "keywords": ["Affiliate", "Komisyon", "Partnership", "Influencer"]
+          "keywords": [
+            "Affiliate",
+            "Komisyon",
+            "Partnership",
+            "Influencer"
+          ]
         },
         {
           "id": "prof_email_marketing",
           "name": "E-posta Pazarlama Uzmanı",
           "icon": "envelope.fill",
           "description": "E-posta kampanyaları, otomasyon, segmentasyon, A/B test, deliverability.",
-          "keywords": ["Email Marketing", "Kampanya", "Otomasyon", "Segmentasyon"]
+          "keywords": [
+            "Email Marketing",
+            "Kampanya",
+            "Otomasyon",
+            "Segmentasyon"
+          ]
         },
         {
           "id": "prof_retail_manager",
           "name": "Perakende / Mağaza Müdürü",
           "icon": "storefront.fill",
           "description": "Mağaza operasyonu, ekip yönetimi, stok takibi, müşteri deneyimi, satış artırma.",
-          "keywords": ["Perakende", "Mağaza", "Retail", "Operasyon"]
+          "keywords": [
+            "Perakende",
+            "Mağaza",
+            "Retail",
+            "Operasyon"
+          ]
         }
       ]
     },
@@ -860,49 +1728,79 @@
       "id": "cat_business",
       "name": "İş & Analitik",
       "icon": "briefcase.fill",
-      "order": 10,
+      "order": 15,
       "professions": [
         {
           "id": "prof_business_analyst",
           "name": "İş Analisti",
           "icon": "chart.bar.fill",
           "description": "İş süreç analizi, gereksinim yönetimi, veri görselleştirme ve raporlama.",
-          "keywords": ["Business", "Analysis", "Requirements", "Process"]
+          "keywords": [
+            "Business",
+            "Analysis",
+            "Requirements",
+            "Process"
+          ]
         },
         {
           "id": "prof_financial_analyst",
           "name": "Finansal Analist",
           "icon": "dollarsign.circle.fill",
           "description": "Finansal modelleme, yatırım analizi, Excel, mali tablolar ve risk değerlendirmesi.",
-          "keywords": ["Finance", "Analysis", "Investment", "Excel"]
+          "keywords": [
+            "Finance",
+            "Analysis",
+            "Investment",
+            "Excel"
+          ]
         },
         {
           "id": "prof_accountant",
           "name": "Mali Müşavir",
           "icon": "doc.text.fill",
           "description": "Muhasebe, vergi danışmanlığı, mali raporlama, denetim ve mali uyum.",
-          "keywords": ["Accounting", "Tax", "Finance", "Audit"]
+          "keywords": [
+            "Accounting",
+            "Tax",
+            "Finance",
+            "Audit"
+          ]
         },
         {
           "id": "prof_business_consultant",
           "name": "İş Danışmanı",
           "icon": "person.badge.key.fill",
           "description": "Stratejik danışmanlık, iş geliştirme, pazar analizi ve organizasyonel dönüşüm.",
-          "keywords": ["Consulting", "Strategy", "Business", "Transformation"]
+          "keywords": [
+            "Consulting",
+            "Strategy",
+            "Business",
+            "Transformation"
+          ]
         },
         {
           "id": "prof_entrepreneur",
           "name": "Girişimci / Startup Kurucusu",
           "icon": "sparkles.rectangle.stack.fill",
           "description": "Startup kurma, iş modeli, yatırım alma, pivot, ekip kurma, ürün-pazar uyumu.",
-          "keywords": ["Startup", "Girişim", "Entrepreneur", "Yatırım"]
+          "keywords": [
+            "Startup",
+            "Girişim",
+            "Entrepreneur",
+            "Yatırım"
+          ]
         },
         {
           "id": "prof_strategy_manager",
           "name": "Strateji Müdürü",
           "icon": "target",
           "description": "Kurumsal strateji, büyüme planlaması, rekabet analizi, M&A değerlendirme.",
-          "keywords": ["Strateji", "Kurumsal", "M&A", "Büyüme"]
+          "keywords": [
+            "Strateji",
+            "Kurumsal",
+            "M&A",
+            "Büyüme"
+          ]
         }
       ]
     },
@@ -910,70 +1808,103 @@
       "id": "cat_hr",
       "name": "İnsan Kaynakları & İletişim",
       "icon": "person.2.fill",
-      "order": 11,
+      "order": 16,
       "professions": [
         {
           "id": "prof_hr_specialist",
           "name": "İnsan Kaynakları Uzmanı",
           "icon": "person.crop.circle.badge.checkmark",
           "description": "İşe alım, performans yönetimi, eğitim geliştirme ve çalışan bağlılığı.",
-          "keywords": ["HR", "Recruitment", "Talent", "People"]
+          "keywords": [
+            "HR",
+            "Recruitment",
+            "Talent",
+            "People"
+          ]
         },
         {
           "id": "prof_talent_acquisition",
           "name": "Talent Acquisition Specialist",
           "icon": "person.badge.plus",
           "description": "Headhunting, sourcing, employer branding, candidate experience, hiring strategy.",
-          "keywords": ["Talent", "Recruitment", "Headhunting", "Hiring"]
+          "keywords": [
+            "Talent",
+            "Recruitment",
+            "Headhunting",
+            "Hiring"
+          ]
         },
         {
           "id": "prof_hr_business_partner",
           "name": "HR Business Partner",
           "icon": "person.2.badge.gearshape",
           "description": "Organizasyonel gelişim, yetenek yönetimi, iş ortaklığı, değişim yönetimi.",
-          "keywords": ["HRBP", "Organizasyonel Gelişim", "Yetenek", "Change Management"]
+          "keywords": [
+            "HRBP",
+            "Organizasyonel Gelişim",
+            "Yetenek",
+            "Change Management"
+          ]
         },
         {
           "id": "prof_compensation_benefits",
           "name": "Ücret ve Yan Haklar Uzmanı",
           "icon": "dollarsign.square.fill",
           "description": "Maaş yapılandırma, prim sistemleri, yan haklar, ücret piyasa araştırması.",
-          "keywords": ["Ücret", "Yan Haklar", "Prim", "Compensation"]
-        },
-        {
-          "id": "prof_sales_bd",
-          "name": "Satış & İş Geliştirme Uzmanı",
-          "icon": "chart.line.uptrend.xyaxis",
-          "description": "B2B/B2C satış, müşteri ilişkileri yönetimi, iş geliştirme stratejileri ve CRM.",
-          "keywords": ["Sales", "Business Development", "CRM", "B2B"]
+          "keywords": [
+            "Ücret",
+            "Yan Haklar",
+            "Prim",
+            "Compensation"
+          ]
         },
         {
           "id": "prof_content_writer",
           "name": "İçerik Yazarı",
           "icon": "text.book.closed.fill",
           "description": "Blog yazarlığı, SEO içerik, copywriting, hikaye anlatımı ve içerik stratejisi.",
-          "keywords": ["Content", "Writing", "SEO", "Copywriting"]
+          "keywords": [
+            "Content",
+            "Writing",
+            "SEO",
+            "Copywriting"
+          ]
         },
         {
           "id": "prof_public_relations",
           "name": "Halkla İlişkiler Uzmanı",
           "icon": "speaker.wave.3.fill",
           "description": "Medya ilişkileri, kriz yönetimi, kurumsal iletişim ve marka itibar yönetimi.",
-          "keywords": ["PR", "Media", "Communication", "Reputation"]
+          "keywords": [
+            "PR",
+            "Media",
+            "Communication",
+            "Reputation"
+          ]
         },
         {
           "id": "prof_social_media_manager",
           "name": "Sosyal Medya Yöneticisi",
           "icon": "bubbles.and.sparkles",
           "description": "Social media strategy, community management, content creation, influencer marketing.",
-          "keywords": ["Social Media", "Community", "Content", "Influencer"]
+          "keywords": [
+            "Social Media",
+            "Community",
+            "Content",
+            "Influencer"
+          ]
         },
         {
           "id": "prof_corporate_communication",
           "name": "Kurumsal İletişim Uzmanı",
           "icon": "building.2.crop.circle.fill",
           "description": "İç iletişim, basın bülteni, kurumsal yayınlar, kriz iletişimi.",
-          "keywords": ["Kurumsal İletişim", "İç İletişim", "Basın", "Corporate Comms"]
+          "keywords": [
+            "Kurumsal İletişim",
+            "İç İletişim",
+            "Basın",
+            "Corporate Comms"
+          ]
         }
       ]
     },
@@ -981,63 +1912,102 @@
       "id": "cat_veterinary",
       "name": "Veterinerlik",
       "icon": "pawprint.fill",
-      "order": 12,
+      "order": 17,
       "professions": [
         {
           "id": "prof_small_animal_vet",
           "name": "Küçük Hayvan Veterineri",
           "icon": "pawprint.circle.fill",
           "description": "Kedi, köpek ve küçük evcil hayvanların muayene, tedavi ve cerrahi işlemleri.",
-          "keywords": ["Veteriner", "Kedi", "Köpek", "Evcil Hayvan"]
+          "keywords": [
+            "Veteriner",
+            "Kedi",
+            "Köpek",
+            "Evcil Hayvan"
+          ]
         },
         {
           "id": "prof_large_animal_vet",
           "name": "Büyük Hayvan Veterineri",
           "icon": "hare.fill",
           "description": "At, sığır, koyun, keçi gibi büyükbaş ve küçükbaş hayvanların sağlık yönetimi.",
-          "keywords": ["Veteriner", "At", "Sığır", "Büyükbaş"]
+          "keywords": [
+            "Veteriner",
+            "At",
+            "Sığır",
+            "Büyükbaş"
+          ]
         },
         {
           "id": "prof_vet_surgeon",
           "name": "Veteriner Cerrah",
           "icon": "cross.case.fill",
           "description": "Hayvan ameliyatları, ortopedik cerrahi, yumuşak doku cerrahisi, anestezi.",
-          "keywords": ["Veteriner Cerrahi", "Ameliyat", "Ortopedi", "Anestezi"]
+          "keywords": [
+            "Veteriner Cerrahi",
+            "Ameliyat",
+            "Ortopedi",
+            "Anestezi"
+          ]
         },
         {
           "id": "prof_vet_dermatologist",
           "name": "Veteriner Dermatoloji Uzmanı",
           "icon": "allergens.fill",
           "description": "Hayvan cilt hastalıkları, alerji, otoimmün hastalıklar, dermatolojik tedaviler.",
-          "keywords": ["Veteriner Dermatoloji", "Cilt", "Alerji"]
+          "keywords": [
+            "Veteriner Dermatoloji",
+            "Cilt",
+            "Alerji"
+          ]
         },
         {
           "id": "prof_zoo_vet",
           "name": "Zoo / Egzotik Hayvan Veterineri",
           "icon": "tortoise.fill",
           "description": "Yaban hayvanları, egzotik türler, zoo tıbbı, vahşi hayvan rehabilitasyonu.",
-          "keywords": ["Egzotik", "Zoo", "Yaban Hayvanı", "Vahşi"]
+          "keywords": [
+            "Egzotik",
+            "Zoo",
+            "Yaban Hayvanı",
+            "Vahşi"
+          ]
         },
         {
           "id": "prof_vet_public_health",
           "name": "Veteriner Halk Sağlığı Uzmanı",
           "icon": "person.3.fill",
           "description": "Zoonoz hastalıklar, gıda güvenliği denetimi, salgın kontrolü, One Health.",
-          "keywords": ["Zoonoz", "Gıda Güvenliği", "Halk Sağlığı", "One Health"]
+          "keywords": [
+            "Zoonoz",
+            "Gıda Güvenliği",
+            "Halk Sağlığı",
+            "One Health"
+          ]
         },
         {
           "id": "prof_vet_pharmacologist",
           "name": "Veteriner Farmakoloji Uzmanı",
           "icon": "pills.fill",
           "description": "Veteriner ilaçları, ilaç etkileşimleri, klinik farmakoloji, ilaç geliştirme.",
-          "keywords": ["Farmakoloji", "Veteriner İlaç", "Klinik", "İlaç"]
+          "keywords": [
+            "Farmakoloji",
+            "Veteriner İlaç",
+            "Klinik",
+            "İlaç"
+          ]
         },
         {
           "id": "prof_vet_pathologist",
           "name": "Veteriner Patolog",
           "icon": "microscope",
           "description": "Doku incelemesi, otopsi, hastalık tanısı, histopatoloji.",
-          "keywords": ["Patoloji", "Otopsi", "Histopatoloji", "Veteriner"]
+          "keywords": [
+            "Patoloji",
+            "Otopsi",
+            "Histopatoloji",
+            "Veteriner"
+          ]
         }
       ]
     },
@@ -1045,308 +2015,522 @@
       "id": "cat_health",
       "name": "Sağlık",
       "icon": "cross.case.fill",
-      "order": 13,
+      "order": 18,
       "professions": [
         {
           "id": "prof_general_practitioner",
           "name": "Pratisyen Hekim",
           "icon": "stethoscope",
           "description": "Genel sağlık muayenesi, birinci basamak sağlık hizmetleri, hasta takibi, teşhis ve tedavi.",
-          "keywords": ["Hekim", "Doktor", "Pratisyen", "Muayene", "Teşhis"]
+          "keywords": [
+            "Hekim",
+            "Doktor",
+            "Pratisyen",
+            "Muayene",
+            "Teşhis"
+          ]
         },
         {
           "id": "prof_internal_medicine",
           "name": "Dahiliye Uzmanı",
           "icon": "heart.text.square",
           "description": "İç hastalıkları, kronik hastalık yönetimi, tanı ve tedavi protokolleri, poliklinik.",
-          "keywords": ["Dahiliye", "İç Hastalıkları", "Kronik", "Tanı"]
+          "keywords": [
+            "Dahiliye",
+            "İç Hastalıkları",
+            "Kronik",
+            "Tanı"
+          ]
         },
         {
           "id": "prof_surgeon",
           "name": "Genel Cerrahi Uzmanı",
           "icon": "bandage",
           "description": "Cerrahi müdahale, ameliyat teknikleri, preoperatif ve postoperatif bakım.",
-          "keywords": ["Cerrahi", "Ameliyat", "Operasyon", "Surgeon"]
+          "keywords": [
+            "Cerrahi",
+            "Ameliyat",
+            "Operasyon",
+            "Surgeon"
+          ]
         },
         {
           "id": "prof_pediatrician",
           "name": "Çocuk Sağlığı ve Hastalıkları Uzmanı",
           "icon": "figure.and.child.holdinghands",
           "description": "Pediatri, çocuk hastalıkları, aşılama, büyüme ve gelişim takibi.",
-          "keywords": ["Pediatri", "Çocuk", "Bebek", "Aşı"]
+          "keywords": [
+            "Pediatri",
+            "Çocuk",
+            "Bebek",
+            "Aşı"
+          ]
         },
         {
           "id": "prof_cardiologist",
           "name": "Kardiyoloji Uzmanı",
           "icon": "heart.fill",
           "description": "Kalp hastalıkları, EKG yorumlama, ekokardiyografi, anjiyografi, kardiyak kateterizasyon.",
-          "keywords": ["Kardiyoloji", "Kalp", "EKG", "Anjiyografi"]
+          "keywords": [
+            "Kardiyoloji",
+            "Kalp",
+            "EKG",
+            "Anjiyografi"
+          ]
         },
         {
           "id": "prof_orthopedist",
           "name": "Ortopedi ve Travmatoloji Uzmanı",
           "icon": "figure.walk",
           "description": "Kas-iskelet sistemi, kırık tedavisi, protez, artroskopi, spor yaralanmaları.",
-          "keywords": ["Ortopedi", "Kemik", "Kırık", "Protez"]
+          "keywords": [
+            "Ortopedi",
+            "Kemik",
+            "Kırık",
+            "Protez"
+          ]
         },
         {
           "id": "prof_dermatologist",
           "name": "Dermatoloji Uzmanı",
           "icon": "face.smiling",
           "description": "Cilt hastalıkları, kozmetik dermatoloji, lazer tedaviler, akne, egzama.",
-          "keywords": ["Dermatoloji", "Cilt", "Akne", "Lazer"]
+          "keywords": [
+            "Dermatoloji",
+            "Cilt",
+            "Akne",
+            "Lazer"
+          ]
         },
         {
           "id": "prof_ophthalmologist",
           "name": "Göz Hastalıkları Uzmanı",
           "icon": "eye",
           "description": "Göz muayenesi, katarakt, glokom, retina hastalıkları, refraksiyon kusurları.",
-          "keywords": ["Göz", "Oftalmoloji", "Katarakt", "Retina"]
+          "keywords": [
+            "Göz",
+            "Oftalmoloji",
+            "Katarakt",
+            "Retina"
+          ]
         },
         {
           "id": "prof_ent_specialist",
           "name": "Kulak Burun Boğaz Uzmanı",
           "icon": "ear",
           "description": "KBB hastalıkları, sinüzit, tonsillektomi, işitme kaybı, burun estetiği.",
-          "keywords": ["KBB", "Kulak", "Burun", "Boğaz"]
+          "keywords": [
+            "KBB",
+            "Kulak",
+            "Burun",
+            "Boğaz"
+          ]
         },
         {
           "id": "prof_obgyn",
           "name": "Kadın Hastalıkları ve Doğum Uzmanı",
           "icon": "figure.stand",
           "description": "Obstetrik, jinekoloji, gebelik takibi, doğum, ultrason, menopoz.",
-          "keywords": ["Kadın Doğum", "Gebelik", "Jinekoloji", "Doğum"]
+          "keywords": [
+            "Kadın Doğum",
+            "Gebelik",
+            "Jinekoloji",
+            "Doğum"
+          ]
         },
         {
           "id": "prof_neurologist",
           "name": "Nöroloji Uzmanı",
           "icon": "brain",
           "description": "Sinir sistemi hastalıkları, epilepsi, MS, migren, EMG, EEG yorumlama.",
-          "keywords": ["Nöroloji", "Sinir", "Beyin", "Epilepsi"]
+          "keywords": [
+            "Nöroloji",
+            "Sinir",
+            "Beyin",
+            "Epilepsi"
+          ]
         },
         {
           "id": "prof_psychiatrist",
           "name": "Psikiyatri Uzmanı",
           "icon": "brain.head.profile",
           "description": "Ruh sağlığı, depresyon, anksiyete, psikotik bozukluklar, ilaç tedavisi.",
-          "keywords": ["Psikiyatri", "Ruh Sağlığı", "Depresyon", "Anksiyete"]
+          "keywords": [
+            "Psikiyatri",
+            "Ruh Sağlığı",
+            "Depresyon",
+            "Anksiyete"
+          ]
         },
         {
           "id": "prof_radiologist",
           "name": "Radyoloji Uzmanı",
           "icon": "waveform.path.ecg",
           "description": "Görüntüleme teknikleri, MR, BT, röntgen yorumlama, girişimsel radyoloji.",
-          "keywords": ["Radyoloji", "MR", "BT", "Röntgen"]
+          "keywords": [
+            "Radyoloji",
+            "MR",
+            "BT",
+            "Röntgen"
+          ]
         },
         {
           "id": "prof_anesthesiologist",
           "name": "Anesteziyoloji ve Reanimasyon Uzmanı",
           "icon": "sleep",
           "description": "Anestezi yönetimi, yoğun bakım, ağrı tedavisi, ameliyat öncesi değerlendirme.",
-          "keywords": ["Anestezi", "Yoğun Bakım", "Ağrı", "Reanimasyon"]
+          "keywords": [
+            "Anestezi",
+            "Yoğun Bakım",
+            "Ağrı",
+            "Reanimasyon"
+          ]
         },
         {
           "id": "prof_emergency_medicine",
           "name": "Acil Tıp Uzmanı",
           "icon": "cross.circle.fill",
           "description": "Acil müdahale, travma yönetimi, CPR, ATLS, acil servis protokolleri.",
-          "keywords": ["Acil", "Travma", "CPR", "Emergency"]
+          "keywords": [
+            "Acil",
+            "Travma",
+            "CPR",
+            "Emergency"
+          ]
         },
         {
           "id": "prof_family_medicine",
           "name": "Aile Hekimliği Uzmanı",
           "icon": "house.and.flag.fill",
           "description": "Aile sağlığı merkezi, birinci basamak, kronik hastalık takibi, sağlık taraması.",
-          "keywords": ["Aile Hekimi", "Birinci Basamak", "Aile Sağlığı"]
+          "keywords": [
+            "Aile Hekimi",
+            "Birinci Basamak",
+            "Aile Sağlığı"
+          ]
         },
         {
           "id": "prof_oncologist",
           "name": "Onkoloji Uzmanı",
           "icon": "cross.fill",
           "description": "Kanser tanı ve tedavisi, kemoterapi, radyoterapi, immunoterapi protokolleri.",
-          "keywords": ["Onkoloji", "Kanser", "Kemoterapi", "Tümör"]
+          "keywords": [
+            "Onkoloji",
+            "Kanser",
+            "Kemoterapi",
+            "Tümör"
+          ]
         },
         {
           "id": "prof_endocrinologist",
           "name": "Endokrinoloji ve Metabolizma Uzmanı",
           "icon": "waveform.path",
           "description": "Diyabet, tiroid hastalıkları, hormon bozuklukları, metabolik sendrom.",
-          "keywords": ["Endokrinoloji", "Diyabet", "Tiroid", "Hormon"]
+          "keywords": [
+            "Endokrinoloji",
+            "Diyabet",
+            "Tiroid",
+            "Hormon"
+          ]
         },
         {
           "id": "prof_urologist",
           "name": "Üroloji Uzmanı",
           "icon": "drop.triangle.fill",
           "description": "İdrar yolları hastalıkları, ürolojik cerrahi, prostat, böbrek taşı, laparoskopi.",
-          "keywords": ["Üroloji", "İdrar", "Prostat", "Böbrek"]
+          "keywords": [
+            "Üroloji",
+            "İdrar",
+            "Prostat",
+            "Böbrek"
+          ]
         },
         {
           "id": "prof_rheumatologist",
           "name": "Romatoloji Uzmanı",
           "icon": "figure.arms.open",
           "description": "Romatoid artrit, lupus, eklem hastalıkları, biyolojik tedaviler.",
-          "keywords": ["Romatoloji", "Artrit", "Eklem", "Otoimmün"]
+          "keywords": [
+            "Romatoloji",
+            "Artrit",
+            "Eklem",
+            "Otoimmün"
+          ]
         },
         {
           "id": "prof_pulmonologist",
           "name": "Göğüs Hastalıkları Uzmanı",
           "icon": "lungs.fill",
           "description": "Astım, KOAH, pulmoner fibroz, bronkoskopi, solunum yolu hastalıkları.",
-          "keywords": ["Göğüs", "Akciğer", "KOAH", "Solunum"]
+          "keywords": [
+            "Göğüs",
+            "Akciğer",
+            "KOAH",
+            "Solunum"
+          ]
         },
         {
           "id": "prof_dentist",
           "name": "Diş Hekimi",
           "icon": "mouth",
           "description": "Diş muayenesi, dolgu, kanal tedavisi, periodontal hastalıklar, diş çekimi.",
-          "keywords": ["Diş", "Diş Hekimliği", "Dental", "Ağız"]
+          "keywords": [
+            "Diş",
+            "Diş Hekimliği",
+            "Dental",
+            "Ağız"
+          ]
         },
         {
           "id": "prof_orthodontist",
           "name": "Ortodonti Uzmanı",
           "icon": "face.smiling",
           "description": "Diş teli, şeffaf plak, çene ortopedisi, maloklüzyon tedavisi.",
-          "keywords": ["Ortodonti", "Diş Teli", "Tel Tedavi", "Braces"]
+          "keywords": [
+            "Ortodonti",
+            "Diş Teli",
+            "Tel Tedavi",
+            "Braces"
+          ]
         },
         {
           "id": "prof_oral_surgeon",
           "name": "Ağız Diş Çene Cerrahisi Uzmanı",
           "icon": "cross.vial",
           "description": "Gömülü diş, implant, çene cerrahisi, oral patoloji.",
-          "keywords": ["Çene", "İmplant", "Cerrahi", "Oral"]
+          "keywords": [
+            "Çene",
+            "İmplant",
+            "Cerrahi",
+            "Oral"
+          ]
         },
         {
           "id": "prof_prosthodontist",
           "name": "Protetik Diş Tedavisi Uzmanı",
           "icon": "mouth.fill",
           "description": "Diş protezi, köprü, implant üstü protez, estetik diş hekimliği.",
-          "keywords": ["Protez", "Köprü", "İmplant", "Estetik"]
+          "keywords": [
+            "Protez",
+            "Köprü",
+            "İmplant",
+            "Estetik"
+          ]
         },
         {
           "id": "prof_endodontist",
           "name": "Endodonti Uzmanı",
           "icon": "cross.fill",
           "description": "Kanal tedavisi, apikal cerrahi, dental travma, pulpa hastalıkları.",
-          "keywords": ["Kanal", "Endodonti", "Pulpa", "Root Canal"]
+          "keywords": [
+            "Kanal",
+            "Endodonti",
+            "Pulpa",
+            "Root Canal"
+          ]
         },
         {
           "id": "prof_pathologist",
           "name": "Patoloji Uzmanı",
           "icon": "microscope",
           "description": "Doku incelemesi, biyopsi değerlendirme, otopsi, sitopatoloji, immünohistokimya.",
-          "keywords": ["Patoloji", "Biyopsi", "Mikroskop", "Tanı"]
+          "keywords": [
+            "Patoloji",
+            "Biyopsi",
+            "Mikroskop",
+            "Tanı"
+          ]
         },
         {
           "id": "prof_clinical_biochemist",
           "name": "Tıbbi Biyokimya Uzmanı",
           "icon": "testtube.2",
           "description": "Laboratuvar testleri, biyokimyasal analizler, hormon ölçümü, metabolik hastalıklar.",
-          "keywords": ["Biyokimya", "Laboratuvar", "Test", "Analiz"]
+          "keywords": [
+            "Biyokimya",
+            "Laboratuvar",
+            "Test",
+            "Analiz"
+          ]
         },
         {
           "id": "prof_medical_geneticist",
           "name": "Tıbbi Genetik Uzmanı",
           "icon": "dna",
           "description": "Genetik danışmanlık, prenatal tanı, kalıtsal hastalıklar, gen terapisi.",
-          "keywords": ["Genetik", "DNA", "Kalıtım", "Prenatal"]
+          "keywords": [
+            "Genetik",
+            "DNA",
+            "Kalıtım",
+            "Prenatal"
+          ]
         },
         {
           "id": "prof_public_health_specialist",
           "name": "Halk Sağlığı Uzmanı",
           "icon": "person.3.fill",
           "description": "Epidemiyoloji, sağlık politikaları, salgın kontrolü, aşılama programları.",
-          "keywords": ["Halk Sağlığı", "Epidemiyoloji", "Salgın", "Politika"]
+          "keywords": [
+            "Halk Sağlığı",
+            "Epidemiyoloji",
+            "Salgın",
+            "Politika"
+          ]
         },
         {
           "id": "prof_medical_student",
           "name": "Tıp Öğrencisi / Stajyer Hekim",
           "icon": "graduationcap.fill",
           "description": "Tıp eğitimi, klinik staj, hasta başı öğretim, temel tıp bilimleri.",
-          "keywords": ["Tıp Öğrencisi", "Stajyer", "İntern", "Medikal"]
+          "keywords": [
+            "Tıp Öğrencisi",
+            "Stajyer",
+            "İntern",
+            "Medikal"
+          ]
         },
         {
           "id": "prof_pharmacist",
           "name": "Eczacı",
           "icon": "pills.fill",
           "description": "İlaç danışmanlığı, farmakoloji, reçete yönetimi, sağlık ürünleri.",
-          "keywords": ["Eczacı", "İlaç", "Farmakoloji", "Pharmacy"]
+          "keywords": [
+            "Eczacı",
+            "İlaç",
+            "Farmakoloji",
+            "Pharmacy"
+          ]
         },
         {
           "id": "prof_dietitian",
           "name": "Diyetisyen",
           "icon": "leaf.fill",
           "description": "Beslenme planlaması, diyet danışmanlığı, klinik beslenme ve sağlıklı yaşam.",
-          "keywords": ["Diyetisyen", "Beslenme", "Diyet", "Nutrition"]
+          "keywords": [
+            "Diyetisyen",
+            "Beslenme",
+            "Diyet",
+            "Nutrition"
+          ]
         },
         {
           "id": "prof_physiotherapist",
           "name": "Fizyoterapist",
           "icon": "figure.walk",
           "description": "Fizik tedavi, rehabilitasyon, manuel terapi ve egzersiz programları.",
-          "keywords": ["Fizyoterapi", "Rehabilitasyon", "Terapi", "Egzersiz"]
+          "keywords": [
+            "Fizyoterapi",
+            "Rehabilitasyon",
+            "Terapi",
+            "Egzersiz"
+          ]
         },
         {
           "id": "prof_nurse",
           "name": "Hemşire",
           "icon": "heart.circle.fill",
           "description": "Hasta bakımı, tıbbi prosedürler, sağlık gözetimi ve klinik uygulama.",
-          "keywords": ["Hemşire", "Hasta Bakımı", "Klinik", "Nursing"]
+          "keywords": [
+            "Hemşire",
+            "Hasta Bakımı",
+            "Klinik",
+            "Nursing"
+          ]
         },
         {
           "id": "prof_psychologist",
           "name": "Psikolojik Danışman",
           "icon": "heart.text.square.fill",
           "description": "Psikolojik değerlendirme, danışmanlık teknikleri, terapi yaklaşımları ve etik.",
-          "keywords": ["Psikoloji", "Danışmanlık", "Terapi", "Mental"]
+          "keywords": [
+            "Psikoloji",
+            "Danışmanlık",
+            "Terapi",
+            "Mental"
+          ]
         },
         {
           "id": "prof_medical_device",
           "name": "Biyomedikal Mühendisi",
           "icon": "heart.text.square",
           "description": "Tıbbi cihaz tasarımı, prostetik, görüntüleme sistemleri, medikal teknoloji.",
-          "keywords": ["Biyomedikal", "Tıbbi Cihaz", "Medikal", "Teknoloji"]
+          "keywords": [
+            "Biyomedikal",
+            "Tıbbi Cihaz",
+            "Medikal",
+            "Teknoloji"
+          ]
         },
         {
           "id": "prof_clinical_researcher",
           "name": "Klinik Araştırmacı",
           "icon": "chart.bar.doc.horizontal",
           "description": "Klinik çalışmalar, ilaç denemeleri, GCP, araştırma protokolleri, data analizi.",
-          "keywords": ["Araştırma", "Klinik", "İlaç Deneyi", "GCP"]
+          "keywords": [
+            "Araştırma",
+            "Klinik",
+            "İlaç Deneyi",
+            "GCP"
+          ]
         },
         {
           "id": "prof_medical_writer",
           "name": "Tıbbi Yazılım Uzmanı",
           "icon": "doc.text.fill",
           "description": "Tıbbi dokümantasyon, bilimsel yazım, ilaç raporları, hasta bilgilendirme.",
-          "keywords": ["Tıbbi Yazılım", "Dokümantasyon", "Medical Writing"]
+          "keywords": [
+            "Tıbbi Yazılım",
+            "Dokümantasyon",
+            "Medical Writing"
+          ]
         },
         {
           "id": "prof_speech_therapist",
           "name": "Dil ve Konuşma Terapisti",
           "icon": "bubble.left.and.text.bubble.right.fill",
           "description": "Konuşma bozuklukları, yutma güçlüğü, dil gelişimi, afazi rehabilitasyonu.",
-          "keywords": ["Konuşma Terapisi", "Dil", "Afazi", "Yutma"]
+          "keywords": [
+            "Konuşma Terapisi",
+            "Dil",
+            "Afazi",
+            "Yutma"
+          ]
         },
         {
           "id": "prof_occupational_therapist",
           "name": "Ergoterapi Uzmanı",
           "icon": "hand.raised.fill",
           "description": "Günlük yaşam aktiviteleri, rehabilitasyon, gelişimsel bozukluklar, ortez tasarımı.",
-          "keywords": ["Ergoterapi", "Rehabilitasyon", "Günlük Yaşam", "ADL"]
+          "keywords": [
+            "Ergoterapi",
+            "Rehabilitasyon",
+            "Günlük Yaşam",
+            "ADL"
+          ]
         },
         {
           "id": "prof_optometrist",
           "name": "Optometrist",
           "icon": "eye.circle.fill",
           "description": "Görme muayenesi, refraksiyon, gözlük/lens reçetesi, ön segment değerlendirme.",
-          "keywords": ["Optometri", "Görme", "Refraksiyon", "Gözlük"]
+          "keywords": [
+            "Optometri",
+            "Görme",
+            "Refraksiyon",
+            "Gözlük"
+          ]
         },
         {
           "id": "prof_midwife",
           "name": "Ebe",
           "icon": "heart.fill",
           "description": "Gebelik takibi, normal doğum yönetimi, doğum sonu bakım, emzirme danışmanlığı.",
-          "keywords": ["Ebe", "Doğum", "Gebelik", "Midwife"]
+          "keywords": [
+            "Ebe",
+            "Doğum",
+            "Gebelik",
+            "Midwife"
+          ]
         }
       ]
     },
@@ -1354,77 +2538,127 @@
       "id": "cat_law",
       "name": "Hukuk",
       "icon": "scale.3d",
-      "order": 14,
+      "order": 19,
       "professions": [
         {
           "id": "prof_lawyer",
           "name": "Avukat",
           "icon": "briefcase.circle.fill",
           "description": "Hukuki danışmanlık, dava takibi, sözleşme hazırlama ve müvekkil temsili.",
-          "keywords": ["Law", "Legal", "Attorney", "Court"]
+          "keywords": [
+            "Law",
+            "Legal",
+            "Attorney",
+            "Court"
+          ]
         },
         {
           "id": "prof_legal_consultant",
           "name": "Hukuk Müşaviri",
           "icon": "doc.text.magnifyingglass",
           "description": "Kurumsal hukuk, uyum, risk yönetimi ve hukuki görüş hazırlama.",
-          "keywords": ["Legal", "Compliance", "Corporate", "Risk"]
+          "keywords": [
+            "Legal",
+            "Compliance",
+            "Corporate",
+            "Risk"
+          ]
         },
         {
           "id": "prof_patent_attorney",
           "name": "Patent Vekili",
           "icon": "lightbulb.circle",
           "description": "Patent başvurusu, fikri mülkiyet hukuku, trademark, telif hakları.",
-          "keywords": ["Patent", "IP", "Trademark", "Intellectual Property"]
+          "keywords": [
+            "Patent",
+            "IP",
+            "Trademark",
+            "Intellectual Property"
+          ]
         },
         {
           "id": "prof_criminal_lawyer",
           "name": "Ceza Hukuku Avukatı",
           "icon": "hand.raised.fill",
           "description": "Ceza davaları, müdafi, savcılık, cezai soruşturma, infaz hukuku.",
-          "keywords": ["Ceza", "Müdafi", "Soruşturma", "Criminal Law"]
+          "keywords": [
+            "Ceza",
+            "Müdafi",
+            "Soruşturma",
+            "Criminal Law"
+          ]
         },
         {
           "id": "prof_family_lawyer",
           "name": "Aile Hukuku Avukatı",
           "icon": "house.fill",
           "description": "Boşanma, velayet, nafaka, miras davaları, aile anlaşmazlıkları.",
-          "keywords": ["Aile Hukuku", "Boşanma", "Velayet", "Miras"]
+          "keywords": [
+            "Aile Hukuku",
+            "Boşanma",
+            "Velayet",
+            "Miras"
+          ]
         },
         {
           "id": "prof_commercial_lawyer",
           "name": "Ticaret Hukuku Avukatı",
           "icon": "building.columns.fill",
           "description": "Şirket kuruluşu, ticari sözleşmeler, birleşme-satın alma, rekabet hukuku.",
-          "keywords": ["Ticaret Hukuku", "Şirket", "Sözleşme", "M&A"]
+          "keywords": [
+            "Ticaret Hukuku",
+            "Şirket",
+            "Sözleşme",
+            "M&A"
+          ]
         },
         {
           "id": "prof_labor_lawyer",
           "name": "İş Hukuku Avukatı",
           "icon": "person.crop.circle.badge.questionmark",
           "description": "İş akdi, işe iade, kıdem tazminatı, toplu iş hukuku, SGK uyuşmazlıkları.",
-          "keywords": ["İş Hukuku", "İşçi", "Kıdem", "SGK"]
+          "keywords": [
+            "İş Hukuku",
+            "İşçi",
+            "Kıdem",
+            "SGK"
+          ]
         },
         {
           "id": "prof_real_estate_lawyer",
           "name": "Gayrimenkul Hukuku Avukatı",
           "icon": "building.2.fill",
           "description": "Tapu işlemleri, imar hukuku, kira uyuşmazlıkları, inşaat sözleşmeleri.",
-          "keywords": ["Gayrimenkul", "Tapu", "Kira", "İmar"]
+          "keywords": [
+            "Gayrimenkul",
+            "Tapu",
+            "Kira",
+            "İmar"
+          ]
         },
         {
           "id": "prof_notary",
           "name": "Noter",
           "icon": "doc.badge.gearshape.fill",
           "description": "Resmi belge tasdiki, sözleşme onayı, vekaletname, miras işlemleri.",
-          "keywords": ["Noter", "Tasdik", "Onay", "Resmi Belge"]
+          "keywords": [
+            "Noter",
+            "Tasdik",
+            "Onay",
+            "Resmi Belge"
+          ]
         },
         {
           "id": "prof_judge",
           "name": "Hakim / Savcı",
           "icon": "scale.3d",
           "description": "Yargılama faaliyeti, savcılık makamı, hukuki karar alma, adalet hizmetleri.",
-          "keywords": ["Hakim", "Savcı", "Yargı", "Adalet"]
+          "keywords": [
+            "Hakim",
+            "Savcı",
+            "Yargı",
+            "Adalet"
+          ]
         }
       ]
     },
@@ -1432,63 +2666,103 @@
       "id": "cat_education",
       "name": "Eğitim",
       "icon": "book.fill",
-      "order": 15,
+      "order": 20,
       "professions": [
         {
           "id": "prof_teacher",
           "name": "Öğretmen",
           "icon": "person.chalkboard",
           "description": "Ders planlama, öğretim yöntemleri, sınıf yönetimi ve öğrenci değerlendirmesi.",
-          "keywords": ["Teaching", "Education", "Classroom", "Instruction"]
+          "keywords": [
+            "Teaching",
+            "Education",
+            "Classroom",
+            "Instruction"
+          ]
         },
         {
           "id": "prof_corporate_trainer",
           "name": "Kurumsal Eğitmen",
           "icon": "person.2.badge.gearshape.fill",
           "description": "Çalışan eğitimi, liderlik geliştirme, sunum becerileri ve eğitim materyali hazırlama.",
-          "keywords": ["Training", "Corporate", "Development", "Learning"]
+          "keywords": [
+            "Training",
+            "Corporate",
+            "Development",
+            "Learning"
+          ]
         },
         {
           "id": "prof_academic_researcher",
           "name": "Akademik Araştırmacı",
           "icon": "magnifyingglass",
           "description": "Bilimsel araştırma, makale yazımı, veri analizi ve akademik yayın.",
-          "keywords": ["Research", "Academic", "Science", "Publication"]
+          "keywords": [
+            "Research",
+            "Academic",
+            "Science",
+            "Publication"
+          ]
         },
         {
           "id": "prof_instructional_designer",
           "name": "Öğretim Tasarımcısı",
           "icon": "book.pages",
           "description": "E-learning, kurs tasarımı, LMS, SCORM, öğrenme deneyimi tasarımı.",
-          "keywords": ["Instructional Design", "E-learning", "LMS", "Course"]
+          "keywords": [
+            "Instructional Design",
+            "E-learning",
+            "LMS",
+            "Course"
+          ]
         },
         {
           "id": "prof_school_counselor",
           "name": "Okul Rehber Öğretmeni",
           "icon": "person.fill.questionmark",
           "description": "Öğrenci rehberliği, kariyer planlaması, aile görüşmeleri, psikolojik destek.",
-          "keywords": ["Rehberlik", "Okul", "Kariyer", "Psikoloji"]
+          "keywords": [
+            "Rehberlik",
+            "Okul",
+            "Kariyer",
+            "Psikoloji"
+          ]
         },
         {
           "id": "prof_university_lecturer",
           "name": "Öğretim Üyesi",
           "icon": "graduationcap.fill",
           "description": "Lisans/lisansüstü ders yürütme, araştırma, proje danışmanlığı, yayın.",
-          "keywords": ["Üniversite", "Akademi", "Ders", "Araştırma"]
+          "keywords": [
+            "Üniversite",
+            "Akademi",
+            "Ders",
+            "Araştırma"
+          ]
         },
         {
           "id": "prof_special_education",
           "name": "Özel Eğitim Öğretmeni",
           "icon": "figure.and.child.holdinghands",
           "description": "Engelli öğrencilerle bireysel eğitim, IEP hazırlama, adaptif öğretim.",
-          "keywords": ["Özel Eğitim", "Engelli", "IEP", "Bireysel"]
+          "keywords": [
+            "Özel Eğitim",
+            "Engelli",
+            "IEP",
+            "Bireysel"
+          ]
         },
         {
           "id": "prof_language_teacher",
           "name": "Yabancı Dil Öğretmeni",
           "icon": "globe",
           "description": "İngilizce, Almanca, Fransızca vb. yabancı dil eğitimi, dil sınavı hazırlık.",
-          "keywords": ["Dil", "İngilizce", "Yabancı Dil", "Language"]
+          "keywords": [
+            "Dil",
+            "İngilizce",
+            "Yabancı Dil",
+            "Language"
+          ]
         }
       ]
     },
@@ -1496,42 +2770,68 @@
       "id": "cat_architecture",
       "name": "Mimarlık & İç Mimarlık",
       "icon": "building.2",
-      "order": 16,
+      "order": 21,
       "professions": [
         {
           "id": "prof_architect",
           "name": "Mimar",
           "icon": "pencil.and.ruler",
           "description": "Mimari tasarım, yapı projelendirme, AutoCAD, SketchUp, 3D modelleme, ruhsat işlemleri.",
-          "keywords": ["Mimarlık", "Tasarım", "AutoCAD", "Proje", "İnşaat"]
+          "keywords": [
+            "Mimarlık",
+            "Tasarım",
+            "AutoCAD",
+            "Proje",
+            "İnşaat"
+          ]
         },
         {
           "id": "prof_interior_designer",
           "name": "İç Mimar",
           "icon": "sofa",
           "description": "İç mekan tasarımı, mobilya seçimi, renk teorisi, aydınlatma, dekorasyon.",
-          "keywords": ["İç Mimarlık", "Dekorasyon", "Mekan", "Tasarım"]
+          "keywords": [
+            "İç Mimarlık",
+            "Dekorasyon",
+            "Mekan",
+            "Tasarım"
+          ]
         },
         {
           "id": "prof_landscape_architect",
           "name": "Peyzaj Mimarı",
           "icon": "tree.fill",
           "description": "Peyzaj tasarımı, bahçe düzenleme, dış mekan planlaması, bitki seçimi.",
-          "keywords": ["Peyzaj", "Bahçe", "Dış Mekan", "Yeşil Alan"]
+          "keywords": [
+            "Peyzaj",
+            "Bahçe",
+            "Dış Mekan",
+            "Yeşil Alan"
+          ]
         },
         {
           "id": "prof_urban_planner",
           "name": "Şehir Plancısı",
           "icon": "map.fill",
           "description": "Kentsel planlama, imar planları, şehircilik, GIS, sürdürülebilir şehirler.",
-          "keywords": ["Şehircilik", "Planlama", "İmar", "Kent"]
+          "keywords": [
+            "Şehircilik",
+            "Planlama",
+            "İmar",
+            "Kent"
+          ]
         },
         {
           "id": "prof_real_estate_developer",
           "name": "Gayrimenkul Geliştirici",
           "icon": "building.2.crop.circle",
           "description": "Arazi geliştirme, proje fizibilitesi, inşaat yönetimi, gayrimenkul yatırımı.",
-          "keywords": ["Gayrimenkul", "Proje", "Yatırım", "Arazi"]
+          "keywords": [
+            "Gayrimenkul",
+            "Proje",
+            "Yatırım",
+            "Arazi"
+          ]
         }
       ]
     },
@@ -1539,56 +2839,103 @@
       "id": "cat_agriculture",
       "name": "Tarım & Gıda",
       "icon": "leaf.fill",
-      "order": 17,
+      "order": 22,
       "professions": [
         {
           "id": "prof_agronomist",
           "name": "Ziraat Mühendisi",
           "icon": "leaf.circle.fill",
           "description": "Bitki yetiştirme, toprak yönetimi, gübre ve ilaç uygulamaları, hasat planlaması.",
-          "keywords": ["Ziraat", "Bitki", "Toprak", "Hasat"]
+          "keywords": [
+            "Ziraat",
+            "Bitki",
+            "Toprak",
+            "Hasat"
+          ]
         },
         {
           "id": "prof_horticulturist",
           "name": "Bahçe Kültürü Uzmanı",
           "icon": "tree.fill",
           "description": "Sebze, meyve, çiçek üretimi, sera yönetimi, bitki ıslahı.",
-          "keywords": ["Bahçe", "Meyve", "Sebze", "Sera"]
+          "keywords": [
+            "Bahçe",
+            "Meyve",
+            "Sebze",
+            "Sera"
+          ]
         },
         {
           "id": "prof_animal_husbandry",
           "name": "Zootekni Uzmanı",
           "icon": "hare.fill",
           "description": "Hayvancılık işletmeciliği, ıslah, besleme, verimlilik artırma, sürü yönetimi.",
-          "keywords": ["Hayvancılık", "Zootekni", "Islah", "Sürü"]
+          "keywords": [
+            "Hayvancılık",
+            "Zootekni",
+            "Islah",
+            "Sürü"
+          ]
         },
         {
           "id": "prof_food_technologist",
           "name": "Gıda Teknoloji Uzmanı",
           "icon": "fork.knife",
           "description": "Gıda işleme, katkı maddeleri, ambalaj, raf ömrü, gıda kalite güvencesi.",
-          "keywords": ["Gıda", "Teknoloji", "Ambalaj", "Kalite"]
+          "keywords": [
+            "Gıda",
+            "Teknoloji",
+            "Ambalaj",
+            "Kalite"
+          ]
         },
         {
           "id": "prof_agricultural_engineer",
           "name": "Tarım Makineleri Mühendisi",
           "icon": "wrench.and.screwdriver.fill",
           "description": "Tarım makineleri tasarımı, sulama sistemleri, precision farming, drone tarım.",
-          "keywords": ["Tarım Makineleri", "Sulama", "Precision Farming", "Drone"]
+          "keywords": [
+            "Tarım Makineleri",
+            "Sulama",
+            "Precision Farming",
+            "Drone"
+          ]
         },
         {
           "id": "prof_fisheries",
           "name": "Su Ürünleri Uzmanı",
           "icon": "drop.fill",
           "description": "Balıkçılık yönetimi, su ürünleri yetiştiriciliği, akuakültür, su kalitesi.",
-          "keywords": ["Su Ürünleri", "Balıkçılık", "Akuakültür", "Yetiştiricilik"]
+          "keywords": [
+            "Su Ürünleri",
+            "Balıkçılık",
+            "Akuakültür",
+            "Yetiştiricilik"
+          ]
         },
         {
           "id": "prof_forestry",
           "name": "Orman Mühendisi",
           "icon": "trees.fill",
           "description": "Ormancılık yönetimi, ağaçlandırma, yangın koruma, biyoçeşitlilik.",
-          "keywords": ["Orman", "Ağaçlandırma", "Biyoçeşitlilik", "Forestry"]
+          "keywords": [
+            "Orman",
+            "Ağaçlandırma",
+            "Biyoçeşitlilik",
+            "Forestry"
+          ]
+        },
+        {
+          "id": "prof_food_engineer",
+          "name": "Gıda Mühendisi",
+          "icon": "fork.knife.circle.fill",
+          "description": "Gıda üretim süreçleri, HACCP, gıda güvenliği, ambalaj teknolojisi, kalite kontrol.",
+          "keywords": [
+            "Gıda",
+            "HACCP",
+            "Gıda Güvenliği",
+            "Üretim"
+          ]
         }
       ]
     },
@@ -1596,63 +2943,103 @@
       "id": "cat_tourism_hospitality",
       "name": "Turizm & Otelcilik",
       "icon": "airplane.circle.fill",
-      "order": 18,
+      "order": 23,
       "professions": [
         {
           "id": "prof_hotel_manager",
           "name": "Otel Müdürü",
           "icon": "building.fill",
           "description": "Otel operasyonu, misafir memnuniyeti, gelir yönetimi, ekip koordinasyonu.",
-          "keywords": ["Otel", "Yönetim", "Misafir", "Hospitality"]
+          "keywords": [
+            "Otel",
+            "Yönetim",
+            "Misafir",
+            "Hospitality"
+          ]
         },
         {
           "id": "prof_front_office_manager",
           "name": "Ön Büro Yöneticisi",
           "icon": "person.crop.rectangle.fill",
           "description": "Resepsiyon yönetimi, rezervasyon, check-in/check-out, misafir ilişkileri.",
-          "keywords": ["Ön Büro", "Resepsiyon", "Rezervasyon", "Front Office"]
+          "keywords": [
+            "Ön Büro",
+            "Resepsiyon",
+            "Rezervasyon",
+            "Front Office"
+          ]
         },
         {
           "id": "prof_food_beverage_manager",
           "name": "Yiyecek İçecek Müdürü",
           "icon": "fork.knife.circle.fill",
           "description": "Restoran yönetimi, menü planlama, maliyet kontrolü, mutfak operasyonu.",
-          "keywords": ["Yiyecek İçecek", "Restoran", "Menü", "F&B"]
+          "keywords": [
+            "Yiyecek İçecek",
+            "Restoran",
+            "Menü",
+            "F&B"
+          ]
         },
         {
           "id": "prof_chef",
           "name": "Aşçı / Şef",
           "icon": "flame.circle.fill",
           "description": "Menü geliştirme, mutfak yönetimi, hijyen standartları, gastronomi.",
-          "keywords": ["Aşçı", "Şef", "Mutfak", "Gastronomi"]
+          "keywords": [
+            "Aşçı",
+            "Şef",
+            "Mutfak",
+            "Gastronomi"
+          ]
         },
         {
           "id": "prof_tour_guide",
           "name": "Tur Rehberi",
           "icon": "map.circle.fill",
           "description": "Turist rehberliği, kültürel miras anlatımı, çok dilli hizmet, seyahat organizasyonu.",
-          "keywords": ["Rehber", "Turist", "Kültür", "Seyahat"]
+          "keywords": [
+            "Rehber",
+            "Turist",
+            "Kültür",
+            "Seyahat"
+          ]
         },
         {
           "id": "prof_travel_consultant",
           "name": "Seyahat Danışmanı",
           "icon": "globe.europe.africa.fill",
           "description": "Seyahat paketi satışı, vize danışmanlığı, ulaşım planlaması, özel tatil organizasyonu.",
-          "keywords": ["Seyahat", "Tatil", "Vize", "Paket Tur"]
+          "keywords": [
+            "Seyahat",
+            "Tatil",
+            "Vize",
+            "Paket Tur"
+          ]
         },
         {
           "id": "prof_event_manager",
           "name": "Etkinlik Yöneticisi",
           "icon": "star.bubble.fill",
           "description": "Kongre, fuar, düğün, kurumsal etkinlik organizasyonu ve koordinasyonu.",
-          "keywords": ["Etkinlik", "Kongre", "Fuar", "Event Management"]
+          "keywords": [
+            "Etkinlik",
+            "Kongre",
+            "Fuar",
+            "Event Management"
+          ]
         },
         {
           "id": "prof_revenue_manager",
           "name": "Gelir Yönetimi Uzmanı",
           "icon": "chart.line.uptrend.xyaxis.circle.fill",
           "description": "Otel doluluk optimizasyonu, dinamik fiyatlandırma, OTA yönetimi, RevPAR.",
-          "keywords": ["Gelir Yönetimi", "Fiyatlandırma", "OTA", "Revenue Management"]
+          "keywords": [
+            "Gelir Yönetimi",
+            "Fiyatlandırma",
+            "OTA",
+            "Revenue Management"
+          ]
         }
       ]
     },
@@ -1660,42 +3047,67 @@
       "id": "cat_logistics_transport",
       "name": "Lojistik & Ulaştırma",
       "icon": "shippingbox.circle.fill",
-      "order": 19,
+      "order": 24,
       "professions": [
         {
           "id": "prof_logistics_manager",
           "name": "Lojistik Müdürü",
           "icon": "shippingbox.fill",
           "description": "Depo yönetimi, nakliye koordinasyonu, gümrük işlemleri, 3PL ilişkileri.",
-          "keywords": ["Lojistik", "Depo", "Nakliye", "Gümrük"]
+          "keywords": [
+            "Lojistik",
+            "Depo",
+            "Nakliye",
+            "Gümrük"
+          ]
         },
         {
           "id": "prof_customs_specialist",
           "name": "Gümrük Müşaviri",
           "icon": "checkmark.shield.fill",
           "description": "İthalat-ihracat mevzuatı, gümrük beyanname, tarife sınıflandırma, menşei.",
-          "keywords": ["Gümrük", "İthalat", "İhracat", "Customs"]
+          "keywords": [
+            "Gümrük",
+            "İthalat",
+            "İhracat",
+            "Customs"
+          ]
         },
         {
           "id": "prof_fleet_manager",
           "name": "Filo Yöneticisi",
           "icon": "truck.box.fill",
           "description": "Araç filosu yönetimi, bakım planlaması, yakıt optimizasyonu, sürücü yönetimi.",
-          "keywords": ["Filo", "Araç", "Bakım", "Fleet"]
+          "keywords": [
+            "Filo",
+            "Araç",
+            "Bakım",
+            "Fleet"
+          ]
         },
         {
           "id": "prof_procurement_specialist",
           "name": "Satın Alma Uzmanı",
           "icon": "cart.badge.plus.fill",
           "description": "Tedarikçi seçimi, ihale süreçleri, sözleşme yönetimi, maliyet analizi.",
-          "keywords": ["Satın Alma", "Tedarikçi", "İhale", "Procurement"]
+          "keywords": [
+            "Satın Alma",
+            "Tedarikçi",
+            "İhale",
+            "Procurement"
+          ]
         },
         {
           "id": "prof_warehouse_manager",
           "name": "Depo Yöneticisi",
           "icon": "building.fill",
           "description": "Depo düzeni, stok yönetimi, WMS, sevkiyat planlaması, envanter kontrol.",
-          "keywords": ["Depo", "Stok", "WMS", "Envanter"]
+          "keywords": [
+            "Depo",
+            "Stok",
+            "WMS",
+            "Envanter"
+          ]
         }
       ]
     },
@@ -1703,70 +3115,115 @@
       "id": "cat_finance",
       "name": "Finans & Bankacılık",
       "icon": "banknote.fill",
-      "order": 20,
+      "order": 25,
       "professions": [
         {
           "id": "prof_investment_banker",
           "name": "Yatırım Bankacısı",
           "icon": "building.columns",
           "description": "Kurumsal finansman, M&A, sermaye piyasaları, due diligence.",
-          "keywords": ["Yatırım", "Bankacılık", "M&A", "Finans"]
+          "keywords": [
+            "Yatırım",
+            "Bankacılık",
+            "M&A",
+            "Finans"
+          ]
         },
         {
           "id": "prof_portfolio_manager",
           "name": "Portföy Yöneticisi",
           "icon": "chart.pie.fill",
           "description": "Asset management, portföy stratejisi, risk yönetimi, yatırım kararları.",
-          "keywords": ["Portföy", "Yatırım", "Asset", "Risk"]
+          "keywords": [
+            "Portföy",
+            "Yatırım",
+            "Asset",
+            "Risk"
+          ]
         },
         {
           "id": "prof_risk_analyst",
           "name": "Risk Analisti",
           "icon": "exclamationmark.triangle.fill",
           "description": "Finansal risk analizi, stress testing, VaR, Basel, risk modelleme.",
-          "keywords": ["Risk", "Analiz", "Finans", "Modelleme"]
+          "keywords": [
+            "Risk",
+            "Analiz",
+            "Finans",
+            "Modelleme"
+          ]
         },
         {
           "id": "prof_actuary",
           "name": "Aktüer",
           "icon": "percent",
           "description": "Sigorta matematiği, risk hesaplama, istatistiksel modelleme, pricing.",
-          "keywords": ["Aktüerya", "Sigorta", "Risk", "İstatistik"]
+          "keywords": [
+            "Aktüerya",
+            "Sigorta",
+            "Risk",
+            "İstatistik"
+          ]
         },
         {
           "id": "prof_crypto_analyst",
           "name": "Kripto Para Analisti",
           "icon": "bitcoinsign.circle",
           "description": "Blockchain analizi, kripto piyasaları, DeFi, tokenomics, trading stratejileri.",
-          "keywords": ["Crypto", "Blockchain", "Bitcoin", "Trading"]
+          "keywords": [
+            "Crypto",
+            "Blockchain",
+            "Bitcoin",
+            "Trading"
+          ]
         },
         {
           "id": "prof_insurance_specialist",
           "name": "Sigorta Uzmanı",
           "icon": "shield.lefthalf.filled.badge.checkmark",
           "description": "Sigorta ürün tasarımı, hasar yönetimi, brokerage, reasürans.",
-          "keywords": ["Sigorta", "Hasar", "Brokerage", "Insurance"]
+          "keywords": [
+            "Sigorta",
+            "Hasar",
+            "Brokerage",
+            "Insurance"
+          ]
         },
         {
           "id": "prof_audit_specialist",
           "name": "Denetçi / Bağımsız Denetim",
           "icon": "checkmark.circle.fill",
           "description": "Finansal denetim, iç denetim, IFRS, uyum denetimi, bağımsız denetim.",
-          "keywords": ["Denetim", "Audit", "IFRS", "Uyum"]
+          "keywords": [
+            "Denetim",
+            "Audit",
+            "IFRS",
+            "Uyum"
+          ]
         },
         {
           "id": "prof_treasury_manager",
           "name": "Hazine Yöneticisi",
           "icon": "vault.fill",
           "description": "Nakit yönetimi, kur riski, likidite planlaması, banka ilişkileri.",
-          "keywords": ["Hazine", "Nakit", "Kur Riski", "Treasury"]
+          "keywords": [
+            "Hazine",
+            "Nakit",
+            "Kur Riski",
+            "Treasury"
+          ]
         },
         {
           "id": "prof_tax_specialist",
           "name": "Vergi Danışmanı",
           "icon": "doc.text.fill",
           "description": "Kurumlar vergisi, KDV, transfer fiyatlandırması, vergi planlaması.",
-          "keywords": ["Vergi", "Tax", "KDV", "Kurumlar Vergisi"]
+          "keywords": [
+            "Vergi",
+            "Tax",
+            "KDV",
+            "Kurumlar Vergisi"
+          ]
         }
       ]
     },
@@ -1774,70 +3231,103 @@
       "id": "cat_science",
       "name": "Fen Bilimleri",
       "icon": "flask.fill",
-      "order": 21,
+      "order": 26,
       "professions": [
         {
           "id": "prof_chemist",
           "name": "Kimyager",
           "icon": "atom",
           "description": "Kimyasal analiz, laboratuvar çalışmaları, ürün geliştirme, kalite kontrol.",
-          "keywords": ["Kimya", "Laboratuvar", "Analiz", "R&D"]
+          "keywords": [
+            "Kimya",
+            "Laboratuvar",
+            "Analiz",
+            "R&D"
+          ]
         },
         {
           "id": "prof_biologist",
           "name": "Biyolog",
           "icon": "leaf.circle",
           "description": "Biyolojik araştırma, genetik, mikrobiyoloji, ekoloji, biyoteknoloji.",
-          "keywords": ["Biyoloji", "Genetik", "Mikrobiyoloji", "Araştırma"]
+          "keywords": [
+            "Biyoloji",
+            "Genetik",
+            "Mikrobiyoloji",
+            "Araştırma"
+          ]
         },
         {
           "id": "prof_physicist",
           "name": "Fizikçi",
           "icon": "waveform.path",
           "description": "Teorik ve uygulamalı fizik, kuantum mekaniği, parçacık fiziği, optik.",
-          "keywords": ["Fizik", "Kuantum", "Araştırma", "Bilim"]
-        },
-        {
-          "id": "prof_geologist",
-          "name": "Jeoloji Mühendisi",
-          "icon": "globe.europe.africa",
-          "description": "Jeolojik haritalama, maden arama, saha çalışmaları, yer bilimleri.",
-          "keywords": ["Jeoloji", "Maden", "Yer", "Harita"]
+          "keywords": [
+            "Fizik",
+            "Kuantum",
+            "Araştırma",
+            "Bilim"
+          ]
         },
         {
           "id": "prof_environmental_scientist",
           "name": "Çevre Bilimci",
           "icon": "wind",
           "description": "Çevre etki değerlendirmesi, sürdürülebilirlik, iklim değişikliği, ekoloji.",
-          "keywords": ["Çevre", "Sürdürülebilirlik", "İklim", "Ekoloji"]
+          "keywords": [
+            "Çevre",
+            "Sürdürülebilirlik",
+            "İklim",
+            "Ekoloji"
+          ]
         },
         {
           "id": "prof_biotechnologist",
           "name": "Biyoteknoloji Uzmanı",
           "icon": "dna",
           "description": "Rekombinant DNA, biyofarmakologlar, hücre kültürü, biyosensörler.",
-          "keywords": ["Biyoteknoloji", "DNA", "Hücre Kültürü", "Biyofarma"]
+          "keywords": [
+            "Biyoteknoloji",
+            "DNA",
+            "Hücre Kültürü",
+            "Biyofarma"
+          ]
         },
         {
           "id": "prof_oceanographer",
           "name": "Oşinograf / Deniz Bilimci",
           "icon": "water.waves",
           "description": "Deniz ekosistemi, okyanus sirkülasyonu, deniz kirliliği, hidrografi.",
-          "keywords": ["Deniz", "Okyanus", "Ekosistem", "Oşinografi"]
+          "keywords": [
+            "Deniz",
+            "Okyanus",
+            "Ekosistem",
+            "Oşinografi"
+          ]
         },
         {
           "id": "prof_meteorologist",
           "name": "Meteorolog",
           "icon": "cloud.sun.fill",
           "description": "Hava tahminleri, iklim analizi, meteorolojik modeller, afet erken uyarı.",
-          "keywords": ["Meteoroloji", "Hava", "İklim", "Tahmin"]
+          "keywords": [
+            "Meteoroloji",
+            "Hava",
+            "İklim",
+            "Tahmin"
+          ]
         },
         {
           "id": "prof_statistician",
           "name": "İstatistikçi",
           "icon": "chart.bar.xaxis",
           "description": "İstatistiksel analiz, örnekleme, hipotez testi, R/SAS/SPSS, araştırma tasarımı.",
-          "keywords": ["İstatistik", "Analiz", "Örnekleme", "R"]
+          "keywords": [
+            "İstatistik",
+            "Analiz",
+            "Örnekleme",
+            "R"
+          ]
         }
       ]
     },
@@ -1845,63 +3335,103 @@
       "id": "cat_media",
       "name": "Medya & İletişim",
       "icon": "tv.and.mediabox",
-      "order": 22,
+      "order": 27,
       "professions": [
         {
           "id": "prof_journalist",
           "name": "Gazeteci",
           "icon": "newspaper.fill",
           "description": "Haber yazımı, röportaj, araştırmacı gazetecilik, editörlük.",
-          "keywords": ["Gazetecilik", "Haber", "Medya", "Yazı"]
+          "keywords": [
+            "Gazetecilik",
+            "Haber",
+            "Medya",
+            "Yazı"
+          ]
         },
         {
           "id": "prof_video_editor",
           "name": "Video Editörü",
           "icon": "play.rectangle.on.rectangle",
           "description": "Premiere Pro, Final Cut Pro, DaVinci Resolve, kurgu, renk düzeltme, ses miksaji.",
-          "keywords": ["Video", "Editing", "Premiere", "Kurgu"]
+          "keywords": [
+            "Video",
+            "Editing",
+            "Premiere",
+            "Kurgu"
+          ]
         },
         {
           "id": "prof_photographer",
           "name": "Fotoğrafçı",
           "icon": "camera.fill",
           "description": "Dijital fotoğrafçılık, stüdyo çekimleri, Lightroom, Photoshop, kompozisyon.",
-          "keywords": ["Fotoğraf", "Çekim", "Studio", "Photo"]
+          "keywords": [
+            "Fotoğraf",
+            "Çekim",
+            "Studio",
+            "Photo"
+          ]
         },
         {
           "id": "prof_sound_engineer",
           "name": "Ses Mühendisi",
           "icon": "waveform",
           "description": "Ses kayıt, mixing, mastering, Pro Tools, stüdyo tekniği, akustik.",
-          "keywords": ["Ses", "Müzik", "Studio", "Mixing"]
+          "keywords": [
+            "Ses",
+            "Müzik",
+            "Studio",
+            "Mixing"
+          ]
         },
         {
           "id": "prof_podcaster",
           "name": "Podcast Yapımcısı",
           "icon": "mic.fill",
           "description": "Podcast prodüksiyonu, ses düzenleme, içerik stratejisi, dağıtım.",
-          "keywords": ["Podcast", "Audio", "Production", "Content"]
+          "keywords": [
+            "Podcast",
+            "Audio",
+            "Production",
+            "Content"
+          ]
         },
         {
           "id": "prof_tv_presenter",
           "name": "TV Sunucusu / Muhabir",
           "icon": "tv.fill",
           "description": "Televizyon yayıncılığı, canlı yayın, muhabirlik, haber sunumu.",
-          "keywords": ["TV", "Sunucu", "Yayıncılık", "Muhabir"]
+          "keywords": [
+            "TV",
+            "Sunucu",
+            "Yayıncılık",
+            "Muhabir"
+          ]
         },
         {
           "id": "prof_influencer",
           "name": "İçerik Üreticisi / Influencer",
           "icon": "star.circle.fill",
           "description": "YouTube, Instagram, TikTok içerik üretimi, marka işbirlikleri, topluluk yönetimi.",
-          "keywords": ["İçerik Üretici", "YouTube", "Instagram", "TikTok"]
+          "keywords": [
+            "İçerik Üretici",
+            "YouTube",
+            "Instagram",
+            "TikTok"
+          ]
         },
         {
           "id": "prof_film_director",
           "name": "Film/Reklam Yönetmeni",
           "icon": "film.fill",
           "description": "Yönetmenlik, prodüksiyon yönetimi, oyuncu yönetimi, post prodüksiyon.",
-          "keywords": ["Yönetmen", "Film", "Reklam", "Prodüksiyon"]
+          "keywords": [
+            "Yönetmen",
+            "Film",
+            "Reklam",
+            "Prodüksiyon"
+          ]
         }
       ]
     },
@@ -1909,56 +3439,91 @@
       "id": "cat_sports",
       "name": "Spor & Fitness",
       "icon": "figure.run",
-      "order": 23,
+      "order": 28,
       "professions": [
         {
           "id": "prof_personal_trainer",
           "name": "Kişisel Antrenör",
           "icon": "dumbbell.fill",
           "description": "Kişisel egzersiz programı, performans gelişimi, beslenme yönlendirmesi, motivasyon.",
-          "keywords": ["Antrenör", "Fitness", "Egzersiz", "Personal Trainer"]
+          "keywords": [
+            "Antrenör",
+            "Fitness",
+            "Egzersiz",
+            "Personal Trainer"
+          ]
         },
         {
           "id": "prof_sports_coach",
           "name": "Spor Antrenörü",
           "icon": "figure.soccer",
           "description": "Takım ve bireysel spor branşında teknik eğitim, taktik geliştirme, performans analizi.",
-          "keywords": ["Antrenör", "Takım", "Teknik", "Taktik"]
+          "keywords": [
+            "Antrenör",
+            "Takım",
+            "Teknik",
+            "Taktik"
+          ]
         },
         {
           "id": "prof_sports_physiotherapist",
           "name": "Spor Fizyoterapisti",
           "icon": "bandage.fill",
           "description": "Spor yaralanması tedavisi, performans rehabilitasyonu, koruyucu programlar.",
-          "keywords": ["Spor Fizyoterapi", "Yaralanma", "Rehabilitasyon", "Spor Sağlığı"]
+          "keywords": [
+            "Spor Fizyoterapi",
+            "Yaralanma",
+            "Rehabilitasyon",
+            "Spor Sağlığı"
+          ]
         },
         {
           "id": "prof_sports_nutritionist",
           "name": "Spor Beslenme Uzmanı",
           "icon": "fork.knife",
           "description": "Sporcu beslenmesi, performans diyeti, supplement kullanımı, hidrasyon.",
-          "keywords": ["Spor Beslenmesi", "Diyetisyen", "Supplement", "Performans"]
+          "keywords": [
+            "Spor Beslenmesi",
+            "Diyetisyen",
+            "Supplement",
+            "Performans"
+          ]
         },
         {
           "id": "prof_sports_manager",
           "name": "Spor Yöneticisi",
           "icon": "trophy.fill",
           "description": "Kulüp yönetimi, sporcu sözleşmeleri, sponsorluk, organizasyon yönetimi.",
-          "keywords": ["Spor Yönetimi", "Kulüp", "Sponsorluk", "Organizasyon"]
+          "keywords": [
+            "Spor Yönetimi",
+            "Kulüp",
+            "Sponsorluk",
+            "Organizasyon"
+          ]
         },
         {
           "id": "prof_sports_analyst",
           "name": "Performans Analisti",
           "icon": "chart.bar.doc.horizontal",
           "description": "Video analiz, istatistiksel performans analizi, scouting, taktik analiz.",
-          "keywords": ["Performans Analizi", "Video", "Scout", "İstatistik"]
+          "keywords": [
+            "Performans Analizi",
+            "Video",
+            "Scout",
+            "İstatistik"
+          ]
         },
         {
           "id": "prof_yoga_pilates",
           "name": "Yoga / Pilates Eğitmeni",
           "icon": "figure.mind.and.body",
           "description": "Yoga ve pilates eğitimi, nefes teknikleri, esneklik, zihin-beden bütünlüğü.",
-          "keywords": ["Yoga", "Pilates", "Meditasyon", "Esneklik"]
+          "keywords": [
+            "Yoga",
+            "Pilates",
+            "Meditasyon",
+            "Esneklik"
+          ]
         }
       ]
     },
@@ -1966,56 +3531,91 @@
       "id": "cat_arts_culture",
       "name": "Sanat & Kültür",
       "icon": "theatermasks.fill",
-      "order": 24,
+      "order": 29,
       "professions": [
         {
           "id": "prof_musician",
           "name": "Müzisyen / Sanatçı",
           "icon": "music.note",
           "description": "Enstrüman icracılığı, beste yapma, sahne performansı, müzik prodüksiyonu.",
-          "keywords": ["Müzik", "Sanatçı", "Enstrüman", "Performans"]
+          "keywords": [
+            "Müzik",
+            "Sanatçı",
+            "Enstrüman",
+            "Performans"
+          ]
         },
         {
           "id": "prof_music_teacher",
           "name": "Müzik Öğretmeni",
           "icon": "music.quarternote.3",
           "description": "Müzik eğitimi, enstrüman öğretimi, teori, solfej, konservatuvar hazırlık.",
-          "keywords": ["Müzik Öğretmeni", "Enstrüman", "Solfej", "Teori"]
+          "keywords": [
+            "Müzik Öğretmeni",
+            "Enstrüman",
+            "Solfej",
+            "Teori"
+          ]
         },
         {
           "id": "prof_actor",
           "name": "Oyuncu / Senarist",
           "icon": "theatermasks",
           "description": "Tiyatro ve film oyunculuğu, senaryo yazarlığı, karakter analizi, prodüksiyon.",
-          "keywords": ["Oyuncu", "Tiyatro", "Senaryo", "Film"]
+          "keywords": [
+            "Oyuncu",
+            "Tiyatro",
+            "Senaryo",
+            "Film"
+          ]
         },
         {
           "id": "prof_painter",
           "name": "Ressam / Sanatçı",
           "icon": "paintbrush.fill",
           "description": "Güzel sanatlar, dijital sanat, heykel, seramik, sanat galerisi.",
-          "keywords": ["Resim", "Sanat", "Heykel", "Seramik"]
+          "keywords": [
+            "Resim",
+            "Sanat",
+            "Heykel",
+            "Seramik"
+          ]
         },
         {
           "id": "prof_writer_author",
           "name": "Yazar / Roman Yazarı",
           "icon": "book.closed.fill",
           "description": "Roman, hikaye, şiir yazımı, yayınevleri, edebi ajans ilişkileri.",
-          "keywords": ["Yazar", "Roman", "Şiir", "Edebiyat"]
+          "keywords": [
+            "Yazar",
+            "Roman",
+            "Şiir",
+            "Edebiyat"
+          ]
         },
         {
           "id": "prof_curator",
           "name": "Küratör / Sanat Direktörü",
           "icon": "building.columns",
           "description": "Sanat sergisi organizasyonu, koleksiyon yönetimi, müze, galeri.",
-          "keywords": ["Küratör", "Sergi", "Müze", "Galeri"]
+          "keywords": [
+            "Küratör",
+            "Sergi",
+            "Müze",
+            "Galeri"
+          ]
         },
         {
           "id": "prof_translator",
           "name": "Çevirmen",
           "icon": "textformat.abc",
           "description": "Yazılı ve sözlü çeviri, simultane tercümanlık, yerelleştirme, terminoloji.",
-          "keywords": ["Çeviri", "Tercümanlık", "Dil", "Lokalizasyon"]
+          "keywords": [
+            "Çeviri",
+            "Tercümanlık",
+            "Dil",
+            "Lokalizasyon"
+          ]
         }
       ]
     },
@@ -2023,28 +3623,55 @@
       "id": "cat_mining_petroleum",
       "name": "Madencilik & Petrol",
       "icon": "mountain.2.fill",
-      "order": 25,
+      "order": 30,
       "professions": [
         {
           "id": "prof_mining_engineer",
           "name": "Maden Mühendisi",
           "icon": "hammer.circle.fill",
           "description": "Maden ocağı tasarımı, açık/kapalı ocak işletmeciliği, patlayıcı kullanımı.",
-          "keywords": ["Maden", "Ocak", "Kazı", "Mining"]
+          "keywords": [
+            "Maden",
+            "Ocak",
+            "Kazı",
+            "Mining"
+          ]
         },
         {
           "id": "prof_petroleum_engineer",
           "name": "Petrol ve Doğalgaz Mühendisi",
           "icon": "flame.fill",
           "description": "Rezervuar mühendisliği, sondaj, kuyu tamamlama, üretim optimizasyonu.",
-          "keywords": ["Petrol", "Doğalgaz", "Sondaj", "Rezervuar"]
+          "keywords": [
+            "Petrol",
+            "Doğalgaz",
+            "Sondaj",
+            "Rezervuar"
+          ]
         },
         {
           "id": "prof_geophysics",
           "name": "Jeofizik Mühendisi",
           "icon": "wave.3.right",
           "description": "Sismik araştırma, yer altı görüntüleme, gravite ve manyetik yöntemler.",
-          "keywords": ["Jeofizik", "Sismik", "Yer Altı", "Araştırma"]
+          "keywords": [
+            "Jeofizik",
+            "Sismik",
+            "Yer Altı",
+            "Araştırma"
+          ]
+        },
+        {
+          "id": "prof_geologist",
+          "name": "Jeoloji Mühendisi",
+          "icon": "globe.europe.africa",
+          "description": "Jeolojik haritalama, maden arama, saha çalışmaları, yer bilimleri.",
+          "keywords": [
+            "Jeoloji",
+            "Maden",
+            "Yer",
+            "Harita"
+          ]
         }
       ]
     },
@@ -2052,42 +3679,67 @@
       "id": "cat_public_sector",
       "name": "Kamu & Sosyal Hizmetler",
       "icon": "building.columns.circle.fill",
-      "order": 26,
+      "order": 31,
       "professions": [
         {
           "id": "prof_civil_servant",
           "name": "Kamu Yöneticisi",
           "icon": "person.fill.badge.plus",
           "description": "Kamu politikası, idari yönetim, bütçe yönetimi, mevzuat uyum.",
-          "keywords": ["Kamu", "Yönetim", "Politika", "İdare"]
+          "keywords": [
+            "Kamu",
+            "Yönetim",
+            "Politika",
+            "İdare"
+          ]
         },
         {
           "id": "prof_social_worker",
           "name": "Sosyal Hizmet Uzmanı",
           "icon": "hand.raised.circle.fill",
           "description": "Toplumsal hizmetler, aile desteği, çocuk koruma, engelli hizmetleri.",
-          "keywords": ["Sosyal Hizmet", "Aile", "Çocuk", "Toplum"]
+          "keywords": [
+            "Sosyal Hizmet",
+            "Aile",
+            "Çocuk",
+            "Toplum"
+          ]
         },
         {
           "id": "prof_police_officer",
           "name": "Emniyet / Güvenlik Uzmanı",
           "icon": "shield.fill",
           "description": "Kamu düzeni, suç önleme, kriminal inceleme, güvenlik yönetimi.",
-          "keywords": ["Emniyet", "Güvenlik", "Suç", "Police"]
+          "keywords": [
+            "Emniyet",
+            "Güvenlik",
+            "Suç",
+            "Police"
+          ]
         },
         {
           "id": "prof_diplomat",
           "name": "Diplomat / Dışişleri Uzmanı",
           "icon": "globe.europe.africa.fill",
           "description": "Uluslararası ilişkiler, müzakere, konsolosluk hizmetleri, dış politika.",
-          "keywords": ["Diplomat", "Uluslararası", "Müzakere", "Dış Politika"]
+          "keywords": [
+            "Diplomat",
+            "Uluslararası",
+            "Müzakere",
+            "Dış Politika"
+          ]
         },
         {
           "id": "prof_urban_administrator",
           "name": "Belediye Yöneticisi",
           "icon": "building.2.crop.circle.fill",
           "description": "Belediye hizmetleri, kentsel dönüşüm, altyapı, halkla ilişkiler.",
-          "keywords": ["Belediye", "Kent", "Altyapı", "Hizmet"]
+          "keywords": [
+            "Belediye",
+            "Kent",
+            "Altyapı",
+            "Hizmet"
+          ]
         }
       ]
     },
@@ -2095,37 +3747,52 @@
       "id": "cat_nuclear_energy",
       "name": "Nükleer & Enerji",
       "icon": "atom",
-      "order": 27,
+      "order": 32,
       "professions": [
         {
           "id": "prof_nuclear_engineer",
           "name": "Nükleer Mühendis",
           "icon": "atom",
           "description": "Nükleer reaktör tasarımı, radyasyon koruması, nükleer yakıt döngüsü.",
-          "keywords": ["Nükleer", "Reaktör", "Radyasyon", "Enerji"]
+          "keywords": [
+            "Nükleer",
+            "Reaktör",
+            "Radyasyon",
+            "Enerji"
+          ]
         },
         {
           "id": "prof_renewable_energy",
           "name": "Yenilenebilir Enerji Uzmanı",
           "icon": "sun.max.fill",
           "description": "Güneş, rüzgar, jeotermal, hidroelektrik sistemler, enerji verimliliği.",
-          "keywords": ["Yenilenebilir", "Güneş", "Rüzgar", "Jeotermal"]
+          "keywords": [
+            "Yenilenebilir",
+            "Güneş",
+            "Rüzgar",
+            "Jeotermal"
+          ]
         },
         {
           "id": "prof_energy_auditor",
           "name": "Enerji Verimliliği Uzmanı",
           "icon": "bolt.circle.fill",
           "description": "Enerji denetimi, ISO 50001, bina enerji performansı, BREEAM/LEED.",
-          "keywords": ["Enerji Verimliliği", "Denetim", "LEED", "BREEAM"]
+          "keywords": [
+            "Enerji Verimliliği",
+            "Denetim",
+            "LEED",
+            "BREEAM"
+          ]
         }
       ]
     }
   ],
   "metadata": {
-    "version": "3.0.0",
+    "version": "4.0.0",
     "lastUpdated": "2026-02-27",
-    "totalCategories": 27,
-    "totalProfessions": 210,
+    "totalCategories": 32,
+    "totalProfessions": 291,
     "language": "tr"
   }
 }
