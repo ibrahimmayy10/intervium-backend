@@ -60,7 +60,7 @@
         {
           "id": "prof_frontend_react",
           "name": "Frontend Developer (React)",
-          "icon": "globe",
+          "icon": "react",
           "description": "React, Hooks, Redux, Next.js ile modern web arayüzleri geliştirme.",
           "keywords": [
             "React",
@@ -73,7 +73,7 @@
         {
           "id": "prof_frontend_vue",
           "name": "Frontend Developer (Vue.js)",
-          "icon": "globe",
+          "icon": "vue",
           "description": "Vue.js, Vuex, Nuxt.js ile web uygulamaları geliştirme.",
           "keywords": [
             "Vue",
@@ -85,7 +85,7 @@
         {
           "id": "prof_frontend_angular",
           "name": "Frontend Developer (Angular)",
-          "icon": "globe",
+          "icon": "angular",
           "description": "Angular, TypeScript, RxJS, NgRx ile enterprise web uygulamaları geliştirme.",
           "keywords": [
             "Angular",
@@ -2000,7 +2000,7 @@
         {
           "id": "prof_vet_pathologist",
           "name": "Veteriner Patolog",
-          "icon": "microscope",
+          "icon": "testtube.2",
           "description": "Doku incelemesi, otopsi, hastalık tanısı, histopatoloji.",
           "keywords": [
             "Patoloji",
