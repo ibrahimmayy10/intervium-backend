@@ -1,5 +1,38 @@
 const mongoose = require('mongoose');
 
+// Soru bazlı geri bildirim şeması (premium özellik)
+const questionFeedbackSchema = new mongoose.Schema({
+  questionNumber: {
+    type: Number,
+    required: true
+  },
+  question: {
+    type: String,
+    required: true,
+    maxlength: [1000, 'Soru en fazla 1000 karakter olabilir']
+  },
+  userAnswer: {
+    type: String,
+    required: true,
+    maxlength: [3000, 'Cevap en fazla 3000 karakter olabilir']
+  },
+  score: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+  comment: {
+    type: String,
+    maxlength: [1000, 'Yorum en fazla 1000 karakter olabilir']
+  },
+  // Cevabın kalitesi: strong, adequate, weak, unknown
+  answerQuality: {
+    type: String,
+    enum: ['strong', 'adequate', 'weak', 'unknown'],
+    default: 'adequate'
+  }
+}, { _id: false });
+
 const interviewSchema = new mongoose.Schema({
   // İlişkiler
   userId: {
@@ -17,14 +50,14 @@ const interviewSchema = new mongoose.Schema({
     required: [true, 'Karakter ID gereklidir'],
     trim: true
   },
-  
+
   // Mülakat Durumu
   status: {
     type: String,
     enum: ['in_progress', 'completed', 'cancelled'],
     default: 'in_progress'
   },
-  
+
   // Zaman Bilgileri
   startedAt: {
     type: Date,
@@ -37,7 +70,7 @@ const interviewSchema = new mongoose.Schema({
     type: Number, // dakika cinsinden
     min: 0
   },
-  
+
   // Ana Sonuçlar
   overallScore: {
     type: Number,
@@ -48,7 +81,7 @@ const interviewSchema = new mongoose.Schema({
     type: String,
     maxlength: [2000, 'Geri bildirim en fazla 2000 karakter olabilir']
   },
-  
+
   // Detaylı Skorlar
   technicalScore: {
     type: Number,
@@ -65,25 +98,32 @@ const interviewSchema = new mongoose.Schema({
     min: 0,
     max: 100
   },
-  
+
   // Güçlü Yönler
   strengths: [{
     type: String,
     maxlength: [500, 'Güçlü yön açıklaması en fazla 500 karakter olabilir']
   }],
-  
-  // İyileştirme Önerileri (Swift'teki "improvements" ile aynı)
+
+  // İyileştirme Önerileri
   improvements: [{
     type: String,
     maxlength: [500, 'İyileştirme önerisi en fazla 500 karakter olabilir']
   }],
-  
+
   // İşe Alım Önerisi
   recommendation: {
     type: String,
     maxlength: [500, 'Öneri en fazla 500 karakter olabilir']
   },
-  
+
+  // ─── PREMIUM ÖZELLIK: Soru Bazlı Geri Bildirim ───────────────
+  // Sadece premium kullanıcılar için doldurulur
+  questionFeedbacks: {
+    type: [questionFeedbackSchema],
+    default: []
+  },
+
   // İstatistikler
   questionCount: {
     type: Number,
@@ -100,13 +140,13 @@ const interviewSchema = new mongoose.Schema({
 });
 
 // Virtual field: Başarı yüzdesi
-interviewSchema.virtual('successRate').get(function() {
+interviewSchema.virtual('successRate').get(function () {
   if (this.questionCount === 0) return 0;
   return Math.round((this.correctAnswers / this.questionCount) * 100);
 });
 
 // Virtual field: Ortalama detay skoru
-interviewSchema.virtual('averageDetailScore').get(function() {
+interviewSchema.virtual('averageDetailScore').get(function () {
   const scores = [this.technicalScore, this.communicationScore, this.detailedness].filter(s => s != null);
   if (scores.length === 0) return 0;
   return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
@@ -119,80 +159,70 @@ interviewSchema.index({ status: 1 });
 interviewSchema.index({ overallScore: -1 });
 interviewSchema.index({ technicalScore: -1 });
 
-// Mülakat tamamlandığında otomatik süre hesapla (eğer manuel gönderilmemişse)
-interviewSchema.pre('save', function(next) {
+// Mülakat tamamlandığında otomatik süre hesapla
+interviewSchema.pre('save', function (next) {
   if (this.isModified('completedAt') && this.completedAt && this.startedAt && !this.duration) {
     const durationMs = this.completedAt - this.startedAt;
-    this.duration = Math.round(durationMs / 60000); // milisaniye -> dakika
+    this.duration = Math.round(durationMs / 60000);
   }
   next();
 });
 
 // JSON response'da __v gösterme
-interviewSchema.methods.toJSON = function() {
+interviewSchema.methods.toJSON = function () {
   const interview = this.toObject({ virtuals: true });
   delete interview.__v;
   return interview;
 };
 
 // Static methods
-// models/Interview.js
-
-// ✅ getUserAverageScore (ObjectId düzeltmesi)
-interviewSchema.statics.getUserAverageScore = async function(userId) {
+interviewSchema.statics.getUserAverageScore = async function (userId) {
   const result = await this.aggregate([
-    { 
-      $match: { 
-        userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
-        status: 'completed' 
-      } 
+    {
+      $match: {
+        userId: new mongoose.Types.ObjectId(userId),
+        status: 'completed'
+      }
     },
-    { 
-      $group: { 
-        _id: null, 
-        avgScore: { $avg: '$overallScore' } 
-      } 
+    {
+      $group: {
+        _id: null,
+        avgScore: { $avg: '$overallScore' }
+      }
     }
   ]);
-  
   return result.length > 0 ? Math.round(result[0].avgScore) : 0;
 };
 
-// ✅ getUserAverageTechnicalScore (ObjectId düzeltmesi)
-interviewSchema.statics.getUserAverageTechnicalScore = async function(userId) {
+interviewSchema.statics.getUserAverageTechnicalScore = async function (userId) {
   const result = await this.aggregate([
-    { 
-      $match: { 
-        userId: new mongoose.Types.ObjectId(userId),  // ✅ new ekledik
-        status: 'completed', 
-        technicalScore: { $exists: true } 
-      } 
+    {
+      $match: {
+        userId: new mongoose.Types.ObjectId(userId),
+        status: 'completed',
+        technicalScore: { $exists: true }
+      }
     },
-    { 
-      $group: { 
-        _id: null, 
-        avgTechnical: { $avg: '$technicalScore' } 
-      } 
+    {
+      $group: {
+        _id: null,
+        avgTechnical: { $avg: '$technicalScore' }
+      }
     }
   ]);
-  
   return result.length > 0 ? Math.round(result[0].avgTechnical) : 0;
 };
 
-// ✅ getUserBestScore (zaten doğru ama kontrol edelim)
-interviewSchema.statics.getUserBestScore = async function(userId) {
-  const result = await this.findOne({ 
-    userId, 
-    status: 'completed' 
+interviewSchema.statics.getUserBestScore = async function (userId) {
+  return await this.findOne({
+    userId,
+    status: 'completed'
   })
-  .sort({ overallScore: -1 })
-  .select('overallScore professionId createdAt');
-  
-  return result;
+    .sort({ overallScore: -1 })
+    .select('overallScore professionId createdAt');
 };
 
-// ✅ getUserInterviewCount (zaten doğru)
-interviewSchema.statics.getUserInterviewCount = async function(userId, status = null) {
+interviewSchema.statics.getUserInterviewCount = async function (userId, status = null) {
   const query = { userId };
   if (status) query.status = status;
   return await this.countDocuments(query);

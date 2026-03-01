@@ -39,6 +39,7 @@ app.use('/api/v1/auth', require('./routes/AuthRoutes'));
 app.use('/api/v1/professions', require('./routes/ProfessionsRoutes'));
 app.use('/api/v1/characters', require('./routes/CharactersRoutes'));
 app.use('/api/v1/interviews', require('./routes/InterviewRoutes')); // ✅ YENİ
+app.use('/api/v1/apple', require('./routes/AppleRoutes'));
 
 // Test endpoint (kaldırabilirsin)
 app.get('/api/v1/test', (req, res) => {

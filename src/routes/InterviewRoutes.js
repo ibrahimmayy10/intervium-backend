@@ -1,3 +1,5 @@
+// routes/InterviewRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const {
@@ -7,18 +9,26 @@ const {
   updateInterview,
   deleteInterview,
   getUserStats,
-  getUserStatsByProfession, // ✅ YENİ
-  getRecentInterviews
+  getUserStatsByProfession,
+  getRecentInterviews,
+  getPremiumComparison,
+  getPremiumProgress
 } = require('../controllers/InterviewController');
 const { protect } = require('../middleware/AuthMiddleware');
+const { requirePremium } = require('../middleware/PremiumMiddleware');
 
-// Tüm routes protected (authentication gerekli)
+// Tüm route'lar protected
 router.use(protect);
 
-// Stats endpoints (önce tanımla, yoksa :id ile karışır)
+// Stats endpoints (önce tanımla, :id ile karışmasın)
 router.get('/stats', getUserStats);
-router.get('/stats/profession/:professionId', getUserStatsByProfession); // ✅ YENİ
+router.get('/stats/profession/:professionId', getUserStatsByProfession);
 router.get('/recent', getRecentInterviews);
+
+// ─── PREMIUM ENDPOINTS ────────────────────────────────────────────────────────
+// requirePremium middleware premium kontrolü yapar
+router.get('/premium/comparison', requirePremium, getPremiumComparison);
+router.get('/premium/progress', requirePremium, getPremiumProgress);
 
 // CRUD endpoints
 router.post('/', createInterview);

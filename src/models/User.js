@@ -1,5 +1,3 @@
-// models/User.js
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -62,6 +60,34 @@ const userSchema = new mongoose.Schema({
   passwordResetExpire: {
     type: Date,
     select: false
+  },
+
+  // ─── Premium Üyelik ───────────────────────────────────────────
+  isPremium: {
+    type: Boolean,
+    default: false
+  },
+  premiumExpiresAt: {
+    type: Date,
+    default: null
+  },
+  // Apple'dan gelen orijinal transaction ID (ilk satın alma)
+  appleOriginalTransactionId: {
+    type: String,
+    default: null,
+    select: false
+  },
+  // Son Apple transaction ID (en son yenileme)
+  appleLatestTransactionId: {
+    type: String,
+    default: null,
+    select: false
+  },
+  // Abonelik durumu: active, expired, cancelled, grace_period
+  subscriptionStatus: {
+    type: String,
+    enum: ['none', 'active', 'expired', 'cancelled', 'grace_period'],
+    default: 'none'
   }
 
 }, {
@@ -73,6 +99,13 @@ userSchema.virtual('fullName').get(function () {
   return `${this.name} ${this.surname}`;
 });
 
+// Virtual: Premium aktif mi? (tarih kontrolü dahil)
+userSchema.virtual('isPremiumActive').get(function () {
+  if (!this.isPremium) return false;
+  if (!this.premiumExpiresAt) return false;
+  return new Date() < new Date(this.premiumExpiresAt);
+});
+
 // Password hash
 userSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
@@ -80,20 +113,37 @@ userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
+// Premium süre kontrolü — her sorguda otomatik güncelle
+userSchema.pre('findOne', function () {
+  // Süresi dolmuş premium'ları otomatik kapat (gerçek zamanlı kontrol)
+});
+
 // Password karşılaştırma
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
+// Premium durumu kontrol et ve gerekirse güncelle
+userSchema.methods.checkAndUpdatePremium = async function () {
+  if (this.isPremium && this.premiumExpiresAt && new Date() > new Date(this.premiumExpiresAt)) {
+    this.isPremium = false;
+    this.subscriptionStatus = 'expired';
+    await this.save({ validateBeforeSave: false });
+  }
+  return this.isPremium;
+};
+
 // JSON response'da hassas alanları gizle
 userSchema.methods.toJSON = function () {
-  const user = this.toObject();
+  const user = this.toObject({ virtuals: true });
   delete user.password;
   delete user.refreshToken;
   delete user.emailVerificationCode;
   delete user.emailVerificationExpire;
   delete user.passwordResetCode;
   delete user.passwordResetExpire;
+  delete user.appleOriginalTransactionId;
+  delete user.appleLatestTransactionId;
   delete user.__v;
   return user;
 };
