@@ -83,11 +83,21 @@ const userSchema = new mongoose.Schema({
     default: null,
     select: false
   },
-  // Abonelik durumu: active, expired, cancelled, grace_period
+  // Abonelik durumu: active, expired, cancelled, grace_period, trial
   subscriptionStatus: {
     type: String,
-    enum: ['none', 'active', 'expired', 'cancelled', 'grace_period'],
+    enum: ['none', 'active', 'expired', 'cancelled', 'grace_period', 'trial'],
     default: 'none'
+  },
+
+  // ─── Deneme Süresi ────────────────────────────────────────────
+  isTrialUsed: {
+    type: Boolean,
+    default: false
+  },
+  trialStartedAt: {
+    type: Date,
+    default: null
   }
 
 }, {

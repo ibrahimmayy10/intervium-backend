@@ -5,7 +5,8 @@ const router = express.Router();
 const {
   handleAppleWebhook,
   verifyPurchase,
-  getSubscriptionStatus
+  getSubscriptionStatus,
+  startTrial
 } = require('../controllers/AppleWebhookController');
 const { protect } = require('../middleware/AuthMiddleware');
 
@@ -17,5 +18,8 @@ router.post('/verify-purchase', protect, verifyPurchase);
 
 // Abonelik durumu — protected
 router.get('/subscription-status', protect, getSubscriptionStatus);
+
+// 3 günlük ücretsiz deneme 
+router.get('/start-trial', protect, startTrial);
 
 module.exports = router;

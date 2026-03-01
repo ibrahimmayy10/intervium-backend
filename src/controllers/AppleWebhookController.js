@@ -154,7 +154,9 @@ exports.getSubscriptionStatus = async (req, res) => {
       data: {
         isPremium: isPremiumActive,
         premiumExpiresAt: user.premiumExpiresAt,
-        subscriptionStatus: isPremiumActive ? 'active' : user.subscriptionStatus
+        subscriptionStatus: isPremiumActive ? user.subscriptionStatus : 'expired',
+        isTrialUsed: user.isTrialUsed,
+        trialStartedAt: user.trialStartedAt
       }
     });
 
@@ -249,3 +251,69 @@ async function processSubscriptionEvent(user, notificationType, subtype, expires
     throw error;
   }
 }
+
+// @desc    3 gunluk ucretsiz deneme baslat
+// @route   POST /api/v1/apple/start-trial
+// @access  Private
+exports.startTrial = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Kullanici bulunamadi' });
+    }
+
+    // Daha once trial kullanmis mi?
+    if (user.isTrialUsed) {
+      return res.status(400).json({
+        success: false,
+        message: 'Deneme suresi daha once kullanildi',
+        code: 'TRIAL_ALREADY_USED'
+      });
+    }
+
+    // Zaten aktif premium varsa trial baslatamassin
+    const isPremiumActive =
+      user.isPremium &&
+      user.premiumExpiresAt &&
+      new Date() < new Date(user.premiumExpiresAt);
+
+    if (isPremiumActive) {
+      return res.status(400).json({
+        success: false,
+        message: 'Zaten aktif bir premium uyeliginiz var',
+        code: 'ALREADY_PREMIUM'
+      });
+    }
+
+    // 3 gunluk trial baslat
+    const trialStart = new Date();
+    const trialEnd = new Date(trialStart.getTime() + 3 * 24 * 60 * 60 * 1000); // 3 gun
+
+    user.isPremium = true;
+    user.premiumExpiresAt = trialEnd;
+    user.subscriptionStatus = 'trial';
+    user.isTrialUsed = true;
+    user.trialStartedAt = trialStart;
+
+    await user.save({ validateBeforeSave: false });
+
+    console.log('Trial basladi: ' + user.email + ', bitis: ' + trialEnd);
+
+    res.status(200).json({
+      success: true,
+      message: '3 gunluk ucretsiz deneme baslatildi',
+      data: {
+        isPremium: true,
+        premiumExpiresAt: trialEnd,
+        subscriptionStatus: 'trial',
+        trialStartedAt: trialStart
+      }
+    });
+
+  } catch (error) {
+    console.error('Start trial error:', error);
+    res.status(500).json({ success: false, message: 'Deneme suresi baslatilirken hata olustu' });
+  }
+};
