@@ -19,7 +19,7 @@ router.post('/verify-purchase', protect, verifyPurchase);
 // Abonelik durumu — protected
 router.get('/subscription-status', protect, getSubscriptionStatus);
 
-// 3 günlük ücretsiz deneme 
-router.get('/start-trial', protect, startTrial);
+// 3 günlük ücretsiz deneme — GET → POST olarak düzeltildi
+router.post('/start-trial', protect, startTrial);
 
 module.exports = router;
