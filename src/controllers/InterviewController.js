@@ -327,6 +327,68 @@ exports.getUserStats = async (req, res) => {
       .limit(10)
       .select('overallScore technicalScore communicationScore createdAt');
 
+    const premium = isPremiumActive(req.user);
+
+    // Premium: performanceProfile ortalaması
+    let avgPerformanceProfile = null;
+    if (premium) {
+      const profileAgg = await Interview.aggregate([
+        {
+          $match: {
+            userId: new mongoose.Types.ObjectId(userId),
+            status: 'completed',
+            performanceProfile: { $ne: null }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            avgTechnical:      { $avg: '$performanceProfile.technical' },
+            avgCommunication:  { $avg: '$performanceProfile.communication' },
+            avgDetailedness:   { $avg: '$performanceProfile.detailedness' },
+            avgProblemSolving: { $avg: '$performanceProfile.problemSolving' },
+            avgConfidence:     { $avg: '$performanceProfile.confidence' }
+          }
+        }
+      ]);
+      if (profileAgg.length > 0) {
+        avgPerformanceProfile = {
+          technical:      Math.round(profileAgg[0].avgTechnical      || 0),
+          communication:  Math.round(profileAgg[0].avgCommunication  || 0),
+          detailedness:   Math.round(profileAgg[0].avgDetailedness   || 0),
+          problemSolving: Math.round(profileAgg[0].avgProblemSolving || 0),
+          confidence:     Math.round(profileAgg[0].avgConfidence     || 0)
+        };
+      }
+    }
+
+    // Premium: hiringProbability ortalaması
+    let avgHiringProbability = null;
+    if (premium) {
+      const hiringAgg = await Interview.aggregate([
+        {
+          $match: {
+            userId: new mongoose.Types.ObjectId(userId),
+            status: 'completed',
+            hiringProbability: { $ne: null }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            avgPercentage: { $avg: '$hiringProbability.percentage' },
+            count: { $sum: 1 }
+          }
+        }
+      ]);
+      if (hiringAgg.length > 0) {
+        avgHiringProbability = {
+          percentage: Math.round(hiringAgg[0].avgPercentage || 0),
+          count: hiringAgg[0].count
+        };
+      }
+    }
+
     res.status(200).json({
       success: true,
       data: {
@@ -355,7 +417,10 @@ exports.getUserStats = async (req, res) => {
           count:        stat.count,
           averageScore: Math.round(stat.avgScore || 0)
         })),
-        progressTrend: progressTrend.reverse()
+        progressTrend: progressTrend.reverse(),
+        // Premium alanlar — sadece aktif premium kullanıcıya gönderilir
+        avgPerformanceProfile,
+        avgHiringProbability
       }
     });
 
