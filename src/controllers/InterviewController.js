@@ -3,6 +3,12 @@
 const Interview = require('../models/Interview');
 const mongoose = require('mongoose');
 
+// ─── Premium kontrolü yardımcısı ─────────────────────────────────────────────
+const isPremiumActive = (user) =>
+  user.isPremium &&
+  user.premiumExpiresAt &&
+  new Date() < new Date(user.premiumExpiresAt);
+
 // @desc    Create new interview
 // @route   POST /api/v1/interviews
 // @access  Private
@@ -19,7 +25,12 @@ exports.createInterview = async (req, res) => {
       communicationScore,
       detailedness,
       recommendation,
-      questionFeedbacks, // Premium özellik
+      // Premium alanlar
+      questionFeedbacks,
+      performanceProfile,
+      hiringProbability,
+      learningPath,
+      // İstatistikler
       questionCount,
       correctAnswers,
       duration
@@ -32,33 +43,31 @@ exports.createInterview = async (req, res) => {
       });
     }
 
-    const userId = req.user.id;
-
-    // Premium kontrolü: questionFeedbacks sadece premium kullanıcılara kaydedilir
-    const isPremiumActive =
-      req.user.isPremium &&
-      req.user.premiumExpiresAt &&
-      new Date() < new Date(req.user.premiumExpiresAt);
+    const userId  = req.user.id;
+    const premium = isPremiumActive(req.user);
 
     const interview = await Interview.create({
       userId,
       professionId,
       characterId,
-      status: 'completed',
+      status:      'completed',
       completedAt: new Date(),
-      overallScore: overallScore || 0,
-      feedback: feedback || '',
-      strengths: strengths || [],
-      improvements: improvements || [],
-      technicalScore: technicalScore || 0,
+      overallScore:       overallScore       || 0,
+      feedback:           feedback           || '',
+      strengths:          strengths          || [],
+      improvements:       improvements       || [],
+      technicalScore:     technicalScore     || 0,
       communicationScore: communicationScore || 0,
-      detailedness: detailedness || 0,
-      recommendation: recommendation || '',
-      // Premium özellik: sadece premium kullanıcıda kaydet
-      questionFeedbacks: isPremiumActive && questionFeedbacks ? questionFeedbacks : [],
-      questionCount: questionCount || 0,
+      detailedness:       detailedness       || 0,
+      recommendation:     recommendation     || '',
+      // Premium alanlar: sadece aktif premium kullanıcıda kaydet
+      questionFeedbacks:  premium && questionFeedbacks  ? questionFeedbacks  : [],
+      performanceProfile: premium && performanceProfile ? performanceProfile : null,
+      hiringProbability:  premium && hiringProbability  ? hiringProbability  : null,
+      learningPath:       premium && learningPath       ? learningPath       : [],
+      questionCount:  questionCount  || 0,
       correctAnswers: correctAnswers || 0,
-      duration: duration || null
+      duration:       duration       || null
     });
 
     res.status(201).json({
@@ -69,19 +78,11 @@ exports.createInterview = async (req, res) => {
 
   } catch (error) {
     console.error('❌ Create interview error:', error);
-
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({
-        success: false,
-        message: messages[0] || 'Geçersiz veri'
-      });
+      return res.status(400).json({ success: false, message: messages[0] || 'Geçersiz veri' });
     }
-
-    res.status(500).json({
-      success: false,
-      message: 'Mülakat kaydedilirken hata oluştu'
-    });
+    res.status(500).json({ success: false, message: 'Mülakat kaydedilirken hata oluştu' });
   }
 };
 
@@ -94,14 +95,14 @@ exports.getUserInterviews = async (req, res) => {
     const { status, professionId, limit = 10, page = 1 } = req.query;
 
     const query = { userId };
-    if (status) query.status = status;
+    if (status)      query.status = status;
     if (professionId) query.professionId = professionId;
 
     const skip = (page - 1) * parseInt(limit);
 
-    // questionFeedbacks listede gösterilmez, detay sayfasında gelir
+    // Premium alanlar listede gösterilmez, detay sayfasında gelir
     const interviews = await Interview.find(query)
-      .select('-questionFeedbacks')
+      .select('-questionFeedbacks -performanceProfile -hiringProbability -learningPath')
       .sort({ createdAt: -1 })
       .limit(parseInt(limit))
       .skip(skip);
@@ -112,17 +113,14 @@ exports.getUserInterviews = async (req, res) => {
       success: true,
       count: interviews.length,
       total,
-      page: parseInt(page),
+      page:  parseInt(page),
       pages: Math.ceil(total / parseInt(limit)),
-      data: interviews
+      data:  interviews
     });
 
   } catch (error) {
     console.error('❌ Get user interviews error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Mülakatlar alınırken hata oluştu'
-    });
+    res.status(500).json({ success: false, message: 'Mülakatlar alınırken hata oluştu' });
   }
 };
 
@@ -132,10 +130,7 @@ exports.getUserInterviews = async (req, res) => {
 exports.getInterview = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(404).json({
-        success: false,
-        message: 'Geçersiz mülakat ID'
-      });
+      return res.status(404).json({ success: false, message: 'Geçersiz mülakat ID' });
     }
 
     const interview = await Interview.findById(req.params.id);
@@ -143,27 +138,21 @@ exports.getInterview = async (req, res) => {
     if (!interview) {
       return res.status(404).json({ success: false, message: 'Mülakat bulunamadı' });
     }
-
     if (interview.userId.toString() !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Bu mülakata erişim yetkiniz yok' });
     }
 
-    // Premium kontrolü: questionFeedbacks sadece premium kullanıcılara gösterilir
-    const isPremiumActive =
-      req.user.isPremium &&
-      req.user.premiumExpiresAt &&
-      new Date() < new Date(req.user.premiumExpiresAt);
-
     const interviewData = interview.toJSON();
 
-    if (!isPremiumActive) {
+    // Premium değilse tüm premium alanları sil
+    if (!isPremiumActive(req.user)) {
       delete interviewData.questionFeedbacks;
+      delete interviewData.performanceProfile;
+      delete interviewData.hiringProbability;
+      delete interviewData.learningPath;
     }
 
-    res.status(200).json({
-      success: true,
-      data: interviewData
-    });
+    res.status(200).json({ success: true, data: interviewData });
 
   } catch (error) {
     console.error('❌ Get interview error:', error);
@@ -185,50 +174,36 @@ exports.updateInterview = async (req, res) => {
     if (!interview) {
       return res.status(404).json({ success: false, message: 'Mülakat bulunamadı' });
     }
-
     if (interview.userId.toString() !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Bu mülakatı güncelleme yetkiniz yok' });
     }
 
     const {
-      overallScore,
-      feedback,
-      strengths,
-      improvements,
-      status,
-      technicalScore,
-      communicationScore,
-      detailedness,
-      recommendation
+      overallScore, feedback, strengths, improvements, status,
+      technicalScore, communicationScore, detailedness, recommendation
     } = req.body;
 
     const updateData = {};
-    if (overallScore !== undefined) updateData.overallScore = overallScore;
-    if (feedback !== undefined) updateData.feedback = feedback;
-    if (strengths !== undefined) updateData.strengths = strengths;
-    if (improvements !== undefined) updateData.improvements = improvements;
-    if (status !== undefined) updateData.status = status;
-    if (technicalScore !== undefined) updateData.technicalScore = technicalScore;
+    if (overallScore       !== undefined) updateData.overallScore       = overallScore;
+    if (feedback           !== undefined) updateData.feedback           = feedback;
+    if (strengths          !== undefined) updateData.strengths          = strengths;
+    if (improvements       !== undefined) updateData.improvements       = improvements;
+    if (status             !== undefined) updateData.status             = status;
+    if (technicalScore     !== undefined) updateData.technicalScore     = technicalScore;
     if (communicationScore !== undefined) updateData.communicationScore = communicationScore;
-    if (detailedness !== undefined) updateData.detailedness = detailedness;
-    if (recommendation !== undefined) updateData.recommendation = recommendation;
+    if (detailedness       !== undefined) updateData.detailedness       = detailedness;
+    if (recommendation     !== undefined) updateData.recommendation     = recommendation;
 
-    interview = await Interview.findByIdAndUpdate(
-      req.params.id,
-      updateData,
-      { new: true, runValidators: true }
-    );
+    interview = await Interview.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
 
     res.status(200).json({ success: true, message: 'Mülakat güncellendi', data: interview });
 
   } catch (error) {
     console.error('❌ Update interview error:', error);
-
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({ success: false, message: messages[0] || 'Geçersiz veri' });
     }
-
     res.status(500).json({ success: false, message: 'Mülakat güncellenirken hata oluştu' });
   }
 };
@@ -247,7 +222,6 @@ exports.deleteInterview = async (req, res) => {
     if (!interview) {
       return res.status(404).json({ success: false, message: 'Mülakat bulunamadı' });
     }
-
     if (interview.userId.toString() !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Bu mülakatı silme yetkiniz yok' });
     }
@@ -282,22 +256,17 @@ exports.getUserStats = async (req, res) => {
       return res.status(200).json({
         success: true,
         data: {
-          totalInterviews: 0,
-          averageScore: 0,
-          averageTechnicalScore: 0,
+          totalInterviews: 0, averageScore: 0, averageTechnicalScore: 0,
           detailedScores: { technical: 0, communication: 0, detailedness: 0 },
-          bestScore: null,
-          recentInterviews: 0,
-          professionStats: [],
-          characterStats: [],
-          progressTrend: []
+          bestScore: null, recentInterviews: 0,
+          professionStats: [], characterStats: [], progressTrend: []
         }
       });
     }
 
-    const averageScore = await Interview.getUserAverageScore(userId);
+    const averageScore        = await Interview.getUserAverageScore(userId);
     const averageTechnicalScore = await Interview.getUserAverageTechnicalScore(userId);
-    const bestScore = await Interview.getUserBestScore(userId);
+    const bestScore           = await Interview.getUserBestScore(userId);
 
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -313,8 +282,8 @@ exports.getUserStats = async (req, res) => {
       {
         $group: {
           _id: null,
-          avgTechnical: { $avg: '$technicalScore' },
-          avgCommunication: { $avg: '$communicationScore' },
+          avgTechnical:    { $avg: '$technicalScore' },
+          avgCommunication:{ $avg: '$communicationScore' },
           avgDetailedness: { $avg: '$detailedness' }
         }
       }
@@ -325,9 +294,9 @@ exports.getUserStats = async (req, res) => {
       {
         $group: {
           _id: '$professionId',
-          count: { $sum: 1 },
-          avgScore: { $avg: '$overallScore' },
-          avgTechnical: { $avg: '$technicalScore' }
+          count:      { $sum: 1 },
+          avgScore:   { $avg: '$overallScore' },
+          avgTechnical:{ $avg: '$technicalScore' }
         }
       },
       { $sort: { count: -1 } },
@@ -339,7 +308,7 @@ exports.getUserStats = async (req, res) => {
       {
         $group: {
           _id: '$characterId',
-          count: { $sum: 1 },
+          count:    { $sum: 1 },
           avgScore: { $avg: '$overallScore' }
         }
       },
@@ -361,9 +330,9 @@ exports.getUserStats = async (req, res) => {
         averageScore,
         averageTechnicalScore,
         detailedScores: detailedScores.length > 0 ? {
-          technical: Math.round(detailedScores[0].avgTechnical || 0),
-          communication: Math.round(detailedScores[0].avgCommunication || 0),
-          detailedness: Math.round(detailedScores[0].avgDetailedness || 0)
+          technical:    Math.round(detailedScores[0].avgTechnical     || 0),
+          communication:Math.round(detailedScores[0].avgCommunication || 0),
+          detailedness: Math.round(detailedScores[0].avgDetailedness  || 0)
         } : { technical: 0, communication: 0, detailedness: 0 },
         bestScore: bestScore ? {
           score: bestScore.overallScore,
@@ -372,14 +341,14 @@ exports.getUserStats = async (req, res) => {
         } : null,
         recentInterviews,
         professionStats: professionStats.map(stat => ({
-          professionId: stat._id,
-          count: stat.count,
-          averageScore: Math.round(stat.avgScore || 0),
+          professionId:   stat._id,
+          count:          stat.count,
+          averageScore:   Math.round(stat.avgScore    || 0),
           averageTechnical: Math.round(stat.avgTechnical || 0)
         })),
         characterStats: characterStats.map(stat => ({
-          characterId: stat._id,
-          count: stat.count,
+          characterId:  stat._id,
+          count:        stat.count,
           averageScore: Math.round(stat.avgScore || 0)
         })),
         progressTrend: progressTrend.reverse()
@@ -402,15 +371,10 @@ exports.getPremiumComparison = async (req, res) => {
     const userId = req.user.id;
     const { professionId, characterId } = req.query;
 
-    const query = {
-      userId: new mongoose.Types.ObjectId(userId),
-      status: 'completed'
-    };
-
+    const query = { userId: new mongoose.Types.ObjectId(userId), status: 'completed' };
     if (professionId) query.professionId = professionId;
-    if (characterId) query.characterId = characterId;
+    if (characterId)  query.characterId  = characterId;
 
-    // Son 2 mülakatı al
     const lastTwo = await Interview.find(query)
       .sort({ createdAt: -1 })
       .limit(2)
@@ -419,44 +383,36 @@ exports.getPremiumComparison = async (req, res) => {
     if (lastTwo.length < 2) {
       return res.status(200).json({
         success: true,
-        data: {
-          hasComparison: false,
-          message: 'Karşılaştırma için en az 2 mülakat gereklidir'
-        }
+        data: { hasComparison: false, message: 'Karşılaştırma için en az 2 mülakat gereklidir' }
       });
     }
 
-    const latest = lastTwo[0];
-    const previous = lastTwo[1];
+    const [latest, previous] = lastTwo;
 
-    const comparison = {
-      hasComparison: true,
-      latest: {
-        id: latest._id,
-        overallScore: latest.overallScore,
-        technicalScore: latest.technicalScore,
-        communicationScore: latest.communicationScore,
-        detailedness: latest.detailedness,
-        createdAt: latest.createdAt
-      },
-      previous: {
-        id: previous._id,
-        overallScore: previous.overallScore,
-        technicalScore: previous.technicalScore,
-        communicationScore: previous.communicationScore,
-        detailedness: previous.detailedness,
-        createdAt: previous.createdAt
-      },
-      // Delta: pozitif = ilerleme, negatif = gerileme
-      delta: {
-        overallScore: (latest.overallScore || 0) - (previous.overallScore || 0),
-        technicalScore: (latest.technicalScore || 0) - (previous.technicalScore || 0),
-        communicationScore: (latest.communicationScore || 0) - (previous.communicationScore || 0),
-        detailedness: (latest.detailedness || 0) - (previous.detailedness || 0)
+    res.status(200).json({
+      success: true,
+      data: {
+        hasComparison: true,
+        latest: {
+          id: latest._id,
+          overallScore: latest.overallScore, technicalScore: latest.technicalScore,
+          communicationScore: latest.communicationScore, detailedness: latest.detailedness,
+          createdAt: latest.createdAt
+        },
+        previous: {
+          id: previous._id,
+          overallScore: previous.overallScore, technicalScore: previous.technicalScore,
+          communicationScore: previous.communicationScore, detailedness: previous.detailedness,
+          createdAt: previous.createdAt
+        },
+        delta: {
+          overallScore:      (latest.overallScore      || 0) - (previous.overallScore      || 0),
+          technicalScore:    (latest.technicalScore    || 0) - (previous.technicalScore    || 0),
+          communicationScore:(latest.communicationScore|| 0) - (previous.communicationScore|| 0),
+          detailedness:      (latest.detailedness      || 0) - (previous.detailedness      || 0)
+        }
       }
-    };
-
-    res.status(200).json({ success: true, data: comparison });
+    });
 
   } catch (error) {
     console.error('❌ Get premium comparison error:', error);
@@ -472,50 +428,36 @@ exports.getPremiumProgress = async (req, res) => {
     const userId = req.user.id;
     const { professionId, characterId, limit = 20 } = req.query;
 
-    const query = {
-      userId: new mongoose.Types.ObjectId(userId),
-      status: 'completed'
-    };
-
+    const query = { userId: new mongoose.Types.ObjectId(userId), status: 'completed' };
     if (professionId) query.professionId = professionId;
-    if (characterId) query.characterId = characterId;
+    if (characterId)  query.characterId  = characterId;
 
     const interviews = await Interview.find(query)
-      .sort({ createdAt: 1 }) // eskiden yeniye
+      .sort({ createdAt: 1 })
       .limit(parseInt(limit))
       .select('overallScore technicalScore communicationScore detailedness createdAt professionId characterId');
 
     if (interviews.length === 0) {
-      return res.status(200).json({
-        success: true,
-        data: { interviews: [], trend: 'insufficient_data' }
-      });
+      return res.status(200).json({ success: true, data: { interviews: [], trend: 'insufficient_data' } });
     }
 
-    // Trend hesapla: ilk yarı vs ikinci yarı ortalaması
     const half = Math.floor(interviews.length / 2);
     let trend = 'stable';
 
     if (interviews.length >= 4) {
-      const firstHalf = interviews.slice(0, half);
+      const firstHalf  = interviews.slice(0, half);
       const secondHalf = interviews.slice(half);
-
-      const avgFirst = firstHalf.reduce((sum, i) => sum + (i.overallScore || 0), 0) / firstHalf.length;
+      const avgFirst  = firstHalf.reduce( (sum, i) => sum + (i.overallScore || 0), 0) / firstHalf.length;
       const avgSecond = secondHalf.reduce((sum, i) => sum + (i.overallScore || 0), 0) / secondHalf.length;
-
       const diff = avgSecond - avgFirst;
-      if (diff > 5) trend = 'improving';
+      if      (diff >  5) trend = 'improving';
       else if (diff < -5) trend = 'declining';
-      else trend = 'stable';
+      else                trend = 'stable';
     }
 
     res.status(200).json({
       success: true,
-      data: {
-        interviews,
-        trend,
-        totalCount: interviews.length
-      }
+      data: { interviews, trend, totalCount: interviews.length }
     });
 
   } catch (error) {
@@ -573,15 +515,10 @@ exports.getUserStatsByProfession = async (req, res) => {
       return res.status(200).json({
         success: true,
         data: {
-          totalInterviews: 0,
-          averageScore: 0,
-          averageTechnicalScore: 0,
+          totalInterviews: 0, averageScore: 0, averageTechnicalScore: 0,
           detailedScores: { technical: 0, communication: 0, detailedness: 0 },
-          bestScore: null,
-          recentInterviews: 0,
-          professionStats: [],
-          characterStats: [],
-          progressTrend: []
+          bestScore: null, recentInterviews: 0,
+          professionStats: [], characterStats: [], progressTrend: []
         }
       });
     }
@@ -591,15 +528,15 @@ exports.getUserStatsByProfession = async (req, res) => {
       {
         $group: {
           _id: null,
-          avgScore: { $avg: '$overallScore' },
-          avgTechnical: { $avg: '$technicalScore' },
-          avgCommunication: { $avg: '$communicationScore' },
+          avgScore:        { $avg: '$overallScore' },
+          avgTechnical:    { $avg: '$technicalScore' },
+          avgCommunication:{ $avg: '$communicationScore' },
           avgDetailedness: { $avg: '$detailedness' }
         }
       }
     ]);
 
-    const averageScore = scoreStats.length > 0 ? Math.round(scoreStats[0].avgScore || 0) : 0;
+    const averageScore          = scoreStats.length > 0 ? Math.round(scoreStats[0].avgScore    || 0) : 0;
     const averageTechnicalScore = scoreStats.length > 0 ? Math.round(scoreStats[0].avgTechnical || 0) : 0;
 
     const bestScore = await Interview.findOne({
@@ -623,7 +560,7 @@ exports.getUserStatsByProfession = async (req, res) => {
       {
         $group: {
           _id: '$characterId',
-          count: { $sum: 1 },
+          count:    { $sum: 1 },
           avgScore: { $avg: '$overallScore' }
         }
       },
@@ -646,9 +583,9 @@ exports.getUserStatsByProfession = async (req, res) => {
         averageScore,
         averageTechnicalScore,
         detailedScores: scoreStats.length > 0 ? {
-          technical: Math.round(scoreStats[0].avgTechnical || 0),
-          communication: Math.round(scoreStats[0].avgCommunication || 0),
-          detailedness: Math.round(scoreStats[0].avgDetailedness || 0)
+          technical:    Math.round(scoreStats[0].avgTechnical     || 0),
+          communication:Math.round(scoreStats[0].avgCommunication || 0),
+          detailedness: Math.round(scoreStats[0].avgDetailedness  || 0)
         } : { technical: 0, communication: 0, detailedness: 0 },
         bestScore: bestScore ? {
           score: bestScore.overallScore,
@@ -658,8 +595,8 @@ exports.getUserStatsByProfession = async (req, res) => {
         recentInterviews,
         professionStats: [{ professionId, count: totalInterviews, averageScore, averageTechnical: averageTechnicalScore }],
         characterStats: characterStats.map(stat => ({
-          characterId: stat._id,
-          count: stat.count,
+          characterId:  stat._id,
+          count:        stat.count,
           averageScore: Math.round(stat.avgScore || 0)
         })),
         progressTrend: progressTrend.reverse()
