@@ -4,6 +4,9 @@ const Interview = require('../models/Interview');
 const mongoose = require('mongoose');
 
 // ─── Premium kontrolü yardımcısı ─────────────────────────────────────────────
+// Sadece GET endpoint'lerinde gösterim kontrolü için kullanılır.
+// Kayıt (POST) her zaman tüm alanları kaydeder — kullanıcı sonradan
+// premiuma geçince eski mülakatlarına da erişebilsin.
 const isPremiumActive = (user) =>
   user.isPremium &&
   user.premiumExpiresAt &&
@@ -43,9 +46,11 @@ exports.createInterview = async (req, res) => {
       });
     }
 
-    const userId  = req.user.id;
-    const premium = isPremiumActive(req.user);
+    const userId = req.user.id;
 
+    // Tüm alanlar her zaman kaydedilir — premium/ücretsiz fark yok.
+    // Premium kontrolü sadece GET /interviews/:id response'unda yapılır.
+    // Böylece kullanıcı sonradan premiuma geçince eski mülakatlarına da erişebilir.
     const interview = await Interview.create({
       userId,
       professionId,
@@ -60,11 +65,10 @@ exports.createInterview = async (req, res) => {
       communicationScore: communicationScore || 0,
       detailedness:       detailedness       || 0,
       recommendation:     recommendation     || '',
-      // Premium alanlar: sadece aktif premium kullanıcıda kaydet
-      questionFeedbacks:  premium && questionFeedbacks  ? questionFeedbacks  : [],
-      performanceProfile: premium && performanceProfile ? performanceProfile : null,
-      hiringProbability:  premium && hiringProbability  ? hiringProbability  : null,
-      learningPath:       premium && learningPath       ? learningPath       : [],
+      questionFeedbacks:  questionFeedbacks  || [],
+      performanceProfile: performanceProfile || null,
+      hiringProbability:  hiringProbability  || null,
+      learningPath:       learningPath       || [],
       questionCount:  questionCount  || 0,
       correctAnswers: correctAnswers || 0,
       duration:       duration       || null
