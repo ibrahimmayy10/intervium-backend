@@ -51,8 +51,16 @@ exports.createInterview = async (req, res) => {
     // ─── Günlük mülakat limiti kontrolü ──────────────────────────────────────
     // Ücretsiz: günde 1 mülakat | Premium: sınırsız
     if (!isPremiumActive(req.user)) {
-      const startOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0);
+      // UTC+3 (Türkiye) gün başlangıcı
+      const now = new Date();
+      const turkeyOffset = 3 * 60; // dakika
+      const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
+      const startOfDay = new Date(Date.UTC(
+        turkeyTime.getUTCFullYear(),
+        turkeyTime.getUTCMonth(),
+        turkeyTime.getUTCDate(),
+        0, 0, 0, 0
+      ) - turkeyOffset * 60 * 1000); // UTC'ye geri çevir
 
       const todayCount = await Interview.countDocuments({
         userId: new mongoose.Types.ObjectId(userId),
@@ -728,8 +736,16 @@ exports.getInterviewLimitStatus = async (req, res) => {
       });
     }
 
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
+    // UTC+3 (Türkiye) gün başlangıcı
+    const now = new Date();
+    const turkeyOffset = 3 * 60;
+    const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
+    const startOfDay = new Date(Date.UTC(
+      turkeyTime.getUTCFullYear(),
+      turkeyTime.getUTCMonth(),
+      turkeyTime.getUTCDate(),
+      0, 0, 0, 0
+    ) - turkeyOffset * 60 * 1000);
     const resetAt = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
 
     const used = await Interview.countDocuments({
@@ -755,5 +771,63 @@ exports.getInterviewLimitStatus = async (req, res) => {
   } catch (error) {
     console.error('❌ getInterviewLimitStatus error:', error);
     return res.status(500).json({ success: false, message: 'Limit bilgisi alınamadı' });
+  }
+};
+
+exports.completeInterview = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    if (!isPremiumActive(req.user)) {
+      const now = new Date();
+      const turkeyOffset = 3 * 60;
+      const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
+      const startOfDay = new Date(Date.UTC(
+        turkeyTime.getUTCFullYear(),
+        turkeyTime.getUTCMonth(),
+        turkeyTime.getUTCDate(),
+        0, 0, 0, 0
+      ) - turkeyOffset * 60 * 1000);
+
+      const todayCount = await Interview.countDocuments({
+        userId: new mongoose.Types.ObjectId(userId),
+        createdAt: { $gte: startOfDay }
+      });
+
+      if (todayCount >= 1) {
+        return res.status(403).json({
+          success: false,
+          message: 'Günlük mülakat limitinize ulaştınız',
+          code: 'DAILY_LIMIT_REACHED',
+          data: {
+            limit: 1,
+            used: todayCount,
+            resetAt: new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000)
+          }
+        });
+      }
+    }
+
+    await Interview.create({
+      userId,
+      status: 'completed',
+      completedAt: new Date(),
+      professionId: req.body.professionId || null,
+      characterId: req.body.characterId || null,
+      overallScore: 0,
+      feedback: '',
+      strengths: [],
+      improvements: [],
+      technicalScore: 0,
+      communicationScore: 0,
+      detailedness: 0,
+      recommendation: ''
+    });
+
+    return res.status(200).json({ success: true });
+
+  } catch (error) {
+    console.error('completeInterview error:', error);
+    return res.status(500).json({ success: false, message: 'Mülakat tamamlanamadı' });
   }
 };

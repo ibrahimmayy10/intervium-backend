@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {
   createInterview,
+  completeInterview,
   getUserInterviews,
   getInterview,
   updateInterview,
@@ -25,6 +26,7 @@ router.get('/stats', getUserStats);
 router.get('/stats/profession/:professionId', getUserStatsByProfession);
 router.get('/recent', getRecentInterviews);
 router.get('/limit-status', getInterviewLimitStatus);
+router.post('/complete', completeInterview);
 
 // ─── PREMIUM ENDPOINTS ────────────────────────────────────────────────────────
 router.get('/premium/comparison', requirePremium, getPremiumComparison);
