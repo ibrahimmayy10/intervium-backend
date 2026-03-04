@@ -4,13 +4,20 @@ const Interview = require('../models/Interview');
 const mongoose = require('mongoose');
 
 // ─── Premium kontrolü yardımcısı ─────────────────────────────────────────────
-// Sadece GET endpoint'lerinde gösterim kontrolü için kullanılır.
-// Kayıt (POST) her zaman tüm alanları kaydeder — kullanıcı sonradan
-// premiuma geçince eski mülakatlarına da erişebilsin.
 const isPremiumActive = (user) =>
   user.isPremium &&
   user.premiumExpiresAt &&
   new Date() < new Date(user.premiumExpiresAt);
+
+// ─── Ortak filtre sabitleri ───────────────────────────────────────────────────
+// Placeholder kayıtları istatistiklerden hariç tutan filtre
+const statsMatch = (userId) => ({
+  userId: new mongoose.Types.ObjectId(userId),
+  status: 'completed',
+  isPlaceholder: { $ne: true }
+});
+
+// ─── Create Interview ─────────────────────────────────────────────────────────
 
 // @desc    Create new interview
 // @route   POST /api/v1/interviews
@@ -18,50 +25,21 @@ const isPremiumActive = (user) =>
 exports.createInterview = async (req, res) => {
   try {
     const {
-      professionId,
-      characterId,
-      overallScore,
-      feedback,
-      strengths,
-      improvements,
-      technicalScore,
-      communicationScore,
-      detailedness,
-      recommendation,
-      // Premium alanlar
-      questionFeedbacks,
-      performanceProfile,
-      hiringProbability,
-      learningPath,
-      // İstatistikler
-      questionCount,
-      correctAnswers,
-      duration
+      professionId, characterId,
+      overallScore, feedback, strengths, improvements,
+      technicalScore, communicationScore, detailedness, recommendation,
+      questionFeedbacks, performanceProfile, hiringProbability, learningPath,
+      questionCount, correctAnswers, duration
     } = req.body;
 
     if (!professionId || !characterId) {
-      return res.status(400).json({
-        success: false,
-        message: 'Meslek ve karakter bilgisi gereklidir'
-      });
+      return res.status(400).json({ success: false, message: 'Meslek ve karakter bilgisi gereklidir' });
     }
 
     const userId = req.user.id;
 
-    // ─── Günlük mülakat limiti kontrolü ──────────────────────────────────────
-    // Ücretsiz: günde 1 mülakat | Premium: sınırsız
     if (!isPremiumActive(req.user)) {
-      // UTC+3 (Türkiye) gün başlangıcı
-      const now = new Date();
-      const turkeyOffset = 3 * 60; // dakika
-      const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
-      const startOfDay = new Date(Date.UTC(
-        turkeyTime.getUTCFullYear(),
-        turkeyTime.getUTCMonth(),
-        turkeyTime.getUTCDate(),
-        0, 0, 0, 0
-      ) - turkeyOffset * 60 * 1000); // UTC'ye geri çevir
-
+      const startOfDay = getTurkeyStartOfDay();
       const todayCount = await Interview.countDocuments({
         userId: new mongoose.Types.ObjectId(userId),
         createdAt: { $gte: startOfDay }
@@ -80,17 +58,14 @@ exports.createInterview = async (req, res) => {
         });
       }
     }
-    // ─────────────────────────────────────────────────────────────────────────
 
-    // Tüm alanlar her zaman kaydedilir — premium/ücretsiz fark yok.
-    // Premium kontrolü sadece GET /interviews/:id response'unda yapılır.
-    // Böylece kullanıcı sonradan premiuma geçince eski mülakatlarına da erişebilir.
     const interview = await Interview.create({
       userId,
       professionId,
       characterId,
-      status:      'completed',
-      completedAt: new Date(),
+      status:             'completed',
+      completedAt:        new Date(),
+      isPlaceholder:      false,
       overallScore:       overallScore       || 0,
       feedback:           feedback           || '',
       strengths:          strengths          || [],
@@ -103,16 +78,12 @@ exports.createInterview = async (req, res) => {
       performanceProfile: performanceProfile || null,
       hiringProbability:  hiringProbability  || null,
       learningPath:       learningPath       || [],
-      questionCount:  questionCount  || 0,
-      correctAnswers: correctAnswers || 0,
-      duration:       duration       || null
+      questionCount:      questionCount      || 0,
+      correctAnswers:     correctAnswers     || 0,
+      duration:           duration           || null
     });
 
-    res.status(201).json({
-      success: true,
-      message: 'Mülakat kaydedildi',
-      data: interview
-    });
+    res.status(201).json({ success: true, message: 'Mülakat kaydedildi', data: interview });
 
   } catch (error) {
     console.error('❌ Create interview error:', error);
@@ -124,6 +95,64 @@ exports.createInterview = async (req, res) => {
   }
 };
 
+// ─── Complete Interview (limit tüketimi) ──────────────────────────────────────
+
+// @desc    Mülakat tamamlandı — limit tüket, placeholder kayıt oluştur
+// @route   POST /api/v1/interviews/complete
+// @access  Private
+exports.completeInterview = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    if (!isPremiumActive(req.user)) {
+      const startOfDay = getTurkeyStartOfDay();
+      const todayCount = await Interview.countDocuments({
+        userId: new mongoose.Types.ObjectId(userId),
+        createdAt: { $gte: startOfDay }
+      });
+
+      if (todayCount >= 1) {
+        return res.status(403).json({
+          success: false,
+          message: 'Günlük mülakat limitinize ulaştınız',
+          code: 'DAILY_LIMIT_REACHED',
+          data: {
+            limit: 1,
+            used: todayCount,
+            resetAt: new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000)
+          }
+        });
+      }
+    }
+
+    // Placeholder kayıt — sadece limit tüketmek için, istatistiklere dahil edilmez
+    await Interview.create({
+      userId,
+      status:             'completed',
+      completedAt:        new Date(),
+      professionId:       req.body.professionId || 'unknown',
+      characterId:        req.body.characterId  || 'unknown',
+      isPlaceholder:      true,
+      overallScore:       0,
+      feedback:           '',
+      strengths:          [],
+      improvements:       [],
+      technicalScore:     0,
+      communicationScore: 0,
+      detailedness:       0,
+      recommendation:     ''
+    });
+
+    return res.status(200).json({ success: true });
+
+  } catch (error) {
+    console.error('❌ completeInterview error:', error);
+    return res.status(500).json({ success: false, message: 'Mülakat tamamlanamadı' });
+  }
+};
+
+// ─── Get User Interviews ──────────────────────────────────────────────────────
+
 // @desc    Get all interviews for logged in user
 // @route   GET /api/v1/interviews
 // @access  Private
@@ -132,13 +161,12 @@ exports.getUserInterviews = async (req, res) => {
     const userId = req.user.id;
     const { status, professionId, limit = 10, page = 1 } = req.query;
 
-    const query = { userId };
-    if (status)      query.status = status;
+    const query = { userId, isPlaceholder: { $ne: true } };
+    if (status)       query.status       = status;
     if (professionId) query.professionId = professionId;
 
     const skip = (page - 1) * parseInt(limit);
 
-    // Premium alanlar listede gösterilmez, detay sayfasında gelir
     const interviews = await Interview.find(query)
       .select('-questionFeedbacks -performanceProfile -hiringProbability -learningPath')
       .sort({ createdAt: -1 })
@@ -162,6 +190,8 @@ exports.getUserInterviews = async (req, res) => {
   }
 };
 
+// ─── Get Single Interview ─────────────────────────────────────────────────────
+
 // @desc    Get single interview
 // @route   GET /api/v1/interviews/:id
 // @access  Private
@@ -182,7 +212,6 @@ exports.getInterview = async (req, res) => {
 
     const interviewData = interview.toJSON();
 
-    // Premium değilse tüm premium alanları sil
     if (!isPremiumActive(req.user)) {
       delete interviewData.questionFeedbacks;
       delete interviewData.performanceProfile;
@@ -198,9 +227,8 @@ exports.getInterview = async (req, res) => {
   }
 };
 
-// @desc    Update interview
-// @route   PUT /api/v1/interviews/:id
-// @access  Private
+// ─── Update Interview ─────────────────────────────────────────────────────────
+
 exports.updateInterview = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -246,9 +274,8 @@ exports.updateInterview = async (req, res) => {
   }
 };
 
-// @desc    Delete interview
-// @route   DELETE /api/v1/interviews/:id
-// @access  Private
+// ─── Delete Interview ─────────────────────────────────────────────────────────
+
 exports.deleteInterview = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -274,6 +301,8 @@ exports.deleteInterview = async (req, res) => {
   }
 };
 
+// ─── Get User Stats ───────────────────────────────────────────────────────────
+
 // @desc    Get user statistics
 // @route   GET /api/v1/interviews/stats
 // @access  Private
@@ -285,10 +314,9 @@ exports.getUserStats = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Geçersiz kullanıcı ID' });
     }
 
-    const totalInterviews = await Interview.countDocuments({
-      userId: new mongoose.Types.ObjectId(userId),
-      status: 'completed'
-    });
+    const filter = statsMatch(userId);
+
+    const totalInterviews = await Interview.countDocuments(filter);
 
     if (totalInterviews === 0) {
       return res.status(200).json({
@@ -302,24 +330,13 @@ exports.getUserStats = async (req, res) => {
       });
     }
 
-    const averageScore        = await Interview.getUserAverageScore(userId);
-    const averageTechnicalScore = await Interview.getUserAverageTechnicalScore(userId);
-    const bestScore           = await Interview.getUserBestScore(userId);
-
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    const recentInterviews = await Interview.countDocuments({
-      userId: new mongoose.Types.ObjectId(userId),
-      status: 'completed',
-      createdAt: { $gte: sevenDaysAgo }
-    });
-
-    const detailedScores = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' }, isPlaceholder: { $ne: true } },
+    // Ortalamalar — placeholder hariç
+    const avgAgg = await Interview.aggregate([
+      { $match: filter },
       {
         $group: {
           _id: null,
+          avgScore:        { $avg: '$overallScore' },
           avgTechnical:    { $avg: '$technicalScore' },
           avgCommunication:{ $avg: '$communicationScore' },
           avgDetailedness: { $avg: '$detailedness' }
@@ -327,14 +344,36 @@ exports.getUserStats = async (req, res) => {
       }
     ]);
 
+    const averageScore          = avgAgg.length > 0 ? Math.round(avgAgg[0].avgScore    || 0) : 0;
+    const averageTechnicalScore = avgAgg.length > 0 ? Math.round(avgAgg[0].avgTechnical || 0) : 0;
+
+    // En iyi skor
+    const bestScoreDoc = await Interview.findOne(filter)
+      .sort({ overallScore: -1 })
+      .select('overallScore professionId createdAt');
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const recentInterviews = await Interview.countDocuments({
+      ...filter,
+      createdAt: { $gte: sevenDaysAgo }
+    });
+
+    const detailedScores = avgAgg.length > 0 ? {
+      technical:     Math.round(avgAgg[0].avgTechnical     || 0),
+      communication: Math.round(avgAgg[0].avgCommunication || 0),
+      detailedness:  Math.round(avgAgg[0].avgDetailedness  || 0)
+    } : { technical: 0, communication: 0, detailedness: 0 };
+
     const professionStats = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' }, isPlaceholder: { $ne: true } },
+      { $match: filter },
       {
         $group: {
-          _id: '$professionId',
-          count:      { $sum: 1 },
-          avgScore:   { $avg: '$overallScore' },
-          avgTechnical:{ $avg: '$technicalScore' }
+          _id:          '$professionId',
+          count:        { $sum: 1 },
+          avgScore:     { $avg: '$overallScore' },
+          avgTechnical: { $avg: '$technicalScore' }
         }
       },
       { $sort: { count: -1 } },
@@ -342,10 +381,10 @@ exports.getUserStats = async (req, res) => {
     ]);
 
     const characterStats = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' }, isPlaceholder: { $ne: true } },
+      { $match: filter },
       {
         $group: {
-          _id: '$characterId',
+          _id:      '$characterId',
           count:    { $sum: 1 },
           avgScore: { $avg: '$overallScore' }
         }
@@ -353,10 +392,7 @@ exports.getUserStats = async (req, res) => {
       { $sort: { count: -1 } }
     ]);
 
-    const progressTrend = await Interview.find({
-      userId: new mongoose.Types.ObjectId(userId),
-      status: 'completed'
-    })
+    const progressTrend = await Interview.find(filter)
       .sort({ createdAt: -1 })
       .limit(10)
       .select('overallScore technicalScore communicationScore createdAt');
@@ -367,14 +403,7 @@ exports.getUserStats = async (req, res) => {
     let avgPerformanceProfile = null;
     if (premium) {
       const profileAgg = await Interview.aggregate([
-        {
-          $match: {
-            userId: new mongoose.Types.ObjectId(userId),
-            status: 'completed',
-            isPlaceholder: { $ne: true },
-            performanceProfile: { $ne: null }
-          }
-        },
+        { $match: { ...filter, performanceProfile: { $ne: null } } },
         {
           $group: {
             _id: null,
@@ -401,26 +430,19 @@ exports.getUserStats = async (req, res) => {
     let avgHiringProbability = null;
     if (premium) {
       const hiringAgg = await Interview.aggregate([
-        {
-          $match: {
-            userId: new mongoose.Types.ObjectId(userId),
-            status: 'completed',
-            isPlaceholder: { $ne: true },
-            hiringProbability: { $ne: null }
-          }
-        },
+        { $match: { ...filter, hiringProbability: { $ne: null } } },
         {
           $group: {
-            _id: null,
+            _id:           null,
             avgPercentage: { $avg: '$hiringProbability.percentage' },
-            count: { $sum: 1 }
+            count:         { $sum: 1 }
           }
         }
       ]);
       if (hiringAgg.length > 0) {
         avgHiringProbability = {
           percentage: Math.round(hiringAgg[0].avgPercentage || 0),
-          count: hiringAgg[0].count
+          count:      hiringAgg[0].count
         };
       }
     }
@@ -431,21 +453,17 @@ exports.getUserStats = async (req, res) => {
         totalInterviews,
         averageScore,
         averageTechnicalScore,
-        detailedScores: detailedScores.length > 0 ? {
-          technical:    Math.round(detailedScores[0].avgTechnical     || 0),
-          communication:Math.round(detailedScores[0].avgCommunication || 0),
-          detailedness: Math.round(detailedScores[0].avgDetailedness  || 0)
-        } : { technical: 0, communication: 0, detailedness: 0 },
-        bestScore: bestScore ? {
-          score: bestScore.overallScore,
-          professionId: bestScore.professionId,
-          date: bestScore.createdAt
+        detailedScores,
+        bestScore: bestScoreDoc ? {
+          score:        bestScoreDoc.overallScore,
+          professionId: bestScoreDoc.professionId,
+          date:         bestScoreDoc.createdAt
         } : null,
         recentInterviews,
         professionStats: professionStats.map(stat => ({
-          professionId:   stat._id,
-          count:          stat.count,
-          averageScore:   Math.round(stat.avgScore    || 0),
+          professionId:     stat._id,
+          count:            stat.count,
+          averageScore:     Math.round(stat.avgScore    || 0),
           averageTechnical: Math.round(stat.avgTechnical || 0)
         })),
         characterStats: characterStats.map(stat => ({
@@ -454,7 +472,6 @@ exports.getUserStats = async (req, res) => {
           averageScore: Math.round(stat.avgScore || 0)
         })),
         progressTrend: progressTrend.reverse(),
-        // Premium alanlar — sadece aktif premium kullanıcıya gönderilir
         avgPerformanceProfile,
         avgHiringProbability
       }
@@ -466,17 +483,188 @@ exports.getUserStats = async (req, res) => {
   }
 };
 
-// ─── PREMIUM: Geçmiş Karşılaştırma ───────────────────────────────────────────
+// ─── Get User Stats By Profession ────────────────────────────────────────────
 
-// @desc    Son mülakatı bir öncekiyle karşılaştır (premium)
-// @route   GET /api/v1/interviews/premium/comparison
-// @access  Private + Premium
+// @desc    Get user statistics by profession
+// @route   GET /api/v1/interviews/stats/profession/:professionId
+// @access  Private
+exports.getUserStatsByProfession = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { professionId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ success: false, message: 'Geçersiz kullanıcı ID' });
+    }
+
+    const filter = { ...statsMatch(userId), professionId };
+
+    const totalInterviews = await Interview.countDocuments(filter);
+
+    if (totalInterviews === 0) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          totalInterviews: 0, averageScore: 0, averageTechnicalScore: 0,
+          detailedScores: { technical: 0, communication: 0, detailedness: 0 },
+          bestScore: null, recentInterviews: 0,
+          professionStats: [], characterStats: [], progressTrend: []
+        }
+      });
+    }
+
+    const scoreStats = await Interview.aggregate([
+      { $match: filter },
+      {
+        $group: {
+          _id: null,
+          avgScore:         { $avg: '$overallScore' },
+          avgTechnical:     { $avg: '$technicalScore' },
+          avgCommunication: { $avg: '$communicationScore' },
+          avgDetailedness:  { $avg: '$detailedness' }
+        }
+      }
+    ]);
+
+    const averageScore          = scoreStats.length > 0 ? Math.round(scoreStats[0].avgScore    || 0) : 0;
+    const averageTechnicalScore = scoreStats.length > 0 ? Math.round(scoreStats[0].avgTechnical || 0) : 0;
+
+    const bestScore = await Interview.findOne(filter)
+      .sort({ overallScore: -1 })
+      .select('overallScore professionId createdAt');
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const recentInterviews = await Interview.countDocuments({
+      ...filter,
+      createdAt: { $gte: sevenDaysAgo }
+    });
+
+    const characterStats = await Interview.aggregate([
+      { $match: filter },
+      {
+        $group: {
+          _id:      '$characterId',
+          count:    { $sum: 1 },
+          avgScore: { $avg: '$overallScore' }
+        }
+      },
+      { $sort: { count: -1 } }
+    ]);
+
+    const progressTrend = await Interview.find(filter)
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select('overallScore technicalScore communicationScore createdAt professionId');
+
+    res.status(200).json({
+      success: true,
+      data: {
+        totalInterviews,
+        averageScore,
+        averageTechnicalScore,
+        detailedScores: scoreStats.length > 0 ? {
+          technical:     Math.round(scoreStats[0].avgTechnical     || 0),
+          communication: Math.round(scoreStats[0].avgCommunication || 0),
+          detailedness:  Math.round(scoreStats[0].avgDetailedness  || 0)
+        } : { technical: 0, communication: 0, detailedness: 0 },
+        bestScore: bestScore ? {
+          score:        bestScore.overallScore,
+          professionId: bestScore.professionId,
+          date:         bestScore.createdAt
+        } : null,
+        recentInterviews,
+        professionStats: [{ professionId, count: totalInterviews, averageScore, averageTechnical: averageTechnicalScore }],
+        characterStats: characterStats.map(stat => ({
+          characterId:  stat._id,
+          count:        stat.count,
+          averageScore: Math.round(stat.avgScore || 0)
+        })),
+        progressTrend: progressTrend.reverse()
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ Get user stats by profession error:', error);
+    res.status(500).json({ success: false, message: 'Meslek istatistikleri alınırken hata oluştu' });
+  }
+};
+
+// ─── Interview Limit Status ───────────────────────────────────────────────────
+
+// @desc    Kullanıcının günlük mülakat hakkını döndürür
+// @route   GET /api/v1/interviews/limit-status
+// @access  Private
+exports.getInterviewLimitStatus = async (req, res) => {
+  try {
+    const userId  = req.user.id;
+    const premium = isPremiumActive(req.user);
+
+    if (premium) {
+      return res.status(200).json({
+        success: true,
+        data: { isPremium: true, limit: null, used: null, remaining: null, canInterview: true, resetAt: null }
+      });
+    }
+
+    const startOfDay = getTurkeyStartOfDay();
+    const resetAt    = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
+
+    const used = await Interview.countDocuments({
+      userId: new mongoose.Types.ObjectId(userId),
+      createdAt: { $gte: startOfDay }
+    });
+
+    const limit     = 1;
+    const remaining = Math.max(0, limit - used);
+
+    return res.status(200).json({
+      success: true,
+      data: { isPremium: false, limit, used, remaining, canInterview: remaining > 0, resetAt }
+    });
+
+  } catch (error) {
+    console.error('❌ getInterviewLimitStatus error:', error);
+    return res.status(500).json({ success: false, message: 'Limit bilgisi alınamadı' });
+  }
+};
+
+// ─── Recent Interviews ────────────────────────────────────────────────────────
+
+exports.getRecentInterviews = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ success: false, message: 'Geçersiz kullanıcı ID' });
+    }
+
+    const interviews = await Interview.find({
+      userId: new mongoose.Types.ObjectId(userId),
+      status: 'completed',
+      isPlaceholder: { $ne: true }
+    })
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select('professionId characterId overallScore createdAt duration');
+
+    res.status(200).json({ success: true, count: interviews.length, data: interviews });
+
+  } catch (error) {
+    console.error('❌ Get recent interviews error:', error);
+    res.status(500).json({ success: false, message: 'Son mülakatlar alınırken hata oluştu' });
+  }
+};
+
+// ─── Premium: Karşılaştırma ───────────────────────────────────────────────────
+
 exports.getPremiumComparison = async (req, res) => {
   try {
     const userId = req.user.id;
     const { professionId, characterId } = req.query;
 
-    const query = { userId: new mongoose.Types.ObjectId(userId), status: 'completed' };
+    const query = { ...statsMatch(userId) };
     if (professionId) query.professionId = professionId;
     if (characterId)  query.characterId  = characterId;
 
@@ -511,10 +699,10 @@ exports.getPremiumComparison = async (req, res) => {
           createdAt: previous.createdAt
         },
         delta: {
-          overallScore:      (latest.overallScore      || 0) - (previous.overallScore      || 0),
-          technicalScore:    (latest.technicalScore    || 0) - (previous.technicalScore    || 0),
-          communicationScore:(latest.communicationScore|| 0) - (previous.communicationScore|| 0),
-          detailedness:      (latest.detailedness      || 0) - (previous.detailedness      || 0)
+          overallScore:       (latest.overallScore       || 0) - (previous.overallScore       || 0),
+          technicalScore:     (latest.technicalScore     || 0) - (previous.technicalScore     || 0),
+          communicationScore: (latest.communicationScore || 0) - (previous.communicationScore || 0),
+          detailedness:       (latest.detailedness       || 0) - (previous.detailedness       || 0)
         }
       }
     });
@@ -525,15 +713,14 @@ exports.getPremiumComparison = async (req, res) => {
   }
 };
 
-// @desc    Tüm geçmiş ilerleme trendi (premium - detaylı)
-// @route   GET /api/v1/interviews/premium/progress
-// @access  Private + Premium
+// ─── Premium: İlerleme Trendi ─────────────────────────────────────────────────
+
 exports.getPremiumProgress = async (req, res) => {
   try {
     const userId = req.user.id;
     const { professionId, characterId, limit = 20 } = req.query;
 
-    const query = { userId: new mongoose.Types.ObjectId(userId), status: 'completed' };
+    const query = { ...statsMatch(userId) };
     if (professionId) query.professionId = professionId;
     if (characterId)  query.characterId  = characterId;
 
@@ -571,266 +758,17 @@ exports.getPremiumProgress = async (req, res) => {
   }
 };
 
-// @desc    Geçmiş mülakatlar (non-premium, temel)
-// @route   GET /api/v1/interviews/recent
-// @access  Private
-exports.getRecentInterviews = async (req, res) => {
-  try {
-    const userId = req.user.id;
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ success: false, message: 'Geçersiz kullanıcı ID' });
-    }
-
-    const interviews = await Interview.find({
-      userId: new mongoose.Types.ObjectId(userId),
-      status: 'completed'
-    })
-      .sort({ createdAt: -1 })
-      .limit(5)
-      .select('professionId characterId overallScore createdAt duration');
-
-    res.status(200).json({ success: true, count: interviews.length, data: interviews });
-
-  } catch (error) {
-    console.error('❌ Get recent interviews error:', error);
-    res.status(500).json({ success: false, message: 'Son mülakatlar alınırken hata oluştu' });
-  }
-};
-
-// @desc    Get user statistics by profession
-// @route   GET /api/v1/interviews/stats/profession/:professionId
-// @access  Private
-exports.getUserStatsByProfession = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const { professionId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ success: false, message: 'Geçersiz kullanıcı ID' });
-    }
-
-    const totalInterviews = await Interview.countDocuments({
-      userId: new mongoose.Types.ObjectId(userId),
-      professionId,
-      status: 'completed'
-    });
-
-    if (totalInterviews === 0) {
-      return res.status(200).json({
-        success: true,
-        data: {
-          totalInterviews: 0, averageScore: 0, averageTechnicalScore: 0,
-          detailedScores: { technical: 0, communication: 0, detailedness: 0 },
-          bestScore: null, recentInterviews: 0,
-          professionStats: [], characterStats: [], progressTrend: []
-        }
-      });
-    }
-
-    const scoreStats = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), professionId, status: 'completed' } },
-      {
-        $group: {
-          _id: null,
-          avgScore:        { $avg: '$overallScore' },
-          avgTechnical:    { $avg: '$technicalScore' },
-          avgCommunication:{ $avg: '$communicationScore' },
-          avgDetailedness: { $avg: '$detailedness' }
-        }
-      }
-    ]);
-
-    const averageScore          = scoreStats.length > 0 ? Math.round(scoreStats[0].avgScore    || 0) : 0;
-    const averageTechnicalScore = scoreStats.length > 0 ? Math.round(scoreStats[0].avgTechnical || 0) : 0;
-
-    const bestScore = await Interview.findOne({
-      userId: new mongoose.Types.ObjectId(userId),
-      professionId,
-      status: 'completed'
-    }).sort({ overallScore: -1 }).select('overallScore professionId createdAt');
-
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    const recentInterviews = await Interview.countDocuments({
-      userId: new mongoose.Types.ObjectId(userId),
-      professionId,
-      status: 'completed',
-      createdAt: { $gte: sevenDaysAgo }
-    });
-
-    const characterStats = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), professionId, status: 'completed' } },
-      {
-        $group: {
-          _id: '$characterId',
-          count:    { $sum: 1 },
-          avgScore: { $avg: '$overallScore' }
-        }
-      },
-      { $sort: { count: -1 } }
-    ]);
-
-    const progressTrend = await Interview.find({
-      userId: new mongoose.Types.ObjectId(userId),
-      professionId,
-      status: 'completed'
-    })
-      .sort({ createdAt: -1 })
-      .limit(10)
-      .select('overallScore technicalScore communicationScore createdAt professionId');
-
-    res.status(200).json({
-      success: true,
-      data: {
-        totalInterviews,
-        averageScore,
-        averageTechnicalScore,
-        detailedScores: scoreStats.length > 0 ? {
-          technical:    Math.round(scoreStats[0].avgTechnical     || 0),
-          communication:Math.round(scoreStats[0].avgCommunication || 0),
-          detailedness: Math.round(scoreStats[0].avgDetailedness  || 0)
-        } : { technical: 0, communication: 0, detailedness: 0 },
-        bestScore: bestScore ? {
-          score: bestScore.overallScore,
-          professionId: bestScore.professionId,
-          date: bestScore.createdAt
-        } : null,
-        recentInterviews,
-        professionStats: [{ professionId, count: totalInterviews, averageScore, averageTechnical: averageTechnicalScore }],
-        characterStats: characterStats.map(stat => ({
-          characterId:  stat._id,
-          count:        stat.count,
-          averageScore: Math.round(stat.avgScore || 0)
-        })),
-        progressTrend: progressTrend.reverse()
-      }
-    });
-
-  } catch (error) {
-    console.error('❌ Get user stats by profession error:', error);
-    res.status(500).json({ success: false, message: 'Meslek istatistikleri alınırken hata oluştu' });
-  }
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// INTERVIEW LIMIT STATUS
-// GET /api/v1/interviews/limit-status
-// Kullanıcının günlük mülakat hakkını döndürür
-// ─────────────────────────────────────────────────────────────────────────────
-exports.getInterviewLimitStatus = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const premium = isPremiumActive(req.user);
-
-    if (premium) {
-      return res.status(200).json({
-        success: true,
-        data: {
-          isPremium: true,
-          limit: null,        // sınırsız
-          used: null,
-          remaining: null,
-          canInterview: true,
-          resetAt: null
-        }
-      });
-    }
-
-    // UTC+3 (Türkiye) gün başlangıcı
-    const now = new Date();
-    const turkeyOffset = 3 * 60;
-    const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
-    const startOfDay = new Date(Date.UTC(
-      turkeyTime.getUTCFullYear(),
-      turkeyTime.getUTCMonth(),
-      turkeyTime.getUTCDate(),
-      0, 0, 0, 0
-    ) - turkeyOffset * 60 * 1000);
-    const resetAt = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
-
-    const used = await Interview.countDocuments({
-      userId: new mongoose.Types.ObjectId(userId),
-      createdAt: { $gte: startOfDay }
-    });
-
-    const limit     = 1;
-    const remaining = Math.max(0, limit - used);
-
-    return res.status(200).json({
-      success: true,
-      data: {
-        isPremium:    false,
-        limit,
-        used,
-        remaining,
-        canInterview: remaining > 0,
-        resetAt
-      }
-    });
-
-  } catch (error) {
-    console.error('❌ getInterviewLimitStatus error:', error);
-    return res.status(500).json({ success: false, message: 'Limit bilgisi alınamadı' });
-  }
-};
-
-exports.completeInterview = async (req, res) => {
-  try {
-    const userId = req.user.id;
-
-    if (!isPremiumActive(req.user)) {
-      const now = new Date();
-      const turkeyOffset = 3 * 60;
-      const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
-      const startOfDay = new Date(Date.UTC(
-        turkeyTime.getUTCFullYear(),
-        turkeyTime.getUTCMonth(),
-        turkeyTime.getUTCDate(),
-        0, 0, 0, 0
-      ) - turkeyOffset * 60 * 1000);
-
-      const todayCount = await Interview.countDocuments({
-        userId: new mongoose.Types.ObjectId(userId),
-        createdAt: { $gte: startOfDay }
-      });
-
-      if (todayCount >= 1) {
-        return res.status(403).json({
-          success: false,
-          message: 'Günlük mülakat limitinize ulaştınız',
-          code: 'DAILY_LIMIT_REACHED',
-          data: {
-            limit: 1,
-            used: todayCount,
-            resetAt: new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000)
-          }
-        });
-      }
-    }
-
-    await Interview.create({
-      userId,
-      status: 'completed',
-      completedAt: new Date(),
-      professionId: req.body.professionId || null,
-      characterId: req.body.characterId || null,
-      isPlaceholder: true,
-      overallScore: 0,
-      feedback: '',
-      strengths: [],
-      improvements: [],
-      technicalScore: 0,
-      communicationScore: 0,
-      detailedness: 0,
-      recommendation: ''
-    });
-
-    return res.status(200).json({ success: true });
-
-  } catch (error) {
-    console.error('completeInterview error:', error);
-    return res.status(500).json({ success: false, message: 'Mülakat tamamlanamadı' });
-  }
+// UTC+3 (Türkiye) gün başlangıcını döndürür
+const getTurkeyStartOfDay = () => {
+  const now          = new Date();
+  const turkeyOffset = 3 * 60;
+  const turkeyTime   = new Date(now.getTime() + turkeyOffset * 60 * 1000);
+  return new Date(Date.UTC(
+    turkeyTime.getUTCFullYear(),
+    turkeyTime.getUTCMonth(),
+    turkeyTime.getUTCDate(),
+    0, 0, 0, 0
+  ) - turkeyOffset * 60 * 1000);
 };
