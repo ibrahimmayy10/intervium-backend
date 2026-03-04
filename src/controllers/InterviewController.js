@@ -316,7 +316,7 @@ exports.getUserStats = async (req, res) => {
     });
 
     const detailedScores = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' } },
+      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' }, isPlaceholder: { $ne: true } },
       {
         $group: {
           _id: null,
@@ -328,7 +328,7 @@ exports.getUserStats = async (req, res) => {
     ]);
 
     const professionStats = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' } },
+      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' }, isPlaceholder: { $ne: true } },
       {
         $group: {
           _id: '$professionId',
@@ -342,7 +342,7 @@ exports.getUserStats = async (req, res) => {
     ]);
 
     const characterStats = await Interview.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' } },
+      { $match: { userId: new mongoose.Types.ObjectId(userId), status: 'completed' }, isPlaceholder: { $ne: true } },
       {
         $group: {
           _id: '$characterId',
@@ -371,6 +371,7 @@ exports.getUserStats = async (req, res) => {
           $match: {
             userId: new mongoose.Types.ObjectId(userId),
             status: 'completed',
+            isPlaceholder: { $ne: true },
             performanceProfile: { $ne: null }
           }
         },
@@ -404,6 +405,7 @@ exports.getUserStats = async (req, res) => {
           $match: {
             userId: new mongoose.Types.ObjectId(userId),
             status: 'completed',
+            isPlaceholder: { $ne: true },
             hiringProbability: { $ne: null }
           }
         },
@@ -814,6 +816,7 @@ exports.completeInterview = async (req, res) => {
       completedAt: new Date(),
       professionId: req.body.professionId || null,
       characterId: req.body.characterId || null,
+      isPlaceholder: true,
       overallScore: 0,
       feedback: '',
       strengths: [],

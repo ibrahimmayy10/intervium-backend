@@ -44,7 +44,7 @@ const interviewSchema = new mongoose.Schema({
   },
   professionId: { type: String, required: [true, 'Meslek ID gereklidir'], trim: true },
   characterId:  { type: String, required: [true, 'Karakter ID gereklidir'], trim: true },
-
+  isPlaceholder: { type: Boolean, default: false },
   // Durum & Zaman
   status: {
     type: String,
