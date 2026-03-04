@@ -16,8 +16,21 @@ const generateAccessToken = (userId) =>
 const generateRefreshToken = (userId) =>
   jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, { expiresIn: process.env.JWT_REFRESH_EXPIRE });
 
-// Kodun süresi dolmuş mu?
 const isCodeExpired = (expireDate) => !expireDate || new Date() > new Date(expireDate);
+
+// ─── User Response Helper ─────────────────────────────────────────────────────
+// Tüm endpointlerde tutarlı user objesi döndürmek için merkezi helper.
+// İleride yeni alan eklenince sadece burası güncellenir.
+
+const buildUserResponse = (user) => ({
+  id: user._id,
+  name: user.name,
+  surname: user.surname,
+  email: user.email,
+  fullName: user.fullName,
+  isPremium: user.isPremium ?? false,
+  createdAt: user.createdAt
+});
 
 // ─── Register ─────────────────────────────────────────────────────────────────
 
@@ -28,16 +41,13 @@ exports.register = async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
 
-    // Email zaten var mı?
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      // Doğrulanmamış hesap varsa kodu yeniden gönder
       if (!existingUser.isEmailVerified) {
         const code = generateVerificationCode();
         existingUser.emailVerificationCode = code;
-        existingUser.emailVerificationExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 dk
+        existingUser.emailVerificationExpire = new Date(Date.now() + 15 * 60 * 1000);
         await existingUser.save({ validateBeforeSave: false });
-
         await sendVerificationEmail(email, existingUser.name, code);
 
         return res.status(200).json({
@@ -53,11 +63,9 @@ exports.register = async (req, res) => {
       });
     }
 
-    // Doğrulama kodu üret
     const code = generateVerificationCode();
-    const codeExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 dk
+    const codeExpire = new Date(Date.now() + 15 * 60 * 1000);
 
-    // Kullanıcıyı oluştur (henüz doğrulanmamış)
     const user = await User.create({
       name,
       surname,
@@ -68,16 +76,12 @@ exports.register = async (req, res) => {
       emailVerificationExpire: codeExpire
     });
 
-    // Email gönder
     await sendVerificationEmail(email, name, code);
 
     res.status(201).json({
       success: true,
       message: 'Doğrulama kodu e-posta adresinize gönderildi',
-      data: {
-        email,
-        requiresVerification: true
-      }
+      data: { email, requiresVerification: true }
     });
 
   } catch (error) {
@@ -114,7 +118,6 @@ exports.verifyEmail = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Bu hesap zaten doğrulanmış' });
     }
 
-    // Kod süresi dolmuş mu?
     if (isCodeExpired(user.emailVerificationExpire)) {
       return res.status(400).json({
         success: false,
@@ -123,17 +126,14 @@ exports.verifyEmail = async (req, res) => {
       });
     }
 
-    // Kod doğru mu?
     if (user.emailVerificationCode !== code.trim()) {
       return res.status(400).json({ success: false, message: 'Geçersiz doğrulama kodu' });
     }
 
-    // Hesabı doğrula, kodları temizle
     user.isEmailVerified = true;
     user.emailVerificationCode = undefined;
     user.emailVerificationExpire = undefined;
 
-    // Token üret
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
     user.refreshToken = refreshToken;
@@ -144,14 +144,7 @@ exports.verifyEmail = async (req, res) => {
       success: true,
       message: 'E-posta adresiniz başarıyla doğrulandı',
       data: {
-        user: {
-          id: user._id,
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-          fullName: user.fullName,
-          createdAt: user.createdAt
-        },
+        user: buildUserResponse(user),   // ← isPremium dahil
         token: accessToken,
         refreshToken
       }
@@ -228,13 +221,11 @@ exports.login = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email veya şifre hatalı' });
     }
 
-    // Email doğrulanmamışsa kod tekrar gönder
     if (!user.isEmailVerified) {
       const code = generateVerificationCode();
       user.emailVerificationCode = code;
       user.emailVerificationExpire = new Date(Date.now() + 15 * 60 * 1000);
       await user.save({ validateBeforeSave: false });
-
       await sendVerificationEmail(email, user.name, code);
 
       return res.status(403).json({
@@ -244,9 +235,11 @@ exports.login = async (req, res) => {
       });
     }
 
+    // Premium süresi dolmuşsa güncelle
+    await user.checkAndUpdatePremium();
+
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
-
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
@@ -254,14 +247,7 @@ exports.login = async (req, res) => {
       success: true,
       message: 'Giriş başarılı',
       data: {
-        user: {
-          id: user._id,
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-          fullName: user.fullName,
-          createdAt: user.createdAt
-        },
+        user: buildUserResponse(user),   // ← isPremium dahil
         token: accessToken,
         refreshToken
       }
@@ -288,8 +274,8 @@ exports.forgotPassword = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    // Güvenlik: kullanıcı yoksa bile aynı mesajı döndür
     if (!user) {
+      // Güvenlik: kullanıcı yoksa bile aynı mesajı döndür
       return res.status(200).json({
         success: true,
         message: 'Şifre sıfırlama kodu e-posta adresinize gönderildi'
@@ -350,11 +336,9 @@ exports.resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Geçersiz sıfırlama kodu' });
     }
 
-    // Şifreyi güncelle, kodu temizle
     user.password = newPassword;
     user.passwordResetCode = undefined;
     user.passwordResetExpire = undefined;
-    // Tüm oturumları geçersiz kıl
     user.refreshToken = undefined;
 
     await user.save();
@@ -370,7 +354,7 @@ exports.resetPassword = async (req, res) => {
   }
 };
 
-// ─── Mevcut endpoint'ler (değişmedi) ─────────────────────────────────────────
+// ─── Refresh Token ────────────────────────────────────────────────────────────
 
 exports.refreshToken = async (req, res) => {
   try {
@@ -409,6 +393,8 @@ exports.refreshToken = async (req, res) => {
   }
 };
 
+// ─── Logout ───────────────────────────────────────────────────────────────────
+
 exports.logout = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -422,20 +408,19 @@ exports.logout = async (req, res) => {
   }
 };
 
+// ─── Get Me ───────────────────────────────────────────────────────────────────
+
 exports.getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
+
+    // Premium süresi dolmuşsa giriş anında güncelle
+    await user.checkAndUpdatePremium();
+
     res.status(200).json({
       success: true,
       data: {
-        user: {
-          id: user._id,
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-          fullName: user.fullName,
-          createdAt: user.createdAt
-        }
+        user: buildUserResponse(user)   // ← isPremium dahil
       }
     });
   } catch (error) {
@@ -443,6 +428,8 @@ exports.getMe = async (req, res) => {
     res.status(500).json({ success: false, message: 'Kullanıcı bilgileri alınamadı' });
   }
 };
+
+// ─── Update Profile ───────────────────────────────────────────────────────────
 
 exports.updateProfile = async (req, res) => {
   try {
@@ -464,14 +451,7 @@ exports.updateProfile = async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Profil güncellendi',
-      data: {
-        id: updatedUser._id,
-        name: updatedUser.name,
-        surname: updatedUser.surname,
-        email: updatedUser.email,
-        fullName: updatedUser.fullName,
-        createdAt: updatedUser.createdAt
-      }
+      data: buildUserResponse(updatedUser)   // ← isPremium dahil
     });
   } catch (error) {
     console.error('Update profile error:', error);
@@ -482,6 +462,8 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ success: false, message: 'Profil güncellenirken bir hata oluştu' });
   }
 };
+
+// ─── Change Password ──────────────────────────────────────────────────────────
 
 exports.changePassword = async (req, res) => {
   try {
@@ -514,6 +496,8 @@ exports.changePassword = async (req, res) => {
     res.status(500).json({ success: false, message: 'Şifre değiştirilirken bir hata oluştu' });
   }
 };
+
+// ─── Delete Account ───────────────────────────────────────────────────────────
 
 exports.deleteAccount = async (req, res) => {
   try {
