@@ -48,6 +48,32 @@ exports.createInterview = async (req, res) => {
 
     const userId = req.user.id;
 
+    // ─── Günlük mülakat limiti kontrolü ──────────────────────────────────────
+    // Ücretsiz: günde 1 mülakat | Premium: sınırsız
+    if (!isPremiumActive(req.user)) {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+
+      const todayCount = await Interview.countDocuments({
+        userId: new mongoose.Types.ObjectId(userId),
+        createdAt: { $gte: startOfDay }
+      });
+
+      if (todayCount >= 1) {
+        return res.status(403).json({
+          success: false,
+          message: 'Günlük mülakat limitinize ulaştınız',
+          code: 'DAILY_LIMIT_REACHED',
+          data: {
+            limit: 1,
+            used: todayCount,
+            resetAt: new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000)
+          }
+        });
+      }
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
     // Tüm alanlar her zaman kaydedilir — premium/ücretsiz fark yok.
     // Premium kontrolü sadece GET /interviews/:id response'unda yapılır.
     // Böylece kullanıcı sonradan premiuma geçince eski mülakatlarına da erişebilir.
@@ -675,5 +701,59 @@ exports.getUserStatsByProfession = async (req, res) => {
   } catch (error) {
     console.error('❌ Get user stats by profession error:', error);
     res.status(500).json({ success: false, message: 'Meslek istatistikleri alınırken hata oluştu' });
+  }
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INTERVIEW LIMIT STATUS
+// GET /api/v1/interviews/limit-status
+// Kullanıcının günlük mülakat hakkını döndürür
+// ─────────────────────────────────────────────────────────────────────────────
+exports.getInterviewLimitStatus = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const premium = isPremiumActive(req.user);
+
+    if (premium) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          isPremium: true,
+          limit: null,        // sınırsız
+          used: null,
+          remaining: null,
+          canInterview: true,
+          resetAt: null
+        }
+      });
+    }
+
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    const resetAt = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
+
+    const used = await Interview.countDocuments({
+      userId: new mongoose.Types.ObjectId(userId),
+      createdAt: { $gte: startOfDay }
+    });
+
+    const limit     = 1;
+    const remaining = Math.max(0, limit - used);
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        isPremium:    false,
+        limit,
+        used,
+        remaining,
+        canInterview: remaining > 0,
+        resetAt
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ getInterviewLimitStatus error:', error);
+    return res.status(500).json({ success: false, message: 'Limit bilgisi alınamadı' });
   }
 };

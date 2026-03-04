@@ -1,5 +1,4 @@
 // routes/InterviewRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const {
@@ -12,7 +11,8 @@ const {
   getUserStatsByProfession,
   getRecentInterviews,
   getPremiumComparison,
-  getPremiumProgress
+  getPremiumProgress,
+  getInterviewLimitStatus
 } = require('../controllers/InterviewController');
 const { protect } = require('../middleware/AuthMiddleware');
 const { requirePremium } = require('../middleware/PremiumMiddleware');
@@ -24,9 +24,9 @@ router.use(protect);
 router.get('/stats', getUserStats);
 router.get('/stats/profession/:professionId', getUserStatsByProfession);
 router.get('/recent', getRecentInterviews);
+router.get('/limit-status', getInterviewLimitStatus);
 
 // ─── PREMIUM ENDPOINTS ────────────────────────────────────────────────────────
-// requirePremium middleware premium kontrolü yapar
 router.get('/premium/comparison', requirePremium, getPremiumComparison);
 router.get('/premium/progress', requirePremium, getPremiumProgress);
 
