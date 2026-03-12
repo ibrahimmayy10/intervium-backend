@@ -657,7 +657,7 @@
         {
           "id": "prof_composite_engineer",
           "name": "Kompozit Malzeme Mühendisi",
-          "icon": "square.3.layers.3d.fill",
+          "icon": "square.3.layers.3d.top.filled",
           "description": "Karbon fiber, fiber takviyeli polimerler, havacılık ve otomotiv kompozitleri.",
           "keywords": [
             "Kompozit",
@@ -2048,7 +2048,7 @@
         {
           "id": "prof_vet_pathologist",
           "name": "Veteriner Patolog",
-          "icon": "microscope",
+          "icon": "magnifyingglass",
           "description": "Doku incelemesi, otopsi, hastalık tanısı, histopatoloji.",
           "keywords": [
             "Patoloji",
