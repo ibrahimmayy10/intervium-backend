@@ -40,19 +40,21 @@ exports.createInterview = async (req, res) => {
 
     if (!isPremiumActive(req.user)) {
       const startOfDay = getTurkeyStartOfDay();
-      const todayCount = await Interview.countDocuments({
+
+      const realInterviewCount = await Interview.countDocuments({
         userId: new mongoose.Types.ObjectId(userId),
-        createdAt: { $gte: startOfDay }
+        createdAt: { $gte: startOfDay },
+        isPlaceholder: { $ne: true }
       });
 
-      if (todayCount >= 1) {
+      if (realInterviewCount >= 1) {
         return res.status(403).json({
           success: false,
           message: 'Günlük mülakat limitinize ulaştınız',
           code: 'DAILY_LIMIT_REACHED',
           data: {
             limit: 1,
-            used: todayCount,
+            used: realInterviewCount,
             resetAt: new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000)
           }
         });
@@ -63,24 +65,24 @@ exports.createInterview = async (req, res) => {
       userId,
       professionId,
       characterId,
-      status:             'completed',
-      completedAt:        new Date(),
-      isPlaceholder:      false,
-      overallScore:       overallScore       || 0,
-      feedback:           feedback           || '',
-      strengths:          strengths          || [],
-      improvements:       improvements       || [],
-      technicalScore:     technicalScore     || 0,
+      status: 'completed',
+      completedAt: new Date(),
+      isPlaceholder: false,
+      overallScore: overallScore || 0,
+      feedback: feedback || '',
+      strengths: strengths || [],
+      improvements: improvements || [],
+      technicalScore: technicalScore || 0,
       communicationScore: communicationScore || 0,
-      detailedness:       detailedness       || 0,
-      recommendation:     recommendation     || '',
-      questionFeedbacks:  questionFeedbacks  || [],
+      detailedness: detailedness || 0,
+      recommendation: recommendation || '',
+      questionFeedbacks: questionFeedbacks || [],
       performanceProfile: performanceProfile || null,
-      hiringProbability:  hiringProbability  || null,
-      learningPath:       learningPath       || [],
-      questionCount:      questionCount      || 0,
-      correctAnswers:     correctAnswers     || 0,
-      duration:           duration           || null
+      hiringProbability: hiringProbability || null,
+      learningPath: learningPath || [],
+      questionCount: questionCount || 0,
+      correctAnswers: correctAnswers || 0,
+      duration: duration || null
     });
 
     res.status(201).json({ success: true, message: 'Mülakat kaydedildi', data: interview });
@@ -128,19 +130,19 @@ exports.completeInterview = async (req, res) => {
     // Placeholder kayıt — sadece limit tüketmek için, istatistiklere dahil edilmez
     await Interview.create({
       userId,
-      status:             'completed',
-      completedAt:        new Date(),
-      professionId:       req.body.professionId || 'unknown',
-      characterId:        req.body.characterId  || 'unknown',
-      isPlaceholder:      true,
-      overallScore:       0,
-      feedback:           '',
-      strengths:          [],
-      improvements:       [],
-      technicalScore:     0,
+      status: 'completed',
+      completedAt: new Date(),
+      professionId: req.body.professionId || 'unknown',
+      characterId: req.body.characterId || 'unknown',
+      isPlaceholder: true,
+      overallScore: 0,
+      feedback: '',
+      strengths: [],
+      improvements: [],
+      technicalScore: 0,
       communicationScore: 0,
-      detailedness:       0,
-      recommendation:     ''
+      detailedness: 0,
+      recommendation: ''
     });
 
     return res.status(200).json({ success: true });
@@ -162,7 +164,7 @@ exports.getUserInterviews = async (req, res) => {
     const { status, professionId, limit = 10, page = 1 } = req.query;
 
     const query = { userId, isPlaceholder: { $ne: true } };
-    if (status)       query.status       = status;
+    if (status) query.status = status;
     if (professionId) query.professionId = professionId;
 
     const skip = (page - 1) * parseInt(limit);
@@ -179,9 +181,9 @@ exports.getUserInterviews = async (req, res) => {
       success: true,
       count: interviews.length,
       total,
-      page:  parseInt(page),
+      page: parseInt(page),
       pages: Math.ceil(total / parseInt(limit)),
-      data:  interviews
+      data: interviews
     });
 
   } catch (error) {
@@ -250,15 +252,15 @@ exports.updateInterview = async (req, res) => {
     } = req.body;
 
     const updateData = {};
-    if (overallScore       !== undefined) updateData.overallScore       = overallScore;
-    if (feedback           !== undefined) updateData.feedback           = feedback;
-    if (strengths          !== undefined) updateData.strengths          = strengths;
-    if (improvements       !== undefined) updateData.improvements       = improvements;
-    if (status             !== undefined) updateData.status             = status;
-    if (technicalScore     !== undefined) updateData.technicalScore     = technicalScore;
+    if (overallScore !== undefined) updateData.overallScore = overallScore;
+    if (feedback !== undefined) updateData.feedback = feedback;
+    if (strengths !== undefined) updateData.strengths = strengths;
+    if (improvements !== undefined) updateData.improvements = improvements;
+    if (status !== undefined) updateData.status = status;
+    if (technicalScore !== undefined) updateData.technicalScore = technicalScore;
     if (communicationScore !== undefined) updateData.communicationScore = communicationScore;
-    if (detailedness       !== undefined) updateData.detailedness       = detailedness;
-    if (recommendation     !== undefined) updateData.recommendation     = recommendation;
+    if (detailedness !== undefined) updateData.detailedness = detailedness;
+    if (recommendation !== undefined) updateData.recommendation = recommendation;
 
     interview = await Interview.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
 
@@ -336,15 +338,15 @@ exports.getUserStats = async (req, res) => {
       {
         $group: {
           _id: null,
-          avgScore:        { $avg: '$overallScore' },
-          avgTechnical:    { $avg: '$technicalScore' },
-          avgCommunication:{ $avg: '$communicationScore' },
+          avgScore: { $avg: '$overallScore' },
+          avgTechnical: { $avg: '$technicalScore' },
+          avgCommunication: { $avg: '$communicationScore' },
           avgDetailedness: { $avg: '$detailedness' }
         }
       }
     ]);
 
-    const averageScore          = avgAgg.length > 0 ? Math.round(avgAgg[0].avgScore    || 0) : 0;
+    const averageScore = avgAgg.length > 0 ? Math.round(avgAgg[0].avgScore || 0) : 0;
     const averageTechnicalScore = avgAgg.length > 0 ? Math.round(avgAgg[0].avgTechnical || 0) : 0;
 
     // En iyi skor
@@ -361,18 +363,18 @@ exports.getUserStats = async (req, res) => {
     });
 
     const detailedScores = avgAgg.length > 0 ? {
-      technical:     Math.round(avgAgg[0].avgTechnical     || 0),
+      technical: Math.round(avgAgg[0].avgTechnical || 0),
       communication: Math.round(avgAgg[0].avgCommunication || 0),
-      detailedness:  Math.round(avgAgg[0].avgDetailedness  || 0)
+      detailedness: Math.round(avgAgg[0].avgDetailedness || 0)
     } : { technical: 0, communication: 0, detailedness: 0 };
 
     const professionStats = await Interview.aggregate([
       { $match: filter },
       {
         $group: {
-          _id:          '$professionId',
-          count:        { $sum: 1 },
-          avgScore:     { $avg: '$overallScore' },
+          _id: '$professionId',
+          count: { $sum: 1 },
+          avgScore: { $avg: '$overallScore' },
           avgTechnical: { $avg: '$technicalScore' }
         }
       },
@@ -384,8 +386,8 @@ exports.getUserStats = async (req, res) => {
       { $match: filter },
       {
         $group: {
-          _id:      '$characterId',
-          count:    { $sum: 1 },
+          _id: '$characterId',
+          count: { $sum: 1 },
           avgScore: { $avg: '$overallScore' }
         }
       },
@@ -407,21 +409,21 @@ exports.getUserStats = async (req, res) => {
         {
           $group: {
             _id: null,
-            avgTechnical:      { $avg: '$performanceProfile.technical' },
-            avgCommunication:  { $avg: '$performanceProfile.communication' },
-            avgDetailedness:   { $avg: '$performanceProfile.detailedness' },
+            avgTechnical: { $avg: '$performanceProfile.technical' },
+            avgCommunication: { $avg: '$performanceProfile.communication' },
+            avgDetailedness: { $avg: '$performanceProfile.detailedness' },
             avgProblemSolving: { $avg: '$performanceProfile.problemSolving' },
-            avgConfidence:     { $avg: '$performanceProfile.confidence' }
+            avgConfidence: { $avg: '$performanceProfile.confidence' }
           }
         }
       ]);
       if (profileAgg.length > 0) {
         avgPerformanceProfile = {
-          technical:      Math.round(profileAgg[0].avgTechnical      || 0),
-          communication:  Math.round(profileAgg[0].avgCommunication  || 0),
-          detailedness:   Math.round(profileAgg[0].avgDetailedness   || 0),
+          technical: Math.round(profileAgg[0].avgTechnical || 0),
+          communication: Math.round(profileAgg[0].avgCommunication || 0),
+          detailedness: Math.round(profileAgg[0].avgDetailedness || 0),
           problemSolving: Math.round(profileAgg[0].avgProblemSolving || 0),
-          confidence:     Math.round(profileAgg[0].avgConfidence     || 0)
+          confidence: Math.round(profileAgg[0].avgConfidence || 0)
         };
       }
     }
@@ -433,16 +435,16 @@ exports.getUserStats = async (req, res) => {
         { $match: { ...filter, hiringProbability: { $ne: null } } },
         {
           $group: {
-            _id:           null,
+            _id: null,
             avgPercentage: { $avg: '$hiringProbability.percentage' },
-            count:         { $sum: 1 }
+            count: { $sum: 1 }
           }
         }
       ]);
       if (hiringAgg.length > 0) {
         avgHiringProbability = {
           percentage: Math.round(hiringAgg[0].avgPercentage || 0),
-          count:      hiringAgg[0].count
+          count: hiringAgg[0].count
         };
       }
     }
@@ -455,20 +457,20 @@ exports.getUserStats = async (req, res) => {
         averageTechnicalScore,
         detailedScores,
         bestScore: bestScoreDoc ? {
-          score:        bestScoreDoc.overallScore,
+          score: bestScoreDoc.overallScore,
           professionId: bestScoreDoc.professionId,
-          date:         bestScoreDoc.createdAt
+          date: bestScoreDoc.createdAt
         } : null,
         recentInterviews,
         professionStats: professionStats.map(stat => ({
-          professionId:     stat._id,
-          count:            stat.count,
-          averageScore:     Math.round(stat.avgScore    || 0),
+          professionId: stat._id,
+          count: stat.count,
+          averageScore: Math.round(stat.avgScore || 0),
           averageTechnical: Math.round(stat.avgTechnical || 0)
         })),
         characterStats: characterStats.map(stat => ({
-          characterId:  stat._id,
-          count:        stat.count,
+          characterId: stat._id,
+          count: stat.count,
           averageScore: Math.round(stat.avgScore || 0)
         })),
         progressTrend: progressTrend.reverse(),
@@ -518,15 +520,15 @@ exports.getUserStatsByProfession = async (req, res) => {
       {
         $group: {
           _id: null,
-          avgScore:         { $avg: '$overallScore' },
-          avgTechnical:     { $avg: '$technicalScore' },
+          avgScore: { $avg: '$overallScore' },
+          avgTechnical: { $avg: '$technicalScore' },
           avgCommunication: { $avg: '$communicationScore' },
-          avgDetailedness:  { $avg: '$detailedness' }
+          avgDetailedness: { $avg: '$detailedness' }
         }
       }
     ]);
 
-    const averageScore          = scoreStats.length > 0 ? Math.round(scoreStats[0].avgScore    || 0) : 0;
+    const averageScore = scoreStats.length > 0 ? Math.round(scoreStats[0].avgScore || 0) : 0;
     const averageTechnicalScore = scoreStats.length > 0 ? Math.round(scoreStats[0].avgTechnical || 0) : 0;
 
     const bestScore = await Interview.findOne(filter)
@@ -545,8 +547,8 @@ exports.getUserStatsByProfession = async (req, res) => {
       { $match: filter },
       {
         $group: {
-          _id:      '$characterId',
-          count:    { $sum: 1 },
+          _id: '$characterId',
+          count: { $sum: 1 },
           avgScore: { $avg: '$overallScore' }
         }
       },
@@ -565,20 +567,20 @@ exports.getUserStatsByProfession = async (req, res) => {
         averageScore,
         averageTechnicalScore,
         detailedScores: scoreStats.length > 0 ? {
-          technical:     Math.round(scoreStats[0].avgTechnical     || 0),
+          technical: Math.round(scoreStats[0].avgTechnical || 0),
           communication: Math.round(scoreStats[0].avgCommunication || 0),
-          detailedness:  Math.round(scoreStats[0].avgDetailedness  || 0)
+          detailedness: Math.round(scoreStats[0].avgDetailedness || 0)
         } : { technical: 0, communication: 0, detailedness: 0 },
         bestScore: bestScore ? {
-          score:        bestScore.overallScore,
+          score: bestScore.overallScore,
           professionId: bestScore.professionId,
-          date:         bestScore.createdAt
+          date: bestScore.createdAt
         } : null,
         recentInterviews,
         professionStats: [{ professionId, count: totalInterviews, averageScore, averageTechnical: averageTechnicalScore }],
         characterStats: characterStats.map(stat => ({
-          characterId:  stat._id,
-          count:        stat.count,
+          characterId: stat._id,
+          count: stat.count,
           averageScore: Math.round(stat.avgScore || 0)
         })),
         progressTrend: progressTrend.reverse()
@@ -598,7 +600,7 @@ exports.getUserStatsByProfession = async (req, res) => {
 // @access  Private
 exports.getInterviewLimitStatus = async (req, res) => {
   try {
-    const userId  = req.user.id;
+    const userId = req.user.id;
     const premium = isPremiumActive(req.user);
 
     if (premium) {
@@ -609,14 +611,14 @@ exports.getInterviewLimitStatus = async (req, res) => {
     }
 
     const startOfDay = getTurkeyStartOfDay();
-    const resetAt    = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
+    const resetAt = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
 
     const used = await Interview.countDocuments({
       userId: new mongoose.Types.ObjectId(userId),
       createdAt: { $gte: startOfDay }
     });
 
-    const limit     = 1;
+    const limit = 1;
     const remaining = Math.max(0, limit - used);
 
     return res.status(200).json({
@@ -666,7 +668,7 @@ exports.getPremiumComparison = async (req, res) => {
 
     const query = { ...statsMatch(userId) };
     if (professionId) query.professionId = professionId;
-    if (characterId)  query.characterId  = characterId;
+    if (characterId) query.characterId = characterId;
 
     const lastTwo = await Interview.find(query)
       .sort({ createdAt: -1 })
@@ -699,10 +701,10 @@ exports.getPremiumComparison = async (req, res) => {
           createdAt: previous.createdAt
         },
         delta: {
-          overallScore:       (latest.overallScore       || 0) - (previous.overallScore       || 0),
-          technicalScore:     (latest.technicalScore     || 0) - (previous.technicalScore     || 0),
+          overallScore: (latest.overallScore || 0) - (previous.overallScore || 0),
+          technicalScore: (latest.technicalScore || 0) - (previous.technicalScore || 0),
           communicationScore: (latest.communicationScore || 0) - (previous.communicationScore || 0),
-          detailedness:       (latest.detailedness       || 0) - (previous.detailedness       || 0)
+          detailedness: (latest.detailedness || 0) - (previous.detailedness || 0)
         }
       }
     });
@@ -722,7 +724,7 @@ exports.getPremiumProgress = async (req, res) => {
 
     const query = { ...statsMatch(userId) };
     if (professionId) query.professionId = professionId;
-    if (characterId)  query.characterId  = characterId;
+    if (characterId) query.characterId = characterId;
 
     const interviews = await Interview.find(query)
       .sort({ createdAt: 1 })
@@ -737,14 +739,14 @@ exports.getPremiumProgress = async (req, res) => {
     let trend = 'stable';
 
     if (interviews.length >= 4) {
-      const firstHalf  = interviews.slice(0, half);
+      const firstHalf = interviews.slice(0, half);
       const secondHalf = interviews.slice(half);
-      const avgFirst  = firstHalf.reduce( (sum, i) => sum + (i.overallScore || 0), 0) / firstHalf.length;
+      const avgFirst = firstHalf.reduce((sum, i) => sum + (i.overallScore || 0), 0) / firstHalf.length;
       const avgSecond = secondHalf.reduce((sum, i) => sum + (i.overallScore || 0), 0) / secondHalf.length;
       const diff = avgSecond - avgFirst;
-      if      (diff >  5) trend = 'improving';
+      if (diff > 5) trend = 'improving';
       else if (diff < -5) trend = 'declining';
-      else                trend = 'stable';
+      else trend = 'stable';
     }
 
     res.status(200).json({
@@ -762,9 +764,9 @@ exports.getPremiumProgress = async (req, res) => {
 
 // UTC+3 (Türkiye) gün başlangıcını döndürür
 const getTurkeyStartOfDay = () => {
-  const now          = new Date();
+  const now = new Date();
   const turkeyOffset = 3 * 60;
-  const turkeyTime   = new Date(now.getTime() + turkeyOffset * 60 * 1000);
+  const turkeyTime = new Date(now.getTime() + turkeyOffset * 60 * 1000);
   return new Date(Date.UTC(
     turkeyTime.getUTCFullYear(),
     turkeyTime.getUTCMonth(),
