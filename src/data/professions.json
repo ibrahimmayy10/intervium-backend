@@ -2060,9 +2060,9 @@
       ]
     },
     {
-      "id": "cat_health",
-      "name": "Sağlık",
-      "icon": "cross.case.fill",
+      "id": "cat_medicine",
+      "name": "Tıp",
+      "icon": "stethoscope",
       "order": 18,
       "professions": [
         {
@@ -2076,6 +2076,17 @@
             "Pratisyen",
             "Muayene",
             "Teşhis"
+          ]
+        },
+        {
+          "id": "prof_family_medicine",
+          "name": "Aile Hekimliği Uzmanı",
+          "icon": "house.and.flag.fill",
+          "description": "Aile sağlığı merkezi, birinci basamak, kronik hastalık takibi, sağlık taraması.",
+          "keywords": [
+            "Aile Hekimi",
+            "Birinci Basamak",
+            "Aile Sağlığı"
           ]
         },
         {
@@ -2247,17 +2258,6 @@
           ]
         },
         {
-          "id": "prof_family_medicine",
-          "name": "Aile Hekimliği Uzmanı",
-          "icon": "house.and.flag.fill",
-          "description": "Aile sağlığı merkezi, birinci basamak, kronik hastalık takibi, sağlık taraması.",
-          "keywords": [
-            "Aile Hekimi",
-            "Birinci Basamak",
-            "Aile Sağlığı"
-          ]
-        },
-        {
           "id": "prof_oncologist",
           "name": "Onkoloji Uzmanı",
           "icon": "cross.fill",
@@ -2318,99 +2318,15 @@
           ]
         },
         {
-          "id": "prof_dentist",
-          "name": "Diş Hekimi",
-          "icon": "mouth",
-          "description": "Diş muayenesi, dolgu, kanal tedavisi, periodontal hastalıklar, diş çekimi.",
+          "id": "prof_hematologist",
+          "name": "Hematoloji Uzmanı",
+          "icon": "drop.fill",
+          "description": "Kan hastalıkları, lösemi, lenfoma, kemik iliği nakli, pıhtılaşma bozuklukları.",
           "keywords": [
-            "Diş",
-            "Diş Hekimliği",
-            "Dental",
-            "Ağız"
-          ]
-        },
-        {
-          "id": "prof_orthodontist",
-          "name": "Ortodonti Uzmanı",
-          "icon": "face.smiling",
-          "description": "Diş teli, şeffaf plak, çene ortopedisi, maloklüzyon tedavisi.",
-          "keywords": [
-            "Ortodonti",
-            "Diş Teli",
-            "Tel Tedavi",
-            "Braces"
-          ]
-        },
-        {
-          "id": "prof_oral_surgeon",
-          "name": "Ağız Diş Çene Cerrahisi Uzmanı",
-          "icon": "cross.vial",
-          "description": "Gömülü diş, implant, çene cerrahisi, oral patoloji.",
-          "keywords": [
-            "Çene",
-            "İmplant",
-            "Cerrahi",
-            "Oral"
-          ]
-        },
-        {
-          "id": "prof_prosthodontist",
-          "name": "Protetik Diş Tedavisi Uzmanı",
-          "icon": "mouth.fill",
-          "description": "Diş protezi, köprü, implant üstü protez, estetik diş hekimliği.",
-          "keywords": [
-            "Protez",
-            "Köprü",
-            "İmplant",
-            "Estetik"
-          ]
-        },
-        {
-          "id": "prof_endodontist",
-          "name": "Endodonti Uzmanı",
-          "icon": "cross.fill",
-          "description": "Kanal tedavisi, apikal cerrahi, dental travma, pulpa hastalıkları.",
-          "keywords": [
-            "Kanal",
-            "Endodonti",
-            "Pulpa",
-            "Root Canal"
-          ]
-        },
-        {
-          "id": "prof_pathologist",
-          "name": "Patoloji Uzmanı",
-          "icon": "testtube.2",
-          "description": "Doku incelemesi, biyopsi değerlendirme, otopsi, sitopatoloji, immünohistokimya.",
-          "keywords": [
-            "Patoloji",
-            "Biyopsi",
-            "Mikroskop",
-            "Tanı"
-          ]
-        },
-        {
-          "id": "prof_clinical_biochemist",
-          "name": "Tıbbi Biyokimya Uzmanı",
-          "icon": "testtube.2",
-          "description": "Laboratuvar testleri, biyokimyasal analizler, hormon ölçümü, metabolik hastalıklar.",
-          "keywords": [
-            "Biyokimya",
-            "Laboratuvar",
-            "Test",
-            "Analiz"
-          ]
-        },
-        {
-          "id": "prof_medical_geneticist",
-          "name": "Tıbbi Genetik Uzmanı",
-          "icon": "point.3.filled.connected.trianglepath.dotted",
-          "description": "Genetik danışmanlık, prenatal tanı, kalıtsal hastalıklar, gen terapisi.",
-          "keywords": [
-            "Genetik",
-            "DNA",
-            "Kalıtım",
-            "Prenatal"
+            "Hematoloji",
+            "Kan",
+            "Lösemi",
+            "Lenfoma"
           ]
         },
         {
@@ -2435,54 +2351,6 @@
             "Stajyer",
             "İntern",
             "Medikal"
-          ]
-        },
-        {
-          "id": "prof_pharmacist",
-          "name": "Eczacı",
-          "icon": "pills.fill",
-          "description": "İlaç danışmanlığı, farmakoloji, reçete yönetimi, sağlık ürünleri.",
-          "keywords": [
-            "Eczacı",
-            "İlaç",
-            "Farmakoloji",
-            "Pharmacy"
-          ]
-        },
-        {
-          "id": "prof_dietitian",
-          "name": "Diyetisyen",
-          "icon": "leaf.fill",
-          "description": "Beslenme planlaması, diyet danışmanlığı, klinik beslenme ve sağlıklı yaşam.",
-          "keywords": [
-            "Diyetisyen",
-            "Beslenme",
-            "Diyet",
-            "Nutrition"
-          ]
-        },
-        {
-          "id": "prof_physiotherapist",
-          "name": "Fizyoterapist",
-          "icon": "figure.walk",
-          "description": "Fizik tedavi, rehabilitasyon, manuel terapi ve egzersiz programları.",
-          "keywords": [
-            "Fizyoterapi",
-            "Rehabilitasyon",
-            "Terapi",
-            "Egzersiz"
-          ]
-        },
-        {
-          "id": "prof_nurse",
-          "name": "Hemşire",
-          "icon": "heart.circle.fill",
-          "description": "Hasta bakımı, tıbbi prosedürler, sağlık gözetimi ve klinik uygulama.",
-          "keywords": [
-            "Hemşire",
-            "Hasta Bakımı",
-            "Klinik",
-            "Nursing"
           ]
         },
         {
@@ -2523,7 +2391,7 @@
         },
         {
           "id": "prof_medical_writer",
-          "name": "Tıbbi Yazılım Uzmanı",
+          "name": "Tıbbi Yazar",
           "icon": "doc.text.fill",
           "description": "Tıbbi dokümantasyon, bilimsel yazım, ilaç raporları, hasta bilgilendirme.",
           "keywords": [
@@ -2531,17 +2399,304 @@
             "Dokümantasyon",
             "Medical Writing"
           ]
+        }
+      ]
+    },
+    {
+      "id": "cat_dentistry",
+      "name": "Diş Hekimliği",
+      "icon": "mouth.fill",
+      "order": 19,
+      "professions": [
+        {
+          "id": "prof_dentist",
+          "name": "Diş Hekimi (Genel)",
+          "icon": "mouth",
+          "description": "Diş muayenesi, dolgu, kanal tedavisi, periodontal hastalıklar, diş çekimi, koruyucu diş hekimliği.",
+          "keywords": [
+            "Diş",
+            "Diş Hekimliği",
+            "Dental",
+            "Ağız"
+          ]
         },
         {
-          "id": "prof_speech_therapist",
-          "name": "Dil ve Konuşma Terapisti",
-          "icon": "bubble.left.and.text.bubble.right.fill",
-          "description": "Konuşma bozuklukları, yutma güçlüğü, dil gelişimi, afazi rehabilitasyonu.",
+          "id": "prof_orthodontist",
+          "name": "Ortodonti Uzmanı",
+          "icon": "face.smiling",
+          "description": "Diş teli, şeffaf plak, çene ortopedisi, maloklüzyon tedavisi, erken ortodontik müdahale.",
           "keywords": [
-            "Konuşma Terapisi",
-            "Dil",
-            "Afazi",
-            "Yutma"
+            "Ortodonti",
+            "Diş Teli",
+            "Tel Tedavi",
+            "Braces"
+          ]
+        },
+        {
+          "id": "prof_oral_surgeon",
+          "name": "Ağız Diş Çene Cerrahisi Uzmanı",
+          "icon": "cross.vial",
+          "description": "Gömülü diş, implant cerrahisi, çene kırıkları, oral patoloji, ortognatik cerrahi.",
+          "keywords": [
+            "Çene",
+            "İmplant",
+            "Cerrahi",
+            "Oral"
+          ]
+        },
+        {
+          "id": "prof_prosthodontist",
+          "name": "Protetik Diş Tedavisi Uzmanı",
+          "icon": "mouth.fill",
+          "description": "Diş protezi, sabit-hareketli protez, implant üstü protez, tam protez, estetik diş hekimliği.",
+          "keywords": [
+            "Protez",
+            "Köprü",
+            "İmplant",
+            "Estetik"
+          ]
+        },
+        {
+          "id": "prof_endodontist",
+          "name": "Endodonti Uzmanı",
+          "icon": "cross.fill",
+          "description": "Kanal tedavisi, apikal cerrahi, dental travma, pulpa hastalıkları, mikroskopik endodonti.",
+          "keywords": [
+            "Kanal",
+            "Endodonti",
+            "Pulpa",
+            "Root Canal"
+          ]
+        },
+        {
+          "id": "prof_periodontist",
+          "name": "Periodontoloji Uzmanı",
+          "icon": "leaf.fill",
+          "description": "Diş eti hastalıkları, diş eti cerrahisi, implant çevresi doku yönetimi, bone grafting.",
+          "keywords": [
+            "Periodontoloji",
+            "Diş Eti",
+            "Gingivit",
+            "Periodontit"
+          ]
+        },
+        {
+          "id": "prof_pediatric_dentist",
+          "name": "Pedodonti (Çocuk Diş Hekimliği) Uzmanı",
+          "icon": "figure.and.child.holdinghands",
+          "description": "Çocuk diş sağlığı, süt dişleri, fissür örtücü, çocuk korkusu yönetimi, erken tedavi.",
+          "keywords": [
+            "Pedodonti",
+            "Çocuk",
+            "Süt Dişi",
+            "Pediatric Dentistry"
+          ]
+        },
+        {
+          "id": "prof_oral_radiologist",
+          "name": "Oral Radyoloji Uzmanı",
+          "icon": "waveform.path.ecg",
+          "description": "Dental görüntüleme, panoramik röntgen, CBCT, periapikal radyografi, 3D dental görüntüleme.",
+          "keywords": [
+            "Dental Radyoloji",
+            "CBCT",
+            "Panoramik",
+            "Görüntüleme"
+          ]
+        },
+        {
+          "id": "prof_dental_pathologist",
+          "name": "Oral Patoloji & Oral Tıp Uzmanı",
+          "icon": "testtube.2",
+          "description": "Ağız mukoza hastalıkları, oral kanser tanısı, biyopsi, ağız içi lezyonlar.",
+          "keywords": [
+            "Oral Patoloji",
+            "Mukoza",
+            "Ağız Kanseri",
+            "Biyopsi"
+          ]
+        },
+        {
+          "id": "prof_cosmetic_dentist",
+          "name": "Estetik Diş Hekimi",
+          "icon": "sparkles",
+          "description": "Diş beyazlatma, veneer, gülüş tasarımı, kompozit bonding, dijital gülüş analizi.",
+          "keywords": [
+            "Estetik Diş",
+            "Veneer",
+            "Gülüş Tasarımı",
+            "Beyazlatma"
+          ]
+        },
+        {
+          "id": "prof_implantologist",
+          "name": "İmplantoloji Uzmanı",
+          "icon": "bolt.fill",
+          "description": "Dental implant planlaması ve yerleşimi, kemik grefti, All-on-4/6, guided implantoloji.",
+          "keywords": [
+            "İmplant",
+            "Kemik Grefti",
+            "All-on-4",
+            "İmplantoloji"
+          ]
+        },
+        {
+          "id": "prof_dental_technician",
+          "name": "Diş Teknisyeni / Protez Teknisyeni",
+          "icon": "wrench.and.screwdriver.fill",
+          "description": "Diş protezi üretimi, CAD/CAM, zirkonyum, seramik restorasyonlar, model döküm.",
+          "keywords": [
+            "Diş Teknisyeni",
+            "Protez Üretimi",
+            "CAD/CAM",
+            "Zirkonyum"
+          ]
+        },
+        {
+          "id": "prof_dental_hygienist",
+          "name": "Diş Hijyenisti",
+          "icon": "hands.sparkles.fill",
+          "description": "Diş taşı temizliği, profilaksi, ağız hijyeni eğitimi, florür uygulaması, koruyucu bakım.",
+          "keywords": [
+            "Diş Hijyeni",
+            "Temizlik",
+            "Profilaksi",
+            "Koruyucu"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_pharmacy_clinical",
+      "name": "Eczacılık & Klinik Bilimler",
+      "icon": "pills.fill",
+      "order": 20,
+      "professions": [
+        {
+          "id": "prof_pharmacist",
+          "name": "Eczacı",
+          "icon": "pills.fill",
+          "description": "İlaç danışmanlığı, reçete yönetimi, ilaç etkileşimleri, sağlık ürünleri, hasta bilgilendirme.",
+          "keywords": [
+            "Eczacı",
+            "İlaç",
+            "Farmakoloji",
+            "Pharmacy"
+          ]
+        },
+        {
+          "id": "prof_hospital_pharmacist",
+          "name": "Hastane Eczacısı",
+          "icon": "cross.case.fill",
+          "description": "Hastane ilaç yönetimi, klinik farmakoloji, parenteral beslenme, kemoterapi hazırlama.",
+          "keywords": [
+            "Hastane Eczacısı",
+            "Klinik Farmakoloji",
+            "İlaç Yönetimi"
+          ]
+        },
+        {
+          "id": "prof_clinical_biochemist",
+          "name": "Tıbbi Biyokimya Uzmanı",
+          "icon": "testtube.2",
+          "description": "Laboratuvar testleri, biyokimyasal analizler, hormon ölçümü, metabolik hastalıklar.",
+          "keywords": [
+            "Biyokimya",
+            "Laboratuvar",
+            "Test",
+            "Analiz"
+          ]
+        },
+        {
+          "id": "prof_pathologist",
+          "name": "Patoloji Uzmanı",
+          "icon": "testtube.2",
+          "description": "Doku incelemesi, biyopsi değerlendirme, otopsi, sitopatoloji, immünohistokimya.",
+          "keywords": [
+            "Patoloji",
+            "Biyopsi",
+            "Mikroskop",
+            "Tanı"
+          ]
+        },
+        {
+          "id": "prof_medical_geneticist",
+          "name": "Tıbbi Genetik Uzmanı",
+          "icon": "point.3.filled.connected.trianglepath.dotted",
+          "description": "Genetik danışmanlık, prenatal tanı, kalıtsal hastalıklar, gen terapisi.",
+          "keywords": [
+            "Genetik",
+            "DNA",
+            "Kalıtım",
+            "Prenatal"
+          ]
+        },
+        {
+          "id": "prof_toxicologist_clinical",
+          "name": "Klinik Toksikolog",
+          "icon": "exclamationmark.triangle.fill",
+          "description": "İlaç zehirlenmesi, klinik toksikoloji, adli toksikoloji, antidot tedavisi.",
+          "keywords": [
+            "Toksikoloji",
+            "Zehirlenme",
+            "Antidot",
+            "Adli"
+          ]
+        },
+        {
+          "id": "prof_microbiologist_clinical",
+          "name": "Tıbbi Mikrobiyoloji Uzmanı",
+          "icon": "allergens.fill",
+          "description": "Enfeksiyon tanısı, kültür-antibiyogram, hastane enfeksiyonları, antimikrobiyal direnç.",
+          "keywords": [
+            "Mikrobiyoloji",
+            "Enfeksiyon",
+            "Antibiyotik",
+            "Kültür"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_health_services",
+      "name": "Sağlık Hizmetleri & Rehabilitasyon",
+      "icon": "cross.case.fill",
+      "order": 21,
+      "professions": [
+        {
+          "id": "prof_nurse",
+          "name": "Hemşire",
+          "icon": "heart.circle.fill",
+          "description": "Hasta bakımı, tıbbi prosedürler, sağlık gözetimi, klinik uygulama, ilaç yönetimi.",
+          "keywords": [
+            "Hemşire",
+            "Hasta Bakımı",
+            "Klinik",
+            "Nursing"
+          ]
+        },
+        {
+          "id": "prof_nurse_specialist",
+          "name": "Uzman Hemşire / Klinik Hemşire Uzmanı",
+          "icon": "heart.text.square.fill",
+          "description": "Yoğun bakım hemşireliği, onkoloji hemşireliği, ameliyathane hemşireliği, neonatal bakım.",
+          "keywords": [
+            "Uzman Hemşire",
+            "Yoğun Bakım",
+            "Onkoloji",
+            "Neonatal"
+          ]
+        },
+        {
+          "id": "prof_physiotherapist",
+          "name": "Fizyoterapist",
+          "icon": "figure.walk",
+          "description": "Fizik tedavi, rehabilitasyon, manuel terapi, nörolojik rehabilitasyon, egzersiz programları.",
+          "keywords": [
+            "Fizyoterapi",
+            "Rehabilitasyon",
+            "Terapi",
+            "Egzersiz"
           ]
         },
         {
@@ -2557,15 +2712,15 @@
           ]
         },
         {
-          "id": "prof_optometrist",
-          "name": "Optometrist",
-          "icon": "eye.circle.fill",
-          "description": "Görme muayenesi, refraksiyon, gözlük/lens reçetesi, ön segment değerlendirme.",
+          "id": "prof_speech_therapist",
+          "name": "Dil ve Konuşma Terapisti",
+          "icon": "bubble.left.and.text.bubble.right.fill",
+          "description": "Konuşma bozuklukları, yutma güçlüğü, dil gelişimi, afazi rehabilitasyonu, kekemelik.",
           "keywords": [
-            "Optometri",
-            "Görme",
-            "Refraksiyon",
-            "Gözlük"
+            "Konuşma Terapisi",
+            "Dil",
+            "Afazi",
+            "Yutma"
           ]
         },
         {
@@ -2579,6 +2734,158 @@
             "Gebelik",
             "Midwife"
           ]
+        },
+        {
+          "id": "prof_optometrist",
+          "name": "Optometrist",
+          "icon": "eye.circle.fill",
+          "description": "Görme muayenesi, refraksiyon, gözlük/lens reçetesi, ön segment değerlendirme.",
+          "keywords": [
+            "Optometri",
+            "Görme",
+            "Refraksiyon",
+            "Gözlük"
+          ]
+        },
+        {
+          "id": "prof_paramedic",
+          "name": "Paramedik / Acil Tıp Teknisyeni",
+          "icon": "cross.circle.fill",
+          "description": "Acil saha müdahale, ilk yardım, ambulans yönetimi, travma stabilizasyonu.",
+          "keywords": [
+            "Paramedik",
+            "Acil",
+            "Ambulans",
+            "ATT"
+          ]
+        },
+        {
+          "id": "prof_health_manager",
+          "name": "Sağlık Yöneticisi",
+          "icon": "building.fill",
+          "description": "Hastane yönetimi, sağlık politikaları, bütçe yönetimi, akreditasyon, süreç iyileştirme.",
+          "keywords": [
+            "Sağlık Yönetimi",
+            "Hastane",
+            "Akreditasyon",
+            "JCI"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_nutrition",
+      "name": "Beslenme & Diyetetik",
+      "icon": "leaf.fill",
+      "order": 22,
+      "professions": [
+        {
+          "id": "prof_clinical_dietitian",
+          "name": "Klinik Diyetisyen",
+          "icon": "cross.case.fill",
+          "description": "Hastane beslenme tedavisi, hastalığa özgü diyet planlaması, malnütrisyon yönetimi, parenteral beslenme.",
+          "keywords": [
+            "Klinik Diyetisyen",
+            "Beslenme Tedavisi",
+            "Hastane",
+            "Malnütrisyon"
+          ]
+        },
+        {
+          "id": "prof_pediatric_dietitian",
+          "name": "Çocuk & Pediatrik Beslenme Uzmanı",
+          "icon": "figure.and.child.holdinghands",
+          "description": "Çocuk büyüme-gelişim takibi, okul beslenmesi, erken çocukluk beslenmesi, büyüme geriliği.",
+          "keywords": [
+            "Çocuk Beslenmesi",
+            "Pediatrik",
+            "Büyüme",
+            "Gelişim"
+          ]
+        },
+        {
+          "id": "prof_maternal_dietitian",
+          "name": "Anne & Bebek Beslenmesi Uzmanı",
+          "icon": "figure.stand",
+          "description": "Gebelik beslenmesi, emzirme dönemi diyeti, tamamlayıcı beslenme, anne sağlığı.",
+          "keywords": [
+            "Anne Beslenmesi",
+            "Gebelik Diyeti",
+            "Emzirme",
+            "Bebek Beslenmesi"
+          ]
+        },
+        {
+          "id": "prof_sports_dietitian",
+          "name": "Spor Diyetisyeni",
+          "icon": "dumbbell.fill",
+          "description": "Sporcu performans beslenmesi, yarışma öncesi/sonrası beslenme, supplement protokolleri, hidrasyon.",
+          "keywords": [
+            "Spor Beslenmesi",
+            "Performans",
+            "Supplement",
+            "Hidrasyon"
+          ]
+        },
+        {
+          "id": "prof_obesity_dietitian",
+          "name": "Obezite & Metabolizma Diyetisyeni",
+          "icon": "chart.line.downtrend.xyaxis",
+          "description": "Obezite tedavisi, metabolik sendrom, insülin direnci, bariatrik cerrahi sonrası beslenme.",
+          "keywords": [
+            "Obezite",
+            "Kilo Yönetimi",
+            "Metabolizma",
+            "Bariatrik"
+          ]
+        },
+        {
+          "id": "prof_icu_dietitian",
+          "name": "Yoğun Bakım / Enteral-Parenteral Beslenme Uzmanı",
+          "icon": "waveform.path.ecg",
+          "description": "Yoğun bakım beslenme desteği, enteral beslenme protokolleri, parenteral nütrisyon, kritik hasta beslenmesi.",
+          "keywords": [
+            "Enteral Beslenme",
+            "Parenteral Beslenme",
+            "Yoğun Bakım",
+            "TPN"
+          ]
+        },
+        {
+          "id": "prof_allergy_dietitian",
+          "name": "Gıda Alerjisi & İntolerans Uzmanı",
+          "icon": "allergens.fill",
+          "description": "Besin alerjisi yönetimi, laktoz/gluten intoleransı, eliminasyon diyeti, çapraz reaktivite.",
+          "keywords": [
+            "Gıda Alerjisi",
+            "İntolerans",
+            "Gluten",
+            "Laktoz"
+          ]
+        },
+        {
+          "id": "prof_community_dietitian",
+          "name": "Toplum Beslenmesi & Halk Sağlığı Diyetisyeni",
+          "icon": "person.3.fill",
+          "description": "Toplum sağlığı programları, okul kantini denetimi, beslenme politikaları, beslenme eğitimi.",
+          "keywords": [
+            "Toplum Beslenmesi",
+            "Halk Sağlığı",
+            "Beslenme Politikası",
+            "Eğitim"
+          ]
+        },
+        {
+          "id": "prof_geriatric_dietitian",
+          "name": "Yaşlı Beslenmesi Uzmanı",
+          "icon": "figure.stand",
+          "description": "Geriatrik beslenme, sarcopeni önleme, bakım evi beslenmesi, yutma güçlüğüne uygun diyet.",
+          "keywords": [
+            "Yaşlı Beslenmesi",
+            "Geriatri",
+            "Sarcopeni",
+            "Bakım Evi"
+          ]
         }
       ]
     },
@@ -2586,7 +2893,7 @@
       "id": "cat_law",
       "name": "Hukuk",
       "icon": "scale.3d",
-      "order": 19,
+      "order": 23,
       "professions": [
         {
           "id": "prof_lawyer",
@@ -2714,7 +3021,7 @@
       "id": "cat_education",
       "name": "Eğitim",
       "icon": "book.fill",
-      "order": 20,
+      "order": 24,
       "professions": [
         {
           "id": "prof_teacher",
@@ -2818,7 +3125,7 @@
       "id": "cat_architecture",
       "name": "Mimarlık & İç Mimarlık",
       "icon": "building.2",
-      "order": 21,
+      "order": 25,
       "professions": [
         {
           "id": "prof_architect",
@@ -2887,7 +3194,7 @@
       "id": "cat_agriculture",
       "name": "Tarım & Gıda",
       "icon": "leaf.fill",
-      "order": 22,
+      "order": 26,
       "professions": [
         {
           "id": "prof_agronomist",
@@ -2991,7 +3298,7 @@
       "id": "cat_tourism_hospitality",
       "name": "Turizm & Otelcilik",
       "icon": "airplane.circle.fill",
-      "order": 23,
+      "order": 27,
       "professions": [
         {
           "id": "prof_hotel_manager",
@@ -3095,7 +3402,7 @@
       "id": "cat_logistics_transport",
       "name": "Lojistik & Ulaştırma",
       "icon": "shippingbox.circle.fill",
-      "order": 24,
+      "order": 28,
       "professions": [
         {
           "id": "prof_logistics_manager",
@@ -3163,7 +3470,7 @@
       "id": "cat_finance",
       "name": "Finans & Bankacılık",
       "icon": "banknote.fill",
-      "order": 25,
+      "order": 29,
       "professions": [
         {
           "id": "prof_investment_banker",
@@ -3279,7 +3586,7 @@
       "id": "cat_science",
       "name": "Fen Bilimleri",
       "icon": "flask.fill",
-      "order": 26,
+      "order": 30,
       "professions": [
         {
           "id": "prof_chemist",
@@ -3371,7 +3678,7 @@
       "id": "cat_media",
       "name": "Medya & İletişim",
       "icon": "tv.and.mediabox",
-      "order": 27,
+      "order": 31,
       "professions": [
         {
           "id": "prof_journalist",
@@ -3475,7 +3782,7 @@
       "id": "cat_sports",
       "name": "Spor & Fitness",
       "icon": "figure.run",
-      "order": 28,
+      "order": 32,
       "professions": [
         {
           "id": "prof_personal_trainer",
@@ -3567,7 +3874,7 @@
       "id": "cat_arts_culture",
       "name": "Sanat & Kültür",
       "icon": "theatermasks.fill",
-      "order": 29,
+      "order": 33,
       "professions": [
         {
           "id": "prof_musician",
@@ -3659,7 +3966,7 @@
       "id": "cat_mining_petroleum",
       "name": "Madencilik & Petrol",
       "icon": "mountain.2.fill",
-      "order": 30,
+      "order": 34,
       "professions": [
         {
           "id": "prof_mining_engineer",
@@ -3715,7 +4022,7 @@
       "id": "cat_public_sector",
       "name": "Kamu & Sosyal Hizmetler",
       "icon": "building.columns.circle.fill",
-      "order": 31,
+      "order": 35,
       "professions": [
         {
           "id": "prof_civil_servant",
@@ -3783,7 +4090,7 @@
       "id": "cat_nuclear_energy",
       "name": "Nükleer & Enerji",
       "icon": "atom",
-      "order": 32,
+      "order": 36,
       "professions": [
         {
           "id": "prof_nuclear_engineer",
@@ -3825,10 +4132,10 @@
     }
   ],
   "metadata": {
-    "version": "4.1.0",
-    "lastUpdated": "2026-02-27",
-    "totalCategories": 32,
-    "totalProfessions": 294,
+    "version": "5.0.0",
+    "lastUpdated": "2026-03-12",
+    "totalCategories": 36,
+    "totalProfessions": 317,
     "language": "tr"
   }
 }
