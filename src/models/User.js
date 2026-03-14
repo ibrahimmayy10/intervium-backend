@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Şifre gereklidir'],
-    minlength: [6, 'Şifre en az 6 karakter olmalıdır'],
+    minlength: [8, 'Şifre en az 8 karakter olmalıdır'],
     select: false
   },
   refreshToken: {

@@ -2,10 +2,10 @@
 
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { 
-  sendVerificationEmail, 
+const {
+  sendVerificationEmail,
   sendPasswordResetEmail,
-  generateVerificationCode 
+  generateVerificationCode
 } = require('../services/EmailService');
 
 // ─── Token Helpers ────────────────────────────────────────────────────────────
@@ -31,6 +31,21 @@ const buildUserResponse = (user) => ({
   isPremium: user.isPremium ?? false,
   createdAt: user.createdAt
 });
+
+// ─── Password Validation ──────────────────────────────────────────────────────
+
+const validatePassword = (password) => {
+  if (!password || password.length < 8) {
+    return 'Şifre en az 8 karakter olmalıdır';
+  }
+  if (!/[A-Z]/.test(password)) {
+    return 'Şifre en az bir büyük harf içermelidir';
+  }
+  if (!/[0-9]/.test(password)) {
+    return 'Şifre en az bir rakam içermelidir';
+  }
+  return null; // geçerli
+};
 
 // ─── Register ─────────────────────────────────────────────────────────────────
 
@@ -65,6 +80,11 @@ exports.register = async (req, res) => {
 
     const code = generateVerificationCode();
     const codeExpire = new Date(Date.now() + 15 * 60 * 1000);
+
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      return res.status(400).json({ success: false, message: passwordError });
+    }
 
     const user = await User.create({
       name,
@@ -313,8 +333,9 @@ exports.resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email, kod ve yeni şifre gereklidir' });
     }
 
-    if (newPassword.length < 6) {
-      return res.status(400).json({ success: false, message: 'Şifre en az 6 karakter olmalıdır' });
+    const passwordError = validatePassword(newPassword);
+    if (passwordError) {
+      return res.status(400).json({ success: false, message: passwordError });
     }
 
     const user = await User.findOne({ email })
@@ -473,8 +494,9 @@ exports.changePassword = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Mevcut ve yeni şifre gereklidir' });
     }
 
-    if (newPassword.length < 6) {
-      return res.status(400).json({ success: false, message: 'Yeni şifre en az 6 karakter olmalıdır' });
+    const passwordError = validatePassword(newPassword);
+    if (passwordError) {
+      return res.status(400).json({ success: false, message: passwordError });
     }
 
     const user = await User.findById(req.user.id).select('+password');
